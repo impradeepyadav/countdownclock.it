@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Clock Timer</title>
-
-    <!-- Favicons / Manifest -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <title>Countdown Clock Timer & Stopwatch</title>
+    <meta name="description" content="Free online countdown clock timer and stopwatch with a visual ring. Perfect for cooking, study sprints, meetings, and workouts.">
+    <link rel="canonical" href="https://countdownclock.it/">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Added all font-weights for thin text support -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --card-bg: #ffffff;
@@ -21,12 +19,12 @@
             --text-muted: #6b7280;
             --green-primary: #4caf50;
             --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --blue-hover: #2563eb;
             --gray-light: #f3f4f6;
             --gray-hover: #e5e7eb;
             --border-color: #e5e7eb;
             --danger: #ef4444;
-            --blue-primary: #3b82f6;
-            --dropdown-bg: #ffffff;
             --shadow-color: rgba(0,0,0,0.1);
         }
 
@@ -38,11 +36,8 @@
             user-select: none;
         }
 
-        html {
-            height: 100%;
-        }
+        html { height: 100%; }
 
-        /* FIX: body now scrolls instead of clipping */
         body {
             background-color: var(--card-bg);
             min-height: 100vh;
@@ -51,10 +46,8 @@
             overflow-x: hidden;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-            display: block;
         }
 
-        /* FIX: container grows with content, min-height keeps full-screen look on big screens */
         .container {
             background: var(--card-bg);
             width: 100%;
@@ -64,66 +57,113 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 2vh 4vw;
+            padding: 3vh 4vw 2vh;
             gap: clamp(10px, 2vh, 20px);
         }
 
-        .top-section {
+        /* ---------- Top Bar (Header + Right Controls) ---------- */
+        .top-bar {
             width: 100%;
-            max-width: 1300px;
+            max-width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 20px;
             flex-shrink: 0;
+            padding-right: 1vw;
         }
 
         .header {
             text-align: left;
-            max-width: 850px;
+            max-width: 800px;
         }
 
         .header h1 {
-            font-size: clamp(24px, min(4.5vh, 7vw), 42px);
+            font-size: clamp(26px, min(4.4vh, 7vw), 42px);
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 0.5vh;
             letter-spacing: -0.5px;
+            line-height: 1.1;
         }
 
         .header p {
-            font-size: clamp(14px, min(2.2vh, 3.6vw), 18px);
+            font-size: clamp(14px, min(2vh, 3.8vw), 18px);
             color: var(--text-muted);
             line-height: 1.4;
         }
 
-        .mode-switch {
+        /* Top Right Controls */
+        .top-controls {
             display: flex;
-            background-color: var(--gray-light);
-            border-radius: 30px;
-            padding: 4px;
+            align-items: center;
+            gap: clamp(12px, 1.8vw, 22px);
+            padding-top: 10px;
         }
 
-        .mode-btn {
-            padding: 8px 24px;
-            border-radius: 25px;
-            border: none;
-            background: transparent;
-            font-size: clamp(13px, min(1.9vh, 3.4vw), 17px);
-            font-weight: 600;
+        /* Font weight 200 (Extra Thin) */
+        .privacy-link {
             color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-weight: 200;
+            transition: color 0.2s;
         }
 
-        .mode-btn.active {
-            background-color: var(--card-bg);
+        .privacy-link:hover {
             color: var(--text-main);
-            box-shadow: 0 2px 5px var(--shadow-color);
         }
 
-        /* FIX: no longer shrinks; grows on tall screens, scrolls on short screens */
+        .lang-dropdown { position: relative; }
+
+        .lang-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-weight: 200;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+            padding: 0;
+        }
+
+        .lang-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 130px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 8px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            font-weight: 200;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        /* ---------- Main area ---------- */
         .main-content {
             display: flex;
             flex-direction: column;
@@ -136,11 +176,42 @@
             gap: clamp(10px, 2vh, 20px);
         }
 
+        /* ---------- Mode Switch (Countdown / Stopwatch) ---------- */
+        .mode-switch {
+            display: flex;
+            background-color: var(--gray-light);
+            border-radius: 30px;
+            padding: 4px;
+            margin-bottom: 5px;
+        }
+
+        .mode-btn {
+            padding: 8px 20px;
+            border-radius: 25px;
+            border: none;
+            background: transparent;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 16px);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .mode-btn.active {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+
+        /* ---------- Presets ---------- */
         .presets {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: clamp(8px, 1.2vw, 15px);
+            gap: clamp(8px, 1.2vw, 14px);
             width: 100%;
         }
 
@@ -148,10 +219,10 @@
             background-color: var(--gray-light);
             color: var(--text-muted);
             border: none;
-            padding: 0.6vh 1.4vw;
+            padding: 0.7vh 1.5vw;
             border-radius: 20px;
-            font-size: clamp(12px, min(1.8vh, 3.4vw), 16px);
-            font-weight: 500;
+            font-size: clamp(13px, min(2vh, 3.6vw), 17px);
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
@@ -162,11 +233,11 @@
             color: var(--text-main);
         }
 
-        /* FIX: ring size scales with both height AND width, never overflows narrow phones */
+        /* ---------- Timer ring ---------- */
         .timer-display {
             position: relative;
-            width: clamp(180px, min(34vh, 72vw), 320px);
-            height: clamp(180px, min(34vh, 72vw), 320px);
+            width: clamp(200px, min(36vh, 74vw), 350px);
+            height: clamp(200px, min(36vh, 74vw), 350px);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -184,11 +255,7 @@
             transform: rotate(-90deg);
         }
 
-        .ring-bg {
-            fill: none;
-            stroke: var(--gray-light);
-            stroke-width: 12;
-        }
+        .ring-bg { fill: none; stroke: var(--gray-light); stroke-width: 12; }
 
         .ring-progress {
             fill: none;
@@ -204,34 +271,35 @@
             stroke: var(--blue-primary);
         }
 
-        /* FIX: font also guards against viewport width so 00:00:00 never overflows the ring */
+        /* ---------- Big time digits ---------- */
         .time-text {
-            font-size: clamp(1.9rem, min(6.5vh, 10vw), 4rem);
+            font-size: clamp(2rem, min(6.5vh, 10.5vw), 3.9rem);
             font-weight: 900;
             color: var(--text-main);
             font-variant-numeric: tabular-nums;
             z-index: 10;
             line-height: 1;
-            margin-bottom: 0.5vh;
+            margin-bottom: 0.4vh;
             letter-spacing: -1px;
             white-space: nowrap;
         }
 
         .time-text .ms-text {
-            font-size: clamp(1rem, min(3vh, 5vw), 2rem);
+            font-size: clamp(1.1rem, min(3.2vh, 5.5vw), 2.1rem);
             color: var(--text-muted);
             margin-left: 2px;
         }
 
         .status-text {
-            font-size: clamp(11px, min(1.6vh, 3vw), 15px);
-            font-weight: 600;
+            font-size: clamp(12px, min(1.8vh, 3.4vw), 17px);
+            font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 2px;
             z-index: 10;
             text-transform: uppercase;
         }
 
+        /* ---------- Inputs ---------- */
         .input-group {
             display: flex;
             justify-content: center;
@@ -240,27 +308,23 @@
             flex-wrap: wrap;
         }
 
-        .input-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .input-wrapper { display: flex; flex-direction: column; align-items: center; }
 
         .input-wrapper label {
-            font-size: clamp(11px, min(1.5vh, 2.8vw), 14px);
-            font-weight: 600;
+            font-size: clamp(11px, min(1.7vh, 3.2vw), 15px);
+            font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 1px;
             margin-bottom: 0.8vh;
         }
 
         .input-wrapper input {
-            width: clamp(64px, 22vw, 100px);
-            height: clamp(46px, min(7.5vh, 12vw), 70px);
+            width: clamp(70px, 22vw, 110px);
+            height: clamp(50px, min(8vh, 13vw), 78px);
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            font-size: clamp(1.2rem, min(3.5vh, 6vw), 2rem);
-            font-weight: 600;
+            font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
+            font-weight: 700;
             color: var(--text-main);
             text-align: center;
             outline: none;
@@ -281,55 +345,47 @@
         }
 
         .input-wrapper input::-webkit-outer-spin-button,
-        .input-wrapper input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
+        .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
         .colon {
-            font-size: clamp(1.2rem, min(3.5vh, 6vw), 2rem);
-            font-weight: 600;
+            font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
+            font-weight: 700;
             color: var(--text-muted);
-            margin-bottom: 1.8vh;
+            margin-bottom: 2vh;
         }
 
-        .hidden {
-            display: none !important;
-            opacity: 0;
-            pointer-events: none;
-        }
-
+        /* ---------- Laps List ---------- */
         .laps-container {
             width: 100%;
             max-width: 320px;
-            height: clamp(70px, 15vh, 150px);
+            height: clamp(60px, 12vh, 130px);
             overflow-y: auto;
             border-radius: 12px;
             flex-shrink: 0;
+            margin-top: 5px;
         }
+
+        .laps-container::-webkit-scrollbar { width: 6px; }
+        .laps-container::-webkit-scrollbar-thumb { background-color: var(--gray-hover); border-radius: 10px; }
 
         .lap-item {
             display: flex;
             justify-content: space-between;
             padding: 8px 16px;
             border-bottom: 1px solid var(--gray-light);
-            font-size: clamp(12px, min(1.8vh, 3.2vw), 16px);
-            font-weight: 500;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 16px);
+            font-weight: 600;
             color: var(--text-main);
         }
 
-        .lap-item span:first-child {
-            color: var(--text-muted);
-        }
+        .lap-item span:first-child { color: var(--text-muted); }
 
-        .laps-container::-webkit-scrollbar { width: 6px; }
-        .laps-container::-webkit-scrollbar-thumb { background-color: var(--gray-hover); border-radius: 10px; }
-
+        /* ---------- Controls ---------- */
         .controls-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.8vh;
+            gap: 1.5vh;
             flex-shrink: 0;
             width: 100%;
         }
@@ -338,19 +394,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(8px, 1.8vw, 20px);
-            flex-wrap: wrap; /* FIX: never pushes buttons out on narrow phones */
+            gap: clamp(10px, 2vw, 20px);
+            flex-wrap: wrap;
         }
 
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: clamp(10px, min(1.8vh, 3vw), 16px) clamp(18px, 5vw, 38px);
+            gap: 9px;
+            padding: clamp(11px, min(1.8vh, 3vw), 16px) clamp(20px, 5vw, 38px);
             border-radius: 30px;
-            font-size: clamp(14px, min(2.2vh, 3.6vw), 18px);
-            font-weight: 600;
+            font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
+            font-weight: 700;
             cursor: pointer;
             border: none;
             transition: all 0.2s ease;
@@ -378,9 +434,7 @@
             box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
         }
 
-        .btn-start.sw-mode:hover {
-            background-color: #2563eb;
-        }
+        .btn-start.sw-mode:hover { background-color: var(--blue-hover); }
 
         .btn-reset {
             background-color: var(--gray-light);
@@ -393,8 +447,8 @@
         }
 
         .btn-icon {
-            width: clamp(42px, min(6.5vh, 10vw), 56px);
-            height: clamp(42px, min(6.5vh, 10vw), 56px);
+            width: clamp(45px, min(6.8vh, 10vw), 58px);
+            height: clamp(45px, min(6.8vh, 10vw), 58px);
             border-radius: 50%;
             background-color: var(--gray-light);
             color: var(--text-muted);
@@ -419,7 +473,7 @@
         }
 
         .hint {
-            font-size: clamp(12px, min(1.7vh, 3vw), 15px);
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 17px);
             color: var(--text-muted);
             display: flex;
             align-items: center;
@@ -435,165 +489,103 @@
             border-radius: 6px;
             padding: 3px 8px;
             font-family: inherit;
-            font-size: clamp(11px, min(1.5vh, 2.6vw), 13px);
-            font-weight: 600;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
             color: var(--text-main);
         }
 
-        .footer {
-            width: 100%;
-            max-width: 1300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            font-size: clamp(13px, min(1.9vh, 3.2vw), 17px);
-            color: var(--text-muted);
-            flex-shrink: 0;
-            padding-top: 1.5vh;
+        /* SVGs */
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+        }
+        
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
         }
 
-        .footer a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-            font-weight: 600;
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        /* ---------- Mobile adjustments ---------- */
+        @media (max-width: 768px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+                padding-right: 0;
+            }
+            .header { text-align: center; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
 
-        .footer a:hover {
-            color: var(--green-primary);
-            text-decoration: underline;
-        }
-
-        .footer-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-left: 20px;
-        }
-
-        .lang-dropdown {
-            position: relative;
-        }
-
-        .lang-btn {
-            background-color: var(--gray-light);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .lang-btn:hover {
-            background-color: var(--gray-hover);
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--dropdown-bg);
-            min-width: 140px;
-            box-shadow: 0 4px 15px var(--shadow-color);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            z-index: 100;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: var(--text-main);
-            padding: 10px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9em;
-            transition: background-color 0.2s;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--gray-light);
-            color: var(--green-primary);
-        }
-
-        .dropdown-content.show {
-            display: block;
-        }
-
-        svg.icon { width: clamp(18px, min(2.4vh, 4vw), 22px); height: clamp(18px, min(2.4vh, 4vw), 22px); fill: currentColor; }
-        svg.hint-icon { width: clamp(14px, min(2vh, 3.4vw), 18px); height: clamp(14px, min(2vh, 3.4vw), 18px); }
-        svg.ui-icon { width: 16px; height: 16px; fill: currentColor; }
-
-        /* ---------- Mobile / small-screen adjustments ---------- */
         @media (max-width: 640px) {
-            .container {
-                padding: 2.5vh 4vw;
-            }
-            .top-section {
-                justify-content: center;
-                text-align: center;
-                gap: 10px;
-            }
-            .header {
-                text-align: center;
-                max-width: 100%;
-            }
-            .mode-switch {
-                margin: 0 auto;
-            }
-            .footer {
-                gap: 12px;
-            }
-            .footer-controls {
-                margin-left: 0;
-            }
-            .controls-wrapper {
-                gap: 1.2vh;
-            }
+            .container { padding: 2.4vh 4vw; }
+            .controls-wrapper { gap: 1.2vh; }
         }
 
-        /* Extra-tight phones (e.g. 280px wide) */
         @media (max-width: 360px) {
             .container { padding: 2vh 3vw; }
-            .mode-btn { padding: 6px 14px; }
-            .preset-btn { padding: 0.5vh 3.5vw; }
+            .preset-btn { padding: 0.6vh 3.2vw; }
         }
 
-        /* Short landscape screens: keep usable but allow scrolling */
         @media (max-height: 520px) {
             .header p { display: none; }
             .container { gap: 8px; }
+            .timer-display { width: clamp(150px, min(48vh, 56vw), 240px); height: clamp(150px, min(48vh, 56vw), 240px); }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Top Header & Mode Toggle -->
-        <div class="top-section">
+        <!-- Top Bar (Header + Right Controls) -->
+        <div class="top-bar">
             <div class="header">
                 <h1>Countdown Clock Timer</h1>
                 <p>Set any duration and count down with a visual ring. Perfect for cooking, study sprints, meetings, and workouts.</p>
             </div>
-            <div class="mode-switch">
-                <button class="mode-btn active" id="btnModeCountdown" onclick="switchMode('countdown')">Countdown</button>
-                <button class="mode-btn" id="btnModeStopwatch" onclick="switchMode('stopwatch')">Stopwatch</button>
+            
+            <div class="top-controls">
+                <div class="lang-dropdown">
+                    <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)">
+                        <span id="langLabel">English (US)</span> <span class="caret">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="#" onclick="changeLang(event, 'English (US)')">English (US)</a>
+                        <a href="#" onclick="changeLang(event, 'Español')">Español</a>
+                        <a href="#" onclick="changeLang(event, 'Français')">Français</a>
+                        <a href="#" onclick="changeLang(event, 'Deutsch')">Deutsch</a>
+                        <a href="#" onclick="changeLang(event, 'हिंदी')">हिंदी</a>
+                    </div>
+                </div>
+                <a href="/privacy" class="privacy-link">Privacy</a>
             </div>
         </div>
 
         <!-- Main Center Area -->
         <div class="main-content">
 
+            <!-- Mode Switcher (Countdown / Stopwatch) -->
+            <div class="mode-switch">
+                <button class="mode-btn active" id="btnModeCountdown" onclick="switchMode('countdown')">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                    Countdown
+                </button>
+                <button class="mode-btn" id="btnModeStopwatch" onclick="switchMode('stopwatch')">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                    Stopwatch
+                </button>
+            </div>
+
+            <!-- Presets (Only Countdown) -->
             <div class="presets" id="presetsSection">
                 <button class="preset-btn" onclick="setPreset(1)">1 min</button>
                 <button class="preset-btn" onclick="setPreset(5)">5 min</button>
@@ -605,6 +597,7 @@
                 <button class="preset-btn" onclick="setPreset(60)">1 hr</button>
             </div>
 
+            <!-- Timer Display -->
             <div class="timer-display">
                 <svg class="ring-svg" viewBox="0 0 280 280">
                     <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
@@ -614,6 +607,7 @@
                 <div class="status-text" id="statusText">READY</div>
             </div>
 
+            <!-- Inputs (Only Countdown) -->
             <div class="input-group" id="inputsSection">
                 <div class="input-wrapper">
                     <label for="inputHours">HOURS</label>
@@ -631,8 +625,10 @@
                 </div>
             </div>
 
+            <!-- Laps (Only Stopwatch) -->
             <div class="laps-container hidden" id="lapsSection"></div>
 
+            <!-- Controls -->
             <div class="controls-wrapper">
                 <div class="controls">
                     <button class="btn btn-start" id="startBtn" onclick="toggleTimer()">
@@ -658,28 +654,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Footer -->
-        <div class="footer">
-            <a href="https://yourwebsite.com/about" target="_blank" rel="noopener">About</a>
-            <a href="https://yourwebsite.com/privacy" target="_blank" rel="noopener">Privacy</a>
-
-            <div class="footer-controls">
-                <div class="lang-dropdown">
-                    <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)">
-                        <svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                        EN
-                    </button>
-                    <div class="dropdown-content" id="langDropdown">
-                        <a href="#" onclick="changeLang(event, 'English')">English</a>
-                        <a href="#" onclick="changeLang(event, 'Español')">Español</a>
-                        <a href="#" onclick="changeLang(event, 'Français')">Français</a>
-                        <a href="#" onclick="changeLang(event, 'Deutsch')">Deutsch</a>
-                        <a href="#" onclick="changeLang(event, 'हिंदी')">हिंदी</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -692,12 +666,12 @@
         const pauseIcon      = document.getElementById('pauseIcon');
         const resetLapText   = document.getElementById('resetLapText');
         const resetIcon      = document.getElementById('resetIcon');
-
+        
         const progressRing   = document.getElementById('progressRing');
         const inputHours     = document.getElementById('inputHours');
         const inputMinutes   = document.getElementById('inputMinutes');
         const inputSeconds   = document.getElementById('inputSeconds');
-
+        
         const muteBtn        = document.getElementById('muteBtn');
         const soundOnIcon    = document.getElementById('soundOnIcon');
         const soundOffIcon   = document.getElementById('soundOffIcon');
@@ -710,10 +684,11 @@
         const btnModeStopwatch = document.getElementById('btnModeStopwatch');
 
         const langBtn        = document.getElementById('langBtn');
+        const langLabel      = document.getElementById('langLabel');
         const langDropdown   = document.getElementById('langDropdown');
 
         // ---------- State ----------
-        let currentMode = null;
+        let currentMode = 'countdown';
         let timerInterval = null;
         let isRunning = false;
 
@@ -723,6 +698,7 @@
 
         let totalSeconds = 0;
         let initialTotalSeconds = 0;
+        let remainingMs = 0;
 
         let lapCount = 0;
         let lastLapMs = 0;
@@ -731,9 +707,35 @@
         const circumference = 2 * Math.PI * 130;
         let audioCtx;
 
-        // ---------- Icon paths ----------
+        progressRing.style.strokeDasharray = circumference;
+
+        // Icon paths
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
         const ICON_LAP   = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>';
+
+        // ---------- Language Dropdown ----------
+        function toggleLangDropdown(e) {
+            e.stopPropagation();
+            langDropdown.classList.toggle('show');
+        }
+
+        function changeLang(e, langName) {
+            if (e) e.preventDefault();
+            langLabel.textContent = langName;
+            langDropdown.classList.remove('show');
+            
+            if (langName === 'हिंदी') document.documentElement.lang = 'hi';
+            else if (langName === 'Español') document.documentElement.lang = 'es';
+            else if (langName === 'Français') document.documentElement.lang = 'fr';
+            else if (langName === 'Deutsch') document.documentElement.lang = 'de';
+            else document.documentElement.lang = 'en';
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+            }
+        });
 
         // ---------- UI helpers ----------
         function setStartButton(running, label) {
@@ -747,25 +749,6 @@
             resetLapText.textContent = lapMode ? 'Lap' : 'Reset';
             resetIcon.innerHTML = lapMode ? ICON_LAP : ICON_RESET;
         }
-
-        // ---------- Language ----------
-        function toggleLangDropdown(e) {
-            e.stopPropagation();
-            langDropdown.classList.toggle('show');
-        }
-
-        function changeLang(e, lang) {
-            if (e) e.preventDefault();
-            langBtn.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> ${lang.substring(0, 2).toUpperCase()}`;
-            langDropdown.classList.remove('show');
-            console.log('Language changed to: ' + lang);
-        }
-
-        document.addEventListener('click', (e) => {
-            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
-                langDropdown.classList.remove('show');
-            }
-        });
 
         // ---------- Audio ----------
         function initAudio() {
@@ -781,7 +764,6 @@
             if (isMuted) return;
             try {
                 initAudio();
-
                 const beep = (delay) => {
                     const osc  = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
@@ -797,10 +779,9 @@
                     osc.start(t0);
                     osc.stop(t0 + 1.5);
                 };
-
                 beep(0);
                 beep(0.3);
-            } catch (err) { /* ignore audio errors */ }
+            } catch (err) { }
         }
 
         // ---------- Mode ----------
@@ -903,9 +884,13 @@
 
             totalSeconds = (h * 3600) + (m * 60) + s;
             initialTotalSeconds = totalSeconds;
+            remainingMs = 0;
 
             if (!isRunning && currentMode === 'countdown') {
                 progressRing.style.stroke = 'var(--green-primary)';
+                statusText.textContent = 'READY';
+                statusText.style.color = 'var(--text-muted)';
+                setStartButton(false, 'Start');
             }
 
             updateDisplay();
@@ -921,28 +906,34 @@
             initAudio();
 
             if (currentMode === 'countdown') {
-                if (totalSeconds === 0) updateTimeFromInputs();
-                if (totalSeconds <= 0) return;
+                if (remainingMs <= 0 && totalSeconds <= 0) updateTimeFromInputs();
+                const msToRun = remainingMs > 0 ? remainingMs : (totalSeconds * 1000);
+                if (msToRun <= 0) return;
 
                 progressRing.style.stroke = 'var(--green-primary)';
-                targetTime = Date.now() + (totalSeconds * 1000);
+                targetTime = Date.now() + msToRun;
+                remainingMs = 0;
 
                 inputHours.disabled = true;
                 inputMinutes.disabled = true;
                 inputSeconds.disabled = true;
 
                 timerInterval = setInterval(() => {
-                    const remaining = Math.max(0, Math.ceil((targetTime - Date.now()) / 1000));
+                    const remaining = Math.max(0, targetTime - Date.now());
+                    const remainingSecs = Math.ceil(remaining / 1000);
 
-                    if (remaining !== totalSeconds) {
-                        totalSeconds = remaining;
+                    if (remainingSecs !== totalSeconds) {
+                        totalSeconds = remainingSecs;
                         updateDisplay();
                     }
 
-                    if (totalSeconds === 0) {
+                    if (remaining <= 0) {
                         clearInterval(timerInterval);
                         timerInterval = null;
                         isRunning = false;
+                        remainingMs = 0;
+                        totalSeconds = 0;
+                        updateDisplay();
 
                         statusText.textContent = "TIME'S UP!";
                         statusText.style.color = 'var(--danger)';
@@ -958,7 +949,6 @@
                 }, 200);
             } else {
                 stopwatchStartTime = Date.now() - stopwatchElapsed;
-
                 timerInterval = setInterval(() => {
                     stopwatchElapsed = Date.now() - stopwatchStartTime;
                     updateDisplay();
@@ -969,9 +959,7 @@
 
             isRunning = true;
             statusText.textContent = 'RUNNING';
-            statusText.style.color = currentMode === 'countdown'
-                ? 'var(--green-primary)'
-                : 'var(--blue-primary)';
+            statusText.style.color = currentMode === 'countdown' ? 'var(--green-primary)' : 'var(--blue-primary)';
             setStartButton(true, 'Pause');
         }
 
@@ -980,7 +968,14 @@
             timerInterval = null;
             isRunning = false;
 
-            if (currentMode === 'stopwatch') {
+            if (currentMode === 'countdown') {
+                remainingMs = Math.max(0, targetTime - Date.now());
+                totalSeconds = Math.ceil(remainingMs / 1000);
+                updateDisplay();
+                inputHours.disabled = false;
+                inputMinutes.disabled = false;
+                inputSeconds.disabled = false;
+            } else {
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
                 updateDisplay();
                 setLapButton(false);
@@ -995,6 +990,7 @@
             clearInterval(timerInterval);
             timerInterval = null;
             isRunning = false;
+            remainingMs = 0;
 
             if (currentMode === 'countdown') {
                 updateTimeFromInputs();
@@ -1036,7 +1032,6 @@
             lastLapMs = currentTotalMs;
 
             const lapObj = formatStopwatchTime(lapTime);
-
             const lapDiv = document.createElement('div');
             lapDiv.className = 'lap-item';
             lapDiv.innerHTML = `
@@ -1075,10 +1070,8 @@
         // ---------- Keyboard ----------
         document.addEventListener('keydown', (e) => {
             if (e.repeat) return;
-
             const el = e.target;
-            const tag = el.tagName;
-            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable) return;
+            if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
 
             if (e.code === 'Space' || e.key === ' ') {
                 e.preventDefault();
@@ -1087,9 +1080,7 @@
         });
 
         // ---------- Init ----------
-        window.onload = () => {
-            switchMode('countdown');
-        };
+        switchMode('countdown');
     </script>
 </body>
 </html>

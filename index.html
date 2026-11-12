@@ -28,7 +28,7 @@
             --shadow-color: rgba(0,0,0,0.1);
         }
 
-        * {
+        *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -36,10 +36,15 @@
             user-select: none;
         }
 
-        html { height: 100%; }
+        html {
+            height: 100%;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
 
         body {
             background-color: var(--card-bg);
+            color: var(--text-main);
             min-height: 100vh;
             min-height: 100dvh;
             width: 100%;
@@ -57,7 +62,7 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 3vh 4vw 2vh;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
             gap: clamp(10px, 2vh, 20px);
         }
 
@@ -69,14 +74,16 @@
             justify-content: space-between;
             align-items: flex-start;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: clamp(12px, 2vw, 20px);
             flex-shrink: 0;
-            padding-right: 1vw;
+            min-width: 0;
         }
 
         .header {
             text-align: left;
             max-width: 800px;
+            flex: 1 1 auto;
+            min-width: 0;
         }
 
         .header h1 {
@@ -86,20 +93,26 @@
             margin-bottom: 0.5vh;
             letter-spacing: -0.5px;
             line-height: 1.1;
+            overflow-wrap: break-word;
         }
 
         .header p {
             font-size: clamp(14px, min(2vh, 3.8vw), 18px);
             color: var(--text-muted);
             line-height: 1.4;
+            overflow-wrap: break-word;
         }
 
         /* Top Right Controls */
         .top-controls {
             display: flex;
             align-items: center;
-            gap: clamp(12px, 1.8vw, 22px);
-            padding-top: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: clamp(10px, 1.8vw, 22px);
+            padding-top: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
         }
 
         /* Font weight 200 (Extra Thin) */
@@ -109,6 +122,8 @@
             font-size: clamp(12px, min(1.6vh, 3vw), 14px);
             font-weight: 200;
             transition: color 0.2s;
+            display: inline-block;
+            padding: 6px 2px;
         }
 
         .privacy-link:hover {
@@ -128,7 +143,7 @@
             align-items: center;
             gap: 5px;
             transition: color 0.2s;
-            padding: 0;
+            padding: 6px 2px;
         }
 
         .lang-btn:hover { color: var(--text-main); }
@@ -143,6 +158,7 @@
             margin-top: 8px;
             background-color: var(--card-bg);
             min-width: 130px;
+            max-width: calc(100vw - 24px);
             box-shadow: 0 4px 15px var(--shadow-color);
             border-radius: 12px;
             border: 1px solid var(--border-color);
@@ -152,12 +168,13 @@
 
         .dropdown-content a {
             color: var(--text-main);
-            padding: 8px 14px;
+            padding: 10px 14px;
             text-decoration: none;
             display: block;
             font-size: 13px;
             font-weight: 200;
             transition: background-color 0.2s;
+            white-space: nowrap;
         }
 
         .dropdown-content a:hover { background-color: var(--gray-light); }
@@ -174,6 +191,7 @@
             flex-grow: 1;
             flex-shrink: 0;
             gap: clamp(10px, 2vh, 20px);
+            min-width: 0;
         }
 
         /* ---------- Mode Switch (Countdown / Stopwatch) ---------- */
@@ -183,10 +201,11 @@
             border-radius: 30px;
             padding: 4px;
             margin-bottom: 5px;
+            max-width: 100%;
         }
 
         .mode-btn {
-            padding: 8px 20px;
+            padding: 8px clamp(12px, 3vw, 20px);
             border-radius: 25px;
             border: none;
             background: transparent;
@@ -198,6 +217,8 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
+            min-width: 0;
         }
 
         .mode-btn.active {
@@ -211,21 +232,23 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: clamp(8px, 1.2vw, 14px);
+            gap: clamp(6px, 1.2vw, 14px);
             width: 100%;
+            min-width: 0;
         }
 
         .preset-btn {
             background-color: var(--gray-light);
             color: var(--text-muted);
             border: none;
-            padding: 0.7vh 1.5vw;
+            padding: 0.7vh clamp(12px, 2.2vw, 20px);
             border-radius: 20px;
             font-size: clamp(13px, min(2vh, 3.6vw), 17px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
+            white-space: nowrap;
         }
 
         .preset-btn:hover {
@@ -236,8 +259,9 @@
         /* ---------- Timer ring ---------- */
         .timer-display {
             position: relative;
-            width: clamp(200px, min(36vh, 74vw), 350px);
-            height: clamp(200px, min(36vh, 74vw), 350px);
+            width: clamp(180px, min(36vh, 74vw), 350px);
+            height: clamp(180px, min(36vh, 74vw), 350px);
+            max-width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -297,6 +321,7 @@
             letter-spacing: 2px;
             z-index: 10;
             text-transform: uppercase;
+            text-align: center;
         }
 
         /* ---------- Inputs ---------- */
@@ -304,11 +329,13 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: clamp(10px, 2vw, 25px);
+            gap: clamp(6px, 1.6vw, 25px);
             flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
         }
 
-        .input-wrapper { display: flex; flex-direction: column; align-items: center; }
+        .input-wrapper { display: flex; flex-direction: column; align-items: center; min-width: 0; }
 
         .input-wrapper label {
             font-size: clamp(11px, min(1.7vh, 3.2vw), 15px);
@@ -319,8 +346,8 @@
         }
 
         .input-wrapper input {
-            width: clamp(70px, 22vw, 110px);
-            height: clamp(50px, min(8vh, 13vw), 78px);
+            width: clamp(64px, 20vw, 110px);
+            height: clamp(48px, min(8vh, 13vw), 78px);
             border: 2px solid var(--border-color);
             border-radius: 14px;
             font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
@@ -330,6 +357,7 @@
             outline: none;
             background-color: var(--card-bg);
             transition: all 0.2s;
+            min-width: 0;
         }
 
         .input-wrapper input:focus {
@@ -360,6 +388,7 @@
             max-width: 320px;
             height: clamp(60px, 12vh, 130px);
             overflow-y: auto;
+            overscroll-behavior: contain;
             border-radius: 12px;
             flex-shrink: 0;
             margin-top: 5px;
@@ -371,11 +400,13 @@
         .lap-item {
             display: flex;
             justify-content: space-between;
+            gap: 10px;
             padding: 8px 16px;
             border-bottom: 1px solid var(--gray-light);
             font-size: clamp(13px, min(1.9vh, 3.4vw), 16px);
             font-weight: 600;
             color: var(--text-main);
+            min-width: 0;
         }
 
         .lap-item span:first-child { color: var(--text-muted); }
@@ -388,14 +419,17 @@
             gap: 1.5vh;
             flex-shrink: 0;
             width: 100%;
+            min-width: 0;
         }
 
         .controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(10px, 2vw, 20px);
+            gap: clamp(8px, 2vw, 20px);
             flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
         }
 
         .btn {
@@ -403,7 +437,7 @@
             align-items: center;
             justify-content: center;
             gap: 9px;
-            padding: clamp(11px, min(1.8vh, 3vw), 16px) clamp(20px, 5vw, 38px);
+            padding: clamp(10px, 1.8vh, 16px) clamp(14px, 4.5vw, 38px);
             border-radius: 30px;
             font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
             font-weight: 700;
@@ -411,6 +445,7 @@
             border: none;
             transition: all 0.2s ease;
             touch-action: manipulation;
+            white-space: nowrap;
         }
 
         .btn-start {
@@ -447,8 +482,8 @@
         }
 
         .btn-icon {
-            width: clamp(45px, min(6.8vh, 10vw), 58px);
-            height: clamp(45px, min(6.8vh, 10vw), 58px);
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
             border-radius: 50%;
             background-color: var(--gray-light);
             color: var(--text-muted);
@@ -460,6 +495,7 @@
             border: none;
             cursor: pointer;
             touch-action: manipulation;
+            flex-shrink: 0;
         }
 
         .btn-icon:hover {
@@ -481,6 +517,8 @@
             gap: 8px;
             flex-wrap: wrap;
             text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
         }
 
         .hint kbd {
@@ -499,25 +537,33 @@
             width: clamp(18px, min(2.5vh, 4.2vw), 24px);
             height: clamp(18px, min(2.5vh, 4.2vw), 24px);
             fill: currentColor;
+            flex-shrink: 0;
         }
         
         svg.hint-icon {
             width: clamp(14px, min(2.1vh, 3.4vw), 18px);
             height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
         }
 
         .hidden { display: none !important; opacity: 0; pointer-events: none; }
 
-        /* ---------- Mobile adjustments ---------- */
+        /* ---------- Keyboard accessibility ---------- */
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ---------- Tablet / Mobile: stack top bar ---------- */
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                gap: 15px;
-                padding-right: 0;
+                gap: 12px;
             }
-            .header { text-align: center; }
+            .header { text-align: center; max-width: 100%; }
             .top-controls { justify-content: center; padding-top: 0; }
             .dropdown-content {
                 right: auto;
@@ -526,20 +572,42 @@
             }
         }
 
-        @media (max-width: 640px) {
-            .container { padding: 2.4vh 4vw; }
+        /* ---------- Small phones ---------- */
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
             .controls-wrapper { gap: 1.2vh; }
+            .mode-btn { padding: 7px 12px; gap: 5px; }
+            .preset-btn { padding: 7px 12px; }
+            .btn { gap: 7px; }
+            .colon { margin-bottom: 1.6vh; }
         }
 
-        @media (max-width: 360px) {
-            .container { padding: 2vh 3vw; }
-            .preset-btn { padding: 0.6vh 3.2vw; }
+        @media (max-width: 380px) {
+            .mode-btn { padding: 7px 10px; font-size: 13px; }
+            .preset-btn { padding: 6px 10px; font-size: 12px; }
+            .btn { padding: 10px 15px; font-size: 14px; }
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .input-group { gap: 6px; }
         }
 
+        @media (max-width: 330px) {
+            .preset-btn { padding: 6px 8px; }
+            .mode-btn { padding: 6px 8px; }
+            .btn { padding: 10px 12px; }
+        }
+
+        /* ---------- Short viewports (landscape phones / small windows) ---------- */
         @media (max-height: 520px) {
             .header p { display: none; }
-            .container { gap: 8px; }
-            .timer-display { width: clamp(150px, min(48vh, 56vw), 240px); height: clamp(150px, min(48vh, 56vw), 240px); }
+            .container { gap: 8px; padding-top: 10px; }
+            .timer-display {
+                width: clamp(150px, min(48vh, 56vw), 240px);
+                height: clamp(150px, min(48vh, 56vw), 240px);
+                margin: 0.5vh 0;
+            }
+            .main-content { gap: 8px; }
+            .laps-container { height: clamp(56px, 18vh, 110px); }
         }
     </style>
 </head>

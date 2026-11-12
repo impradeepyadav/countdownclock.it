@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countdown Clock Timer</title>
+
+    <!-- Favicons / Manifest -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -31,25 +38,34 @@
             user-select: none;
         }
 
-        body {
-            background-color: var(--card-bg);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        html {
+            height: 100%;
         }
 
+        /* FIX: body now scrolls instead of clipping */
+        body {
+            background-color: var(--card-bg);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            display: block;
+        }
+
+        /* FIX: container grows with content, min-height keeps full-screen look on big screens */
         .container {
             background: var(--card-bg);
             width: 100%;
-            height: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between; 
+            justify-content: space-between;
             align-items: center;
-            padding: 2vh 4vw; 
+            padding: 2vh 4vw;
+            gap: clamp(10px, 2vh, 20px);
         }
 
         .top-section {
@@ -60,7 +76,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
 
         .header {
@@ -69,7 +85,7 @@
         }
 
         .header h1 {
-            font-size: clamp(28px, 4.5vh, 42px);
+            font-size: clamp(24px, min(4.5vh, 7vw), 42px);
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 0.5vh;
@@ -77,7 +93,7 @@
         }
 
         .header p {
-            font-size: clamp(15px, 2.2vh, 18px);
+            font-size: clamp(14px, min(2.2vh, 3.6vw), 18px);
             color: var(--text-muted);
             line-height: 1.4;
         }
@@ -94,7 +110,7 @@
             border-radius: 25px;
             border: none;
             background: transparent;
-            font-size: clamp(14px, 1.9vh, 17px);
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 17px);
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
@@ -107,6 +123,7 @@
             box-shadow: 0 2px 5px var(--shadow-color);
         }
 
+        /* FIX: no longer shrinks; grows on tall screens, scrolls on short screens */
         .main-content {
             display: flex;
             flex-direction: column;
@@ -114,9 +131,9 @@
             justify-content: center;
             width: 100%;
             max-width: 1000px;
-            flex-grow: 1; 
-            flex-shrink: 1; 
-            gap: 2vh; 
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(10px, 2vh, 20px);
         }
 
         .presets {
@@ -133,10 +150,11 @@
             border: none;
             padding: 0.6vh 1.4vw;
             border-radius: 20px;
-            font-size: clamp(13px, 1.8vh, 16px);
+            font-size: clamp(12px, min(1.8vh, 3.4vw), 16px);
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
 
         .preset-btn:hover {
@@ -144,15 +162,17 @@
             color: var(--text-main);
         }
 
+        /* FIX: ring size scales with both height AND width, never overflows narrow phones */
         .timer-display {
             position: relative;
-            width: clamp(200px, 32vh, 320px); 
-            height: clamp(200px, 32vh, 320px);
+            width: clamp(180px, min(34vh, 72vw), 320px);
+            height: clamp(180px, min(34vh, 72vw), 320px);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 1vh 0;
+            flex-shrink: 0;
         }
 
         .ring-svg {
@@ -184,8 +204,9 @@
             stroke: var(--blue-primary);
         }
 
+        /* FIX: font also guards against viewport width so 00:00:00 never overflows the ring */
         .time-text {
-            font-size: clamp(2.5rem, 6.5vh, 4rem); 
+            font-size: clamp(1.9rem, min(6.5vh, 10vw), 4rem);
             font-weight: 900;
             color: var(--text-main);
             font-variant-numeric: tabular-nums;
@@ -196,14 +217,14 @@
             white-space: nowrap;
         }
 
-        .time-text.ms-text {
-            font-size: clamp(1.3rem, 3vh, 2rem);
+        .time-text .ms-text {
+            font-size: clamp(1rem, min(3vh, 5vw), 2rem);
             color: var(--text-muted);
             margin-left: 2px;
         }
 
         .status-text {
-            font-size: clamp(12px, 1.6vh, 15px);
+            font-size: clamp(11px, min(1.6vh, 3vw), 15px);
             font-weight: 600;
             color: var(--text-muted);
             letter-spacing: 2px;
@@ -215,7 +236,8 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: clamp(12px, 2vw, 25px);
+            gap: clamp(10px, 2vw, 25px);
+            flex-wrap: wrap;
         }
 
         .input-wrapper {
@@ -225,7 +247,7 @@
         }
 
         .input-wrapper label {
-            font-size: clamp(11px, 1.5vh, 14px);
+            font-size: clamp(11px, min(1.5vh, 2.8vw), 14px);
             font-weight: 600;
             color: var(--text-muted);
             letter-spacing: 1px;
@@ -233,11 +255,11 @@
         }
 
         .input-wrapper input {
-            width: clamp(70px, 9vw, 100px);
-            height: clamp(50px, 7.5vh, 70px);
+            width: clamp(64px, 22vw, 100px);
+            height: clamp(46px, min(7.5vh, 12vw), 70px);
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            font-size: clamp(1.4rem, 3.5vh, 2rem);
+            font-size: clamp(1.2rem, min(3.5vh, 6vw), 2rem);
             font-weight: 600;
             color: var(--text-main);
             text-align: center;
@@ -265,7 +287,7 @@
         }
 
         .colon {
-            font-size: clamp(1.4rem, 3.5vh, 2rem);
+            font-size: clamp(1.2rem, min(3.5vh, 6vw), 2rem);
             font-weight: 600;
             color: var(--text-muted);
             margin-bottom: 1.8vh;
@@ -280,9 +302,10 @@
         .laps-container {
             width: 100%;
             max-width: 320px;
-            height: clamp(80px, 15vh, 150px);
+            height: clamp(70px, 15vh, 150px);
             overflow-y: auto;
             border-radius: 12px;
+            flex-shrink: 0;
         }
 
         .lap-item {
@@ -290,7 +313,7 @@
             justify-content: space-between;
             padding: 8px 16px;
             border-bottom: 1px solid var(--gray-light);
-            font-size: clamp(13px, 1.8vh, 16px);
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 16px);
             font-weight: 500;
             color: var(--text-main);
         }
@@ -308,27 +331,30 @@
             align-items: center;
             gap: 1.8vh;
             flex-shrink: 0;
+            width: 100%;
         }
 
         .controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(10px, 1.8vw, 20px);
+            gap: clamp(8px, 1.8vw, 20px);
+            flex-wrap: wrap; /* FIX: never pushes buttons out on narrow phones */
         }
 
         .btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: clamp(10px, 1.8vh, 16px) clamp(22px, 3vw, 38px);
+            gap: 8px;
+            padding: clamp(10px, min(1.8vh, 3vw), 16px) clamp(18px, 5vw, 38px);
             border-radius: 30px;
-            font-size: clamp(15px, 2.2vh, 18px);
+            font-size: clamp(14px, min(2.2vh, 3.6vw), 18px);
             font-weight: 600;
             cursor: pointer;
             border: none;
             transition: all 0.2s ease;
+            touch-action: manipulation;
         }
 
         .btn-start {
@@ -367,8 +393,8 @@
         }
 
         .btn-icon {
-            width: clamp(44px, 6.5vh, 56px);
-            height: clamp(44px, 6.5vh, 56px);
+            width: clamp(42px, min(6.5vh, 10vw), 56px);
+            height: clamp(42px, min(6.5vh, 10vw), 56px);
             border-radius: 50%;
             background-color: var(--gray-light);
             color: var(--text-muted);
@@ -379,6 +405,7 @@
             transition: all 0.2s;
             border: none;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .btn-icon:hover {
@@ -392,12 +419,14 @@
         }
 
         .hint {
-            font-size: clamp(13px, 1.7vh, 15px);
+            font-size: clamp(12px, min(1.7vh, 3vw), 15px);
             color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
         }
 
         .hint kbd {
@@ -406,12 +435,11 @@
             border-radius: 6px;
             padding: 3px 8px;
             font-family: inherit;
-            font-size: clamp(11px, 1.5vh, 13px);
+            font-size: clamp(11px, min(1.5vh, 2.6vw), 13px);
             font-weight: 600;
             color: var(--text-main);
         }
 
-        /* UPDATED FOOTER STYLES */
         .footer {
             width: 100%;
             max-width: 1300px;
@@ -419,10 +447,10 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 20px; 
-            font-size: clamp(14px, 1.9vh, 17px);
+            gap: 20px;
+            font-size: clamp(13px, min(1.9vh, 3.2vw), 17px);
             color: var(--text-muted);
-            flex-shrink: 0; 
+            flex-shrink: 0;
             padding-top: 1.5vh;
         }
 
@@ -438,7 +466,6 @@
             text-decoration: underline;
         }
 
-        /* Language Controls */
         .footer-controls {
             display: flex;
             align-items: center;
@@ -472,7 +499,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            bottom: 100%; /* Pops up above */
+            bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
             background-color: var(--dropdown-bg);
@@ -503,9 +530,50 @@
             display: block;
         }
 
-        svg.icon { width: clamp(18px, 2.4vh, 22px); height: clamp(18px, 2.4vh, 22px); fill: currentColor; }
-        svg.hint-icon { width: clamp(14px, 2vh, 18px); height: clamp(14px, 2vh, 18px); }
+        svg.icon { width: clamp(18px, min(2.4vh, 4vw), 22px); height: clamp(18px, min(2.4vh, 4vw), 22px); fill: currentColor; }
+        svg.hint-icon { width: clamp(14px, min(2vh, 3.4vw), 18px); height: clamp(14px, min(2vh, 3.4vw), 18px); }
         svg.ui-icon { width: 16px; height: 16px; fill: currentColor; }
+
+        /* ---------- Mobile / small-screen adjustments ---------- */
+        @media (max-width: 640px) {
+            .container {
+                padding: 2.5vh 4vw;
+            }
+            .top-section {
+                justify-content: center;
+                text-align: center;
+                gap: 10px;
+            }
+            .header {
+                text-align: center;
+                max-width: 100%;
+            }
+            .mode-switch {
+                margin: 0 auto;
+            }
+            .footer {
+                gap: 12px;
+            }
+            .footer-controls {
+                margin-left: 0;
+            }
+            .controls-wrapper {
+                gap: 1.2vh;
+            }
+        }
+
+        /* Extra-tight phones (e.g. 280px wide) */
+        @media (max-width: 360px) {
+            .container { padding: 2vh 3vw; }
+            .mode-btn { padding: 6px 14px; }
+            .preset-btn { padding: 0.5vh 3.5vw; }
+        }
+
+        /* Short landscape screens: keep usable but allow scrolling */
+        @media (max-height: 520px) {
+            .header p { display: none; }
+            .container { gap: 8px; }
+        }
     </style>
 </head>
 <body>
@@ -525,7 +593,7 @@
 
         <!-- Main Center Area -->
         <div class="main-content">
-            
+
             <div class="presets" id="presetsSection">
                 <button class="preset-btn" onclick="setPreset(1)">1 min</button>
                 <button class="preset-btn" onclick="setPreset(5)">5 min</button>
@@ -542,23 +610,23 @@
                     <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
                     <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
                 </svg>
-                <div class="time-text" id="timeDisplay">00:00:00</div>
+                <div class="time-text" id="timeDisplay" role="timer" aria-live="off">00:00:00</div>
                 <div class="status-text" id="statusText">READY</div>
             </div>
 
             <div class="input-group" id="inputsSection">
                 <div class="input-wrapper">
-                    <label>HOURS</label>
+                    <label for="inputHours">HOURS</label>
                     <input type="number" id="inputHours" value="0" min="0" max="99">
                 </div>
                 <div class="colon">:</div>
                 <div class="input-wrapper">
-                    <label>MINUTES</label>
+                    <label for="inputMinutes">MINUTES</label>
                     <input type="number" id="inputMinutes" value="1" min="0" max="59">
                 </div>
                 <div class="colon">:</div>
                 <div class="input-wrapper">
-                    <label>SECONDS</label>
+                    <label for="inputSeconds">SECONDS</label>
                     <input type="number" id="inputSeconds" value="0" min="0" max="59">
                 </div>
             </div>
@@ -572,12 +640,12 @@
                         <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         <span id="startBtnText">Start</span>
                     </button>
-                    
+
                     <button class="btn btn-reset" id="resetLapBtn" onclick="handleResetLap()">
                         <svg class="icon" id="resetIcon" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
                         <span id="resetLapText">Reset</span>
                     </button>
-                    
+
                     <button class="btn-icon" id="muteBtn" onclick="toggleMute()" title="Toggle Sound">
                         <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                         <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
@@ -591,24 +659,23 @@
             </div>
         </div>
 
-        <!-- Updated Footer -->
+        <!-- Footer -->
         <div class="footer">
-            <a href="https://yourwebsite.com/about" target="_blank">About</a>
-            <a href="https://yourwebsite.com/privacy" target="_blank">Privacy</a>
-            
+            <a href="https://yourwebsite.com/about" target="_blank" rel="noopener">About</a>
+            <a href="https://yourwebsite.com/privacy" target="_blank" rel="noopener">Privacy</a>
+
             <div class="footer-controls">
-                <!-- Language Dropdown -->
                 <div class="lang-dropdown">
                     <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)">
                         <svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                         EN
                     </button>
                     <div class="dropdown-content" id="langDropdown">
-                        <a href="#" onclick="changeLang('English')">English</a>
-                        <a href="#" onclick="changeLang('Español')">Español</a>
-                        <a href="#" onclick="changeLang('Français')">Français</a>
-                        <a href="#" onclick="changeLang('Deutsch')">Deutsch</a>
-                        <a href="#" onclick="changeLang('हिंदी')">हिंदी</a>
+                        <a href="#" onclick="changeLang(event, 'English')">English</a>
+                        <a href="#" onclick="changeLang(event, 'Español')">Español</a>
+                        <a href="#" onclick="changeLang(event, 'Français')">Français</a>
+                        <a href="#" onclick="changeLang(event, 'Deutsch')">Deutsch</a>
+                        <a href="#" onclick="changeLang(event, 'हिंदी')">हिंदी</a>
                     </div>
                 </div>
             </div>
@@ -616,48 +683,47 @@
     </div>
 
     <script>
-        // DOM Elements
-        const timeDisplay = document.getElementById('timeDisplay');
-        const statusText = document.getElementById('statusText');
-        const startBtnText = document.getElementById('startBtnText');
-        const startBtn = document.getElementById('startBtn');
-        const playIcon = document.getElementById('playIcon');
-        const pauseIcon = document.getElementById('pauseIcon');
-        const resetLapText = document.getElementById('resetLapText');
-        const resetIcon = document.getElementById('resetIcon');
-        
-        const progressRing = document.getElementById('progressRing');
-        const inputHours = document.getElementById('inputHours');
-        const inputMinutes = document.getElementById('inputMinutes');
-        const inputSeconds = document.getElementById('inputSeconds');
-        
-        const muteBtn = document.getElementById('muteBtn');
-        const soundOnIcon = document.getElementById('soundOnIcon');
-        const soundOffIcon = document.getElementById('soundOffIcon');
+        // ---------- DOM Elements ----------
+        const timeDisplay    = document.getElementById('timeDisplay');
+        const statusText     = document.getElementById('statusText');
+        const startBtnText   = document.getElementById('startBtnText');
+        const startBtn       = document.getElementById('startBtn');
+        const playIcon       = document.getElementById('playIcon');
+        const pauseIcon      = document.getElementById('pauseIcon');
+        const resetLapText   = document.getElementById('resetLapText');
+        const resetIcon      = document.getElementById('resetIcon');
+
+        const progressRing   = document.getElementById('progressRing');
+        const inputHours     = document.getElementById('inputHours');
+        const inputMinutes   = document.getElementById('inputMinutes');
+        const inputSeconds   = document.getElementById('inputSeconds');
+
+        const muteBtn        = document.getElementById('muteBtn');
+        const soundOnIcon    = document.getElementById('soundOnIcon');
+        const soundOffIcon   = document.getElementById('soundOffIcon');
 
         const presetsSection = document.getElementById('presetsSection');
-        const inputsSection = document.getElementById('inputsSection');
-        const lapsSection = document.getElementById('lapsSection');
-        
+        const inputsSection  = document.getElementById('inputsSection');
+        const lapsSection    = document.getElementById('lapsSection');
+
         const btnModeCountdown = document.getElementById('btnModeCountdown');
         const btnModeStopwatch = document.getElementById('btnModeStopwatch');
-        
-        // Language Elements
-        const langBtn = document.getElementById('langBtn');
-        const langDropdown = document.getElementById('langDropdown');
 
-        // State Variables
-        let currentMode = 'countdown'; 
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        // ---------- State ----------
+        let currentMode = null;
         let timerInterval = null;
         let isRunning = false;
-        
-        let targetTime = 0;         
-        let stopwatchStartTime = 0; 
-        let stopwatchElapsed = 0;   
-        
+
+        let targetTime = 0;
+        let stopwatchStartTime = 0;
+        let stopwatchElapsed = 0;
+
         let totalSeconds = 0;
         let initialTotalSeconds = 0;
-        
+
         let lapCount = 0;
         let lastLapMs = 0;
 
@@ -665,17 +731,34 @@
         const circumference = 2 * Math.PI * 130;
         let audioCtx;
 
-        // --- LANGUAGE LOGIC ---
+        // ---------- Icon paths ----------
+        const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
+        const ICON_LAP   = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>';
+
+        // ---------- UI helpers ----------
+        function setStartButton(running, label) {
+            startBtnText.textContent = label;
+            startBtn.classList.toggle('paused', running);
+            playIcon.style.display  = running ? 'none' : 'block';
+            pauseIcon.style.display = running ? 'block' : 'none';
+        }
+
+        function setLapButton(lapMode) {
+            resetLapText.textContent = lapMode ? 'Lap' : 'Reset';
+            resetIcon.innerHTML = lapMode ? ICON_LAP : ICON_RESET;
+        }
+
+        // ---------- Language ----------
         function toggleLangDropdown(e) {
             e.stopPropagation();
             langDropdown.classList.toggle('show');
         }
 
-        function changeLang(lang) {
-            langBtn.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> ${lang.substring(0,2).toUpperCase()}`;
+        function changeLang(e, lang) {
+            if (e) e.preventDefault();
+            langBtn.innerHTML = `<svg class="ui-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg> ${lang.substring(0, 2).toUpperCase()}`;
             langDropdown.classList.remove('show');
-            // Translation logic yahan add kar sakte hain
-            console.log("Language changed to: " + lang);
+            console.log('Language changed to: ' + lang);
         }
 
         document.addEventListener('click', (e) => {
@@ -684,7 +767,7 @@
             }
         });
 
-        // --- AUDIO & TIMER LOGIC ---
+        // ---------- Audio ----------
         function initAudio() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -698,69 +781,67 @@
             if (isMuted) return;
             try {
                 initAudio();
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(880, audioCtx.currentTime); 
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 1.5);
-                
-                setTimeout(() => {
-                    const osc2 = audioCtx.createOscillator();
-                    const gain2 = audioCtx.createGain();
-                    osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
-                    gain2.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                    gain2.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
-                    osc2.connect(gain2);
-                    gain2.connect(audioCtx.destination);
-                    osc2.start();
-                    osc2.stop(audioCtx.currentTime + 1.5);
-                }, 300);
-            } catch (e) {}
+
+                const beep = (delay) => {
+                    const osc  = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const t0 = audioCtx.currentTime + delay;
+
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, t0);
+                    gain.gain.setValueAtTime(0.1, t0);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.5);
+
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(t0);
+                    osc.stop(t0 + 1.5);
+                };
+
+                beep(0);
+                beep(0.3);
+            } catch (err) { /* ignore audio errors */ }
         }
 
+        // ---------- Mode ----------
         function switchMode(mode) {
+            if (mode === currentMode) return;
+
             if (isRunning) {
-                if(!confirm("Timer is running. Are you sure you want to switch modes? It will reset the current timer.")) return;
+                if (!confirm('Timer is running. Are you sure you want to switch modes? It will reset the current timer.')) {
+                    return;
+                }
             }
-            
+
             currentMode = mode;
             resetTimer();
 
             if (mode === 'countdown') {
                 btnModeCountdown.classList.add('active');
                 btnModeStopwatch.classList.remove('active');
-                
+
                 presetsSection.classList.remove('hidden');
                 inputsSection.classList.remove('hidden');
                 lapsSection.classList.add('hidden');
                 muteBtn.style.display = 'flex';
-                
+
                 progressRing.classList.remove('stopwatch-mode');
                 startBtn.classList.remove('sw-mode');
-                timeDisplay.classList.remove('ms-text');
             } else {
                 btnModeStopwatch.classList.add('active');
                 btnModeCountdown.classList.remove('active');
-                
+
                 presetsSection.classList.add('hidden');
                 inputsSection.classList.add('hidden');
                 lapsSection.classList.remove('hidden');
                 muteBtn.style.display = 'none';
-                
+
                 progressRing.classList.add('stopwatch-mode');
                 startBtn.classList.add('sw-mode');
-                timeDisplay.classList.add('ms-text');
             }
         }
 
+        // ---------- Formatting / Display ----------
         function formatStopwatchTime(ms) {
             const totalSecs = Math.floor(ms / 1000);
             const h = Math.floor(totalSecs / 3600);
@@ -773,10 +854,7 @@
             const sStr = String(s).padStart(2, '0');
             const cStr = String(centiseconds).padStart(2, '0');
 
-            return { 
-                main: `${hStr}${mStr}:${sStr}`, 
-                ms: `.${cStr}` 
-            };
+            return { main: `${hStr}${mStr}:${sStr}`, ms: `.${cStr}` };
         }
 
         function updateDisplay() {
@@ -784,26 +862,28 @@
                 const h = Math.floor(totalSeconds / 3600);
                 const m = Math.floor((totalSeconds % 3600) / 60);
                 const s = totalSeconds % 60;
-                timeDisplay.textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-                
+                timeDisplay.textContent =
+                    `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
                 if (initialTotalSeconds > 0) {
                     const offset = circumference - (totalSeconds / initialTotalSeconds) * circumference;
                     progressRing.style.strokeDashoffset = offset;
                 } else {
-                    progressRing.style.strokeDashoffset = 0;
+                    progressRing.style.strokeDashoffset = circumference;
                 }
             } else {
                 const timeObj = formatStopwatchTime(stopwatchElapsed);
                 timeDisplay.innerHTML = `${timeObj.main}<span class="ms-text">${timeObj.ms}</span>`;
-                
+
                 const currentSecs = (stopwatchElapsed / 1000) % 60;
                 const offset = circumference - (currentSecs / 60) * circumference;
                 progressRing.style.strokeDashoffset = offset;
             }
         }
 
+        // ---------- Inputs ----------
         function validateInput(input, max) {
-            let val = parseInt(input.value);
+            let val = parseInt(input.value, 10);
             if (isNaN(val) || val < 0) val = 0;
             if (val > max) val = max;
             input.value = val;
@@ -811,28 +891,30 @@
 
         [inputHours, inputMinutes, inputSeconds].forEach(input => {
             input.addEventListener('input', () => {
-                if(input === inputHours) validateInput(input, 99);
-                else validateInput(input, 59);
-                
+                validateInput(input, input === inputHours ? 99 : 59);
                 if (!isRunning && currentMode === 'countdown') updateTimeFromInputs();
             });
         });
 
         function updateTimeFromInputs() {
-            const h = parseInt(inputHours.value) || 0;
-            const m = parseInt(inputMinutes.value) || 0;
-            const s = parseInt(inputSeconds.value) || 0;
+            const h = parseInt(inputHours.value, 10) || 0;
+            const m = parseInt(inputMinutes.value, 10) || 0;
+            const s = parseInt(inputSeconds.value, 10) || 0;
+
             totalSeconds = (h * 3600) + (m * 60) + s;
             initialTotalSeconds = totalSeconds;
+
+            if (!isRunning && currentMode === 'countdown') {
+                progressRing.style.stroke = 'var(--green-primary)';
+            }
+
             updateDisplay();
         }
 
+        // ---------- Timer control ----------
         function toggleTimer() {
-            if (isRunning) {
-                pauseTimer();
-            } else {
-                startTimer();
-            }
+            if (isRunning) pauseTimer();
+            else startTimer();
         }
 
         function startTimer() {
@@ -841,97 +923,86 @@
             if (currentMode === 'countdown') {
                 if (totalSeconds === 0) updateTimeFromInputs();
                 if (totalSeconds <= 0) return;
-                
+
+                progressRing.style.stroke = 'var(--green-primary)';
                 targetTime = Date.now() + (totalSeconds * 1000);
-                
-                inputHours.disabled = true; inputMinutes.disabled = true; inputSeconds.disabled = true;
-                
+
+                inputHours.disabled = true;
+                inputMinutes.disabled = true;
+                inputSeconds.disabled = true;
+
                 timerInterval = setInterval(() => {
-                    const remaining = Math.max(0, Math.round((targetTime - Date.now()) / 1000));
-                    
+                    const remaining = Math.max(0, Math.ceil((targetTime - Date.now()) / 1000));
+
                     if (remaining !== totalSeconds) {
                         totalSeconds = remaining;
                         updateDisplay();
                     }
-                    
+
                     if (totalSeconds === 0) {
                         clearInterval(timerInterval);
+                        timerInterval = null;
                         isRunning = false;
-                        statusText.textContent = 'TIME\'S UP!';
+
+                        statusText.textContent = "TIME'S UP!";
                         statusText.style.color = 'var(--danger)';
                         progressRing.style.stroke = 'var(--danger)';
-                        resetBtnText();
+                        setStartButton(false, 'Start');
+
                         playBeep();
-                        inputHours.disabled = false; inputMinutes.disabled = false; inputSeconds.disabled = false;
-                        return;
+
+                        inputHours.disabled = false;
+                        inputMinutes.disabled = false;
+                        inputSeconds.disabled = false;
                     }
                 }, 200);
-
             } else {
                 stopwatchStartTime = Date.now() - stopwatchElapsed;
-                
+
                 timerInterval = setInterval(() => {
                     stopwatchElapsed = Date.now() - stopwatchStartTime;
                     updateDisplay();
-                }, 31); 
+                }, 31);
+
+                setLapButton(true);
             }
 
             isRunning = true;
             statusText.textContent = 'RUNNING';
-            statusText.style.color = currentMode === 'countdown' ? 'var(--green-primary)' : 'var(--blue-primary)';
-            startBtnText.textContent = 'Pause';
-            startBtn.classList.add('paused');
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = 'block';
-            
-            if (currentMode === 'stopwatch') {
-                resetLapText.textContent = 'Lap';
-                resetIcon.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>';
-            }
+            statusText.style.color = currentMode === 'countdown'
+                ? 'var(--green-primary)'
+                : 'var(--blue-primary)';
+            setStartButton(true, 'Pause');
         }
 
         function pauseTimer() {
             clearInterval(timerInterval);
+            timerInterval = null;
             isRunning = false;
-            
+
             if (currentMode === 'stopwatch') {
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
+                updateDisplay();
+                setLapButton(false);
             }
-            
+
             statusText.textContent = 'PAUSED';
             statusText.style.color = 'var(--text-muted)';
-            startBtnText.textContent = 'Resume';
-            startBtn.classList.remove('paused');
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-            
-            if (currentMode === 'stopwatch') {
-                resetBtnText();
-            }
-        }
-
-        function resetBtnText() {
-            startBtnText.textContent = 'Start';
-            startBtn.classList.remove('paused');
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-            
-            if (currentMode === 'stopwatch') {
-                resetLapText.textContent = 'Reset';
-                resetIcon.innerHTML = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
-            }
+            setStartButton(false, 'Resume');
         }
 
         function resetTimer() {
             clearInterval(timerInterval);
+            timerInterval = null;
             isRunning = false;
-            
+
             if (currentMode === 'countdown') {
-                inputHours.value = 0; inputMinutes.value = 1; inputSeconds.value = 0;
                 updateTimeFromInputs();
                 statusText.textContent = 'READY';
                 progressRing.style.stroke = 'var(--green-primary)';
-                inputHours.disabled = false; inputMinutes.disabled = false; inputSeconds.disabled = false;
+                inputHours.disabled = false;
+                inputMinutes.disabled = false;
+                inputSeconds.disabled = false;
             } else {
                 stopwatchElapsed = 0;
                 stopwatchStartTime = 0;
@@ -942,20 +1013,19 @@
                 statusText.textContent = 'READY';
                 progressRing.style.stroke = 'var(--blue-primary)';
             }
-            
+
             statusText.style.color = 'var(--text-muted)';
-            resetBtnText();
+            setStartButton(false, 'Start');
+            setLapButton(false);
         }
 
+        // ---------- Reset / Lap ----------
         function handleResetLap() {
             if (currentMode === 'countdown') {
                 resetTimer();
             } else {
-                if (isRunning) {
-                    recordLap();
-                } else {
-                    resetTimer();
-                }
+                if (isRunning) recordLap();
+                else resetTimer();
             }
         }
 
@@ -973,11 +1043,14 @@
                 <span>Lap ${lapCount}</span>
                 <span>+${lapObj.main}${lapObj.ms}</span>
             `;
-            
             lapsSection.prepend(lapDiv);
         }
 
+        // ---------- Presets ----------
         function setPreset(minutes) {
+            if (isRunning) {
+                if (!confirm('Timer is running. Reset and apply this preset?')) return;
+            }
             resetTimer();
             inputHours.value = Math.floor(minutes / 60);
             inputMinutes.value = minutes % 60;
@@ -985,6 +1058,7 @@
             updateTimeFromInputs();
         }
 
+        // ---------- Mute ----------
         function toggleMute() {
             isMuted = !isMuted;
             if (isMuted) {
@@ -998,14 +1072,21 @@
             }
         }
 
+        // ---------- Keyboard ----------
         document.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT') return; 
-            if (e.code === 'Space') {
+            if (e.repeat) return;
+
+            const el = e.target;
+            const tag = el.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable) return;
+
+            if (e.code === 'Space' || e.key === ' ') {
                 e.preventDefault();
                 toggleTimer();
             }
         });
 
+        // ---------- Init ----------
         window.onload = () => {
             switchMode('countdown');
         };

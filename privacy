@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Privacy Policy — Timer Clock</title>
+<meta name="description" content="Privacy Policy for Timer Clock — learn how we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="author" content="Timer Clock">
+<meta name="language" content="English">
+<meta name="theme-color" content="#ffffff" id="themeColorMeta">
+<link rel="canonical" href="https://timerclock.app/privacy">
+
+<link rel="alternate" hreflang="x-default" href="https://timerclock.app/privacy">
+<link rel="alternate" hreflang="en" href="https://timerclock.app/privacy">
+<link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/privacy">
+<link rel="alternate" hreflang="es" href="https://timerclock.app/es/privacy">
+<link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/privacy">
+<link rel="alternate" hreflang="de" href="https://timerclock.app/de/privacy">
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Timer Clock">
+<meta property="og:title" content="Privacy Policy — Timer Clock">
+<meta property="og:description" content="How we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.">
+<meta property="og:url" content="https://timerclock.app/privacy">
+<meta property="og:image" content="https://timerclock.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Privacy Policy — Timer Clock">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="hi_IN">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy Policy — Timer Clock">
+<meta name="twitter:description" content="Learn how we protect your privacy while keeping the timer free.">
+<meta name="twitter:image" content="https://timerclock.app/og-image.png">
+<meta name="twitter:image:alt" content="Privacy Policy — Timer Clock">
+
+<!-- ================= Preconnects ================= -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","@id":"https://timerclock.app/#website","name":"Timer Clock","url":"https://timerclock.app/","inLanguage":"en-US","publisher":{"@id":"https://timerclock.app/#organization"}}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","@id":"https://timerclock.app/#organization","name":"Timer Clock","url":"https://timerclock.app/","logo":"https://timerclock.app/apple-touch-icon.png","sameAs":[],"contactPoint":{"@type":"ContactPoint","contactType":"customer support","email":"contact@timerclock.app","availableLanguage":["English","Hindi","Spanish","French","German"]}}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"PrivacyPolicyPage","name":"Privacy Policy — Timer Clock","url":"https://timerclock.app/privacy","description":"Privacy Policy for Timer Clock — learn how we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.","inLanguage":"en-US","isPartOf":{"@id":"https://timerclock.app/#website"},"publisher":{"@id":"https://timerclock.app/#organization"},"dateModified":"2026-11-12"}
+</script>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://timerclock.app/"},{"@type":"ListItem","position":2,"name":"Privacy Policy","item":"https://timerclock.app/privacy"}]}
+</script>
+
+<style>
+/* ============================================================
+   THEME VARIABLES (LIGHT ONLY)
+   ============================================================ */
+:root{
+  color-scheme: light;
+  --bg: #ffffff;
+  --text: #333333;
+  --text-strong: #111111;
+  --text-muted: #555555;
+  --line: #eaeaea;
+  --hover-bg: #f0f0f0;
+  --shadow: rgba(0,0,0,0.02);
+  --link: #0066cc;
+  --link-hover: #004c99;
+  --icon-fill: #111111;
+  --header-bg: #ffffff;
+  --code-bg: #f3f4f6;
+  --code-text: #c2410c;
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: #ffffff;
+}
+
+body{
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+a:focus-visible,
+button:focus-visible{
+  outline: 2px solid var(--text-strong);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   TOP BAR / HEADER
+   ============================================================ */
+.top-bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background-color: var(--header-bg);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.top-bar-left{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-link{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-strong);
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-link:hover{
+  background-color: var(--hover-bg);
+}
+
+.back-link svg{
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  color: currentColor;
+}
+
+.site-name{
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-strong);
+  letter-spacing: -0.3px;
+}
+
+.top-bar-right{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.feedback-btn{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-strong);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.feedback-btn:hover{
+  background-color: var(--hover-bg);
+}
+
+.feedback-btn svg{
+  width: 20px;
+  height: 20px;
+  fill: var(--icon-fill);
+  color: var(--icon-fill);
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.terms-container{
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 48px 24px 80px 24px;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+h1{
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--text-strong);
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.last-updated{
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.intro-text{
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 40px;
+}
+
+h2{
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-strong);
+  margin-top: 40px;
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+}
+
+h3{
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-strong);
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+p{
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+ul, ol{
+  margin-bottom: 24px;
+  padding-left: 24px;
+}
+
+li{
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+li strong,
+p strong{
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+p em,
+li em{
+  font-style: italic;
+  color: var(--text);
+}
+
+a{
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover{
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+code{
+  background: var(--code-bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'SF Mono', Consolas, 'Courier New', monospace;
+  color: var(--code-text);
+  font-weight: 600;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px){
+  .terms-container{
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px){
+  .top-bar{
+    padding: 12px 16px;
+  }
+  .site-name{
+    font-size: 18px;
+  }
+  .feedback-btn span{
+    display: none;
+  }
+  .terms-container{
+    padding: 32px 16px 60px 16px;
+  }
+  h1{
+    font-size: 28px;
+  }
+  h2{
+    font-size: 22px;
+  }
+  p, li, .intro-text{
+    font-size: 15.5px;
+  }
+}
+
+@media (max-width: 380px){
+  .top-bar{
+    padding: 10px 12px;
+  }
+  .site-name{
+    font-size: 16px;
+    letter-spacing: -0.2px;
+  }
+  .back-link svg{
+    width: 20px;
+    height: 20px;
+  }
+  h1{
+    font-size: 24px;
+  }
+  h2{
+    font-size: 20px;
+  }
+  h3{
+    font-size: 18px;
+  }
+  p, li, .intro-text{
+    font-size: 15px;
+  }
+  .terms-container{
+    padding: 24px 14px 52px 14px;
+  }
+}
+
+@media (max-width: 320px){
+  .site-name{
+    font-size: 14.5px;
+  }
+  h1{
+    font-size: 22px;
+  }
+  h2{
+    font-size: 18px;
+  }
+  p, li, .intro-text{
+    font-size: 14.5px;
+  }
+}
+
+@media (min-width: 1440px){
+  .terms-container{
+    max-width: 880px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior: auto;}
+  *, *::before, *::after{
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <a href="/" class="back-link" aria-label="Go back to timer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </a>
+    <span class="site-name">timerclock.app</span>
+  </div>
+
+  <div class="top-bar-right">
+    <button class="feedback-btn" onclick="window.location.href='mailto:contact@timerclock.app'" aria-label="Send feedback">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
+      </svg>
+      <span>Feedback</span>
+    </button>
+  </div>
+</header>
+
+<main class="terms-container" id="mainContent">
+
+  <h1>Privacy Policy</h1>
+
+  <p class="last-updated">Last updated: November 12, 2026</p>
+
+  <p class="intro-text">
+    At <strong>Timer Clock</strong>, your privacy matters to us. This page explains exactly what information is collected when you use our site, how it is used, and the choices you have. The core of the timer — the durations you set, the countdowns you run, and the stopwatch results you record — stays entirely in your browser and is never sent to any server. The only data collected comes from advertising and analytics partners that help keep the site free to use.
+  </p>
+
+  <h2>1. Information We Collect</h2>
+  <p>
+    <strong>We do not collect, store, or transmit any of the timer values you set, the countdowns you run, or the stopwatch laps you record.</strong> All timer data stays in your browser's memory and is never sent to any server.
+  </p>
+  <p>
+    However, the site does use third-party services (analytics and advertising) that may collect limited technical information automatically, such as:
+  </p>
+  <ul>
+    <li>IP address (used by analytics and ad networks to determine approximate location)</li>
+    <li>Browser type, device type, operating system, and language</li>
+    <li>Pages visited, time spent, and referring URL</li>
+    <li>General usage patterns and interactions with the site</li>
+    <li>Cookie identifiers used for analytics and advertising</li>
+  </ul>
+  <p>
+    This information is used in aggregate to understand how the site is used, improve its performance, and display relevant advertising.
+  </p>
+
+  <h2>2. Local Storage</h2>
+  <p>
+    We do not store the timer durations you set, the countdowns you run, or the stopwatch laps you record. The only thing saved directly in your browser is the timer's own local preferences — for example, whether the sound is muted and which language you have selected — which stay on your device only.
+  </p>
+  <ul>
+    <li><strong>What is stored:</strong> mute/unmute state, language preference, and similar local settings.</li>
+    <li><strong>Where it's stored:</strong> locally in your browser's <code>localStorage</code> only.</li>
+    <li><strong>Is it sent anywhere:</strong> no. It never leaves your device.</li>
+    <li><strong>How to remove it:</strong> clear your browser's site data for timerclock.app at any time.</li>
+  </ul>
+
+  <h2>3. Cookies and Tracking Technologies</h2>
+  <p>
+    Like most websites, Timer Clock uses cookies and similar technologies (such as pixels and web beacons). Cookies are small text files stored on your device that help the site function properly, understand usage patterns, and deliver advertising.
+  </p>
+  <p>We use the following categories of cookies:</p>
+  <ul>
+    <li><strong>Strictly Necessary Cookies:</strong> Required for the site to work correctly (security, basic navigation, remembering your local preferences). These cannot be disabled.</li>
+    <li><strong>Analytics Cookies:</strong> Help us understand how visitors use the site — which pages are visited, how users arrive, and how they interact. We use Google Analytics for this purpose.</li>
+    <li><strong>Advertising Cookies:</strong> Used by third-party ad networks to deliver advertisements that may be relevant to you and to measure advertising effectiveness.</li>
+  </ul>
+  <p>
+    Where required by applicable law (for example, under the EU ePrivacy Directive), we obtain your consent before placing non-essential cookies. You can manage or withdraw your consent at any time through the cookie consent banner or by adjusting your browser settings. Please note that disabling cookies may affect some site functionality.
+  </p>
+
+  <h2>4. Google Analytics</h2>
+  <p>
+    We use Google Analytics, a web analytics service provided by Google LLC ("Google"), to measure and analyze how visitors use the site. Google Analytics collects information such as your IP address, browser type, device information, pages visited, time spent on pages, and referring sources. This data is used to improve the site and understand user behavior.
+  </p>
+  <p>
+    Google Analytics may set cookies on your device and may transfer data to servers located outside your country of residence. Google processes this data on our behalf and is contractually bound to protect it. For more information about how Google collects and processes data, please visit <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from sites or apps that use our services</a>.
+  </p>
+  <p>
+    You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a> or by adjusting your Google Ads settings. Please note that opting out does not prevent all data collection by other third parties.
+  </p>
+
+  <h2>5. Third-Party Advertising &amp; Affiliate Links</h2>
+  <p>
+    The site displays advertisements and may include affiliate links. These are provided by third-party ad networks and affiliate partners. When you click on an affiliate link and make a purchase, we may earn a commission at no additional cost to you. This helps us keep the site free to use.
+  </p>
+  <p>
+    Third-party ad networks and affiliate partners may use cookies, web beacons, or similar technologies to collect information about your visits to this site and other websites in order to provide relevant advertisements. We do not control the data collected by these third parties, and their practices are governed by their own privacy policies. We encourage you to review their policies, including:
+  </p>
+  <ul>
+    <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a> (for Google Ads and Analytics)</li>
+    <li><a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer">Google Ads Settings</a> (to opt out of personalized Google ads)</li>
+    <li><a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer">Digital Advertising Alliance Opt-Out</a> (U.S. users)</li>
+    <li><a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer">Your Online Choices</a> (EU users)</li>
+  </ul>
+
+  <h2>6. Third-Party Services</h2>
+  <p>We keep third-party services to a minimum. Currently, we use:</p>
+  <ul>
+    <li>
+      <strong>Google Fonts</strong> — to display the Inter typeface. Your browser makes a request to <code>fonts.googleapis.com</code> to fetch the font files, and Google may see your IP address as part of that request. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+    </li>
+    <li>
+      <strong>Google Analytics</strong> — for traffic analysis (see Section 4 above).
+    </li>
+    <li>
+      <strong>Third-party ad networks and affiliate partners</strong> — for advertising and monetization (see Section 5 above).
+    </li>
+  </ul>
+
+  <h2>7. Your Privacy Rights (GDPR / CCPA and Other Laws)</h2>
+  <p>
+    Depending on your location, you may have specific rights regarding your personal data under applicable privacy laws, including the EU's General Data Protection Regulation ("GDPR"), the UK GDPR, and the California Consumer Privacy Act ("CCPA"). Subject to applicable law, you may have the right to:
+  </p>
+  <ul>
+    <li><strong>Access</strong> the personal data held about you.</li>
+    <li><strong>Request correction</strong> of inaccurate personal data.</li>
+    <li><strong>Request deletion</strong> of your personal data.</li>
+    <li><strong>Object to or restrict</strong> certain processing of your personal data.</li>
+    <li><strong>Request portability</strong> of your personal data.</li>
+    <li><strong>Withdraw consent</strong> at any time where processing is based on consent.</li>
+    <li><strong>Opt out of the "sale" or "sharing"</strong> of personal information (as defined under the CCPA).</li>
+    <li><strong>Not be discriminated against</strong> for exercising your privacy rights.</li>
+  </ul>
+  <p>
+    To exercise any of these rights, please <a href="mailto:contact@timerclock.app">contact us</a>. We will respond to verified requests within the timeframes required by applicable law. Note that because the timer itself never transmits your durations or results, most requests regarding that data are automatically satisfied — it simply never leaves your device.
+  </p>
+
+  <h2>8. Children's Privacy</h2>
+  <p>
+    The timer is a simple, safe tool suitable for all ages, including children under 13. Because timer content never leaves your device, we do not collect any personal information from children through the timer itself.
+  </p>
+  <p>
+    However, third-party analytics and advertising partners may collect limited technical data (such as IP address and cookie identifiers) as described in Sections 3–5. Parents and teachers using the site with children should be aware of this. We do not knowingly collect personal information directly from children under 16. If you are a parent or guardian and believe a child has submitted personal information to us, please <a href="mailto:contact@timerclock.app">contact us</a> so we can take appropriate action.
+  </p>
+
+  <h2>9. Data Security</h2>
+  <p>
+    The timer's core functionality — countdown math, ring animation, stopwatch timing, lap recording, and audio alerts — runs entirely in your browser using standard, well-reviewed web APIs:
+  </p>
+  <ul>
+    <li><code>Date.now()</code> and <code>setInterval()</code> for precise timing</li>
+    <li>The SVG API for the visual progress ring</li>
+    <li>The Web Audio API for the timer beep and sound effects</li>
+    <li><code>localStorage</code> for basic preferences (mute state, language)</li>
+    <li><code>navigator.vibrate()</code> (where supported) for haptic feedback</li>
+  </ul>
+  <p>
+    Because the timer content you set never leaves your device, there is no server-side store of that data to breach. Data transmitted to third-party analytics and advertising partners is encrypted in transit (HTTPS) and handled according to their own security standards.
+  </p>
+
+  <h2>10. Changes to This Policy</h2>
+  <p>
+    We may update this Privacy Policy from time to time to reflect changes to the site, its partners, or applicable law. When we do, we'll update the "Last updated" date at the top of this page. Material changes will be announced clearly on this page before taking effect.
+  </p>
+
+  <h2>11. Contact Us</h2>
+  <p>
+    Have a question about this Privacy Policy? We're happy to help.
+  </p>
+  <ul>
+    <li><strong>Email:</strong> <a href="mailto:contact@timerclock.app">contact@timerclock.app</a></li>
+    <li><strong>Response time:</strong> typically within 48 hours</li>
+  </ul>
+  <p>
+    Head back to the <a href="/">timer</a> and start counting down.
+  </p>
+
+</main>
+
+</body>
+</html>

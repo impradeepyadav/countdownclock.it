@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Privacy Policy — Timer Clock</title>
+<!-- Google Tag Manager (standard snippet — dataLayer init first) -->
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K4L3JFT4');
+</script>
+<!-- End Google Tag Manager -->
+
+<title>Privacy Policy — timerclock.app</title>
 <meta name="description" content="Privacy Policy for Timer Clock — learn how we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -14,12 +24,13 @@
 <meta name="theme-color" content="#ffffff" id="themeColorMeta">
 <link rel="canonical" href="https://timerclock.app/privacy">
 
-<link rel="alternate" hreflang="x-default" href="https://timerclock.app/privacy">
+<!-- Hreflang — matches tool pages (en first, x-default last) -->
 <link rel="alternate" hreflang="en" href="https://timerclock.app/privacy">
 <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/privacy">
 <link rel="alternate" hreflang="es" href="https://timerclock.app/es/privacy">
 <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/privacy">
 <link rel="alternate" hreflang="de" href="https://timerclock.app/de/privacy">
+<link rel="alternate" hreflang="x-default" href="https://timerclock.app/privacy">
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
@@ -64,7 +75,7 @@
 </script>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"PrivacyPolicyPage","name":"Privacy Policy — Timer Clock","url":"https://timerclock.app/privacy","description":"Privacy Policy for Timer Clock — learn how we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.","inLanguage":"en-US","isPartOf":{"@id":"https://timerclock.app/#website"},"publisher":{"@id":"https://timerclock.app/#organization"},"dateModified":"2026-11-12"}
+{"@context":"https://schema.org","@type":"PrivacyPolicyPage","name":"Privacy Policy — Timer Clock","url":"https://timerclock.app/privacy","description":"Privacy Policy for Timer Clock — learn how we use cookies, Google Analytics, and third-party ads while keeping your timer data local and private.","inLanguage":"en-US","isPartOf":{"@id":"https://timerclock.app/#website"},"publisher":{"@id":"https://timerclock.app/#organization"},"dateModified":"2026-11-13"}
 </script>
 
 <script type="application/ld+json">
@@ -146,12 +157,15 @@ button:focus-visible{
   top: 0;
   z-index: 100;
   box-shadow: 0 2px 4px var(--shadow);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .top-bar-left{
   display: flex;
   align-items: center;
   gap: 16px;
+  min-width: 0;
 }
 
 .back-link{
@@ -182,12 +196,14 @@ button:focus-visible{
   font-weight: 600;
   color: var(--text-strong);
   letter-spacing: -0.3px;
+  white-space: nowrap;
 }
 
 .top-bar-right{
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 8px;
+  min-width: 0;
 }
 
 .feedback-btn{
@@ -217,6 +233,79 @@ button:focus-visible{
   height: 20px;
   fill: var(--icon-fill);
   color: var(--icon-fill);
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   LANGUAGE SWITCHER (new — matches tool pages)
+   ============================================================ */
+.lang-dropdown{
+  position: relative;
+}
+
+.lang-btn{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-strong);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.lang-btn:hover{
+  background-color: var(--hover-bg);
+}
+
+.caret{
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 1px;
+}
+
+.dropdown-content{
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  background-color: var(--bg);
+  min-width: 150px;
+  max-width: calc(100vw - 32px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.dropdown-content a{
+  display: block;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-content a:hover{
+  background-color: var(--hover-bg);
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+.dropdown-content.show{
+  display: block;
 }
 
 /* ============================================================
@@ -357,13 +446,18 @@ code{
   .top-bar{
     padding: 10px 12px;
   }
+  /* FIX: hide branding on very small screens so language + feedback fit */
   .site-name{
-    font-size: 16px;
-    letter-spacing: -0.2px;
+    display: none;
   }
   .back-link svg{
     width: 20px;
     height: 20px;
+  }
+  .lang-btn,
+  .feedback-btn{
+    font-size: 14px;
+    padding: 7px 10px;
   }
   h1{
     font-size: 24px;
@@ -383,9 +477,6 @@ code{
 }
 
 @media (max-width: 320px){
-  .site-name{
-    font-size: 14.5px;
-  }
   h1{
     font-size: 22px;
   }
@@ -414,10 +505,16 @@ code{
 </head>
 <body>
 
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4L3JFT4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <!-- Top Navigation Bar -->
 <header class="top-bar">
   <div class="top-bar-left">
-    <a href="/" class="back-link" aria-label="Go back to timer">
+    <!-- FIX: href="../" resolves to the correct localized home regardless of /privacy or /hi/privacy, /es/privacy, … -->
+    <a href="../" class="back-link" aria-label="Go back to timer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="19" y1="12" x2="5" y2="12"></line>
         <polyline points="12 19 5 12 12 5"></polyline>
@@ -427,6 +524,20 @@ code{
   </div>
 
   <div class="top-bar-right">
+    <!-- Language switcher (new) — links all localized privacy pages -->
+    <div class="lang-dropdown">
+      <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
+        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+      </button>
+      <div class="dropdown-content" id="langDropdown" role="menu">
+        <a href="/privacy" hreflang="en" role="menuitem">English (US)</a>
+        <a href="/hi/privacy" hreflang="hi" role="menuitem">हिंदी</a>
+        <a href="/es/privacy" hreflang="es" role="menuitem">Español</a>
+        <a href="/fr/privacy" hreflang="fr" role="menuitem">Français</a>
+        <a href="/de/privacy" hreflang="de" role="menuitem">Deutsch</a>
+      </div>
+    </div>
+
     <button class="feedback-btn" onclick="window.location.href='mailto:contact@timerclock.app'" aria-label="Send feedback">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
@@ -440,7 +551,7 @@ code{
 
   <h1>Privacy Policy</h1>
 
-  <p class="last-updated">Last updated: November 12, 2026</p>
+  <p class="last-updated">Last updated: November 13, 2026</p>
 
   <p class="intro-text">
     At <strong>Timer Clock</strong>, your privacy matters to us. This page explains exactly what information is collected when you use our site, how it is used, and the choices you have. The core of the timer — the durations you set, the countdowns you run, and the stopwatch results you record — stays entirely in your browser and is never sent to any server. The only data collected comes from advertising and analytics partners that help keep the site free to use.
@@ -583,10 +694,51 @@ code{
     <li><strong>Response time:</strong> typically within 48 hours</li>
   </ul>
   <p>
-    Head back to the <a href="/">timer</a> and start counting down.
+    Head back to the <a href="../">timer</a> and start counting down.
   </p>
 
 </main>
+
+<script>
+  // ---------- Language dropdown ----------
+  function toggleLangDropdown(e) {
+    e.stopPropagation();
+    const dd = document.getElementById('langDropdown');
+    const btn = document.getElementById('langBtn');
+    const willShow = !dd.classList.contains('show');
+    dd.classList.toggle('show', willShow);
+    if (btn) btn.setAttribute('aria-expanded', willShow ? 'true' : 'false');
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = document.getElementById('langBtn');
+    const dd = document.getElementById('langDropdown');
+    if (!btn || !dd) return;
+    if (!btn.contains(e.target) && !dd.contains(e.target)) {
+      dd.classList.remove('show');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const dd = document.getElementById('langDropdown');
+      const btn = document.getElementById('langBtn');
+      if (dd && dd.classList.contains('show')) {
+        dd.classList.remove('show');
+        if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
+      }
+    }
+  });
+
+  // Blur buttons after mouse clicks so Space won't re-trigger them (matches tool pages)
+  document.addEventListener('click', (e) => {
+    if (e.detail > 0) {
+      const btn = e.target.closest('button');
+      if (btn) btn.blur();
+    }
+  });
+</script>
 
 </body>
 </html>

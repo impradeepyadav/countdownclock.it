@@ -7,7 +7,7 @@
     <meta name="description" content="Looking for an online timer or stopwatch? Set a free countdown timer, track elapsed time, and measure seconds, minutes, and hours.">
     <link rel="canonical" href="https://timerclock.app/">
 
-    <!-- Google Tag Manager (standard snippet: dataLayer init happens first) -->
+    <!-- Google Tag Manager -->
     <script>
       (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -63,7 +63,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Structured Data: WebApplication -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -81,6 +81,7 @@
         "Stopwatch with lap functionality",
         "Custom time presets from 1 to 60 minutes",
         "Sound alerts",
+        "Fullscreen mode with clock and settings",
         "Keyboard shortcuts (Space to start/pause)",
         "Responsive design for all devices"
       ],
@@ -111,7 +112,6 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* FIX: user-select scoped instead of global; text stays selectable */
         body {
             user-select: none;
             -webkit-user-select: none;
@@ -151,25 +151,24 @@
             gap: clamp(10px, 2vh, 20px);
         }
 
-        .top-bar {
+        /* ================= SITE HEADER ================= */
+        .site-header {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             flex-wrap: wrap;
-            gap: clamp(12px, 2vw, 20px);
+            gap: clamp(10px, 2vw, 22px);
             flex-shrink: 0;
             min-width: 0;
         }
 
-        .header {
-            text-align: left;
-            max-width: 800px;
-            flex: 1 1 auto;
-            min-width: 0;
+        .brand {
             display: flex;
             align-items: center;
-            gap: clamp(10px, 2vw, 18px);
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
         }
 
         .header-logo {
@@ -182,20 +181,21 @@
 
         .header-text { min-width: 0; }
 
-        .header h1 {
-            font-size: clamp(24px, min(4.4vh, 7vw), 42px);
+        .site-header h1 {
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
             font-weight: 900;
-            color: var(--text-main);
-            margin-bottom: 0.5vh;
             letter-spacing: -0.5px;
-            line-height: 1.1;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
             overflow-wrap: break-word;
         }
 
-        .header p {
-            font-size: clamp(14px, min(2vh, 3.8vw), 18px);
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.45;
+            max-width: 62ch;
             overflow-wrap: break-word;
         }
 
@@ -205,9 +205,9 @@
             justify-content: flex-end;
             flex-wrap: wrap;
             gap: clamp(10px, 1.8vw, 22px);
-            padding-top: 6px;
             flex: 0 0 auto;
             min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
         }
 
         .mode-switch {
@@ -282,7 +282,6 @@
             color: var(--text-main);
         }
 
-        /* FIX: visible pressed state for active preset */
         .preset-btn.active,
         .preset-btn.active:hover {
             background-color: var(--green-primary);
@@ -341,6 +340,14 @@
             margin-left: 2px;
         }
 
+        /* FIX (#5): shrink text for long stopwatch durations (100+ hours) */
+        .time-text.long-time {
+            font-size: clamp(1.3rem, min(4.4vh, 7vw), 2.6rem);
+        }
+        .time-text.long-time .ms-text {
+            font-size: clamp(0.8rem, min(2.2vh, 3.8vw), 1.4rem);
+        }
+
         .status-text {
             font-size: clamp(12px, min(1.8vh, 3.4vw), 17px);
             font-weight: 700;
@@ -351,6 +358,105 @@
             text-align: center;
         }
 
+        /* ================= FULLSCREEN MODE ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            max-height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(10px, 1.8vh, 22px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Hide presets in fullscreen */
+        .main-content:fullscreen .presets,
+        .main-content:-webkit-full-screen .presets {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .timer-display,
+        .main-content:-webkit-full-screen .timer-display {
+            width: clamp(200px, min(50vh, 58vw), 480px);
+            height: clamp(200px, min(50vh, 58vw), 480px);
+            margin: 0.5vh 0;
+        }
+
+        .main-content:fullscreen .time-text,
+        .main-content:-webkit-full-screen .time-text {
+            font-size: clamp(2.2rem, min(10vh, 12vw), 5.4rem);
+        }
+
+        .main-content:fullscreen .time-text .ms-text,
+        .main-content:-webkit-full-screen .time-text .ms-text {
+            font-size: clamp(1.2rem, min(5vh, 6vw), 2.8rem);
+        }
+
+        .main-content:fullscreen .time-text.long-time,
+        .main-content:-webkit-full-screen .time-text.long-time {
+            font-size: clamp(1.6rem, min(7vh, 9vw), 3.6rem);
+        }
+        .main-content:fullscreen .time-text.long-time .ms-text,
+        .main-content:-webkit-full-screen .time-text.long-time .ms-text {
+            font-size: clamp(0.9rem, min(3.5vh, 4.5vw), 2rem);
+        }
+
+        .main-content:fullscreen .status-text,
+        .main-content:-webkit-full-screen .status-text {
+            font-size: clamp(13px, min(2.6vh, 3.8vw), 22px);
+            letter-spacing: 0.4vh;
+        }
+
+        /* Exit button — icon only, NO background */
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover,
+        .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            background: transparent;
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= INPUTS / CONTROLS ================= */
         .input-group {
             display: flex;
             justify-content: center;
@@ -663,17 +769,17 @@
         .dropdown-content.show { display: block; }
 
         @media (max-width: 768px) {
-            .top-bar {
+            .site-header {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
                 gap: 12px;
             }
-            .header {
-                text-align: center;
-                max-width: 100%;
+            .brand {
                 flex-direction: column;
                 align-items: center;
+                text-align: center;
+                max-width: 100%;
             }
             .top-controls { justify-content: center; padding-top: 0; }
             .dropdown-content {
@@ -691,6 +797,8 @@
             .btn { gap: 7px; }
             .colon { margin-bottom: 1.6vh; }
             .inline-links { gap: 8px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
         }
 
         @media (max-width: 380px) {
@@ -710,9 +818,9 @@
         }
 
         @media (max-height: 520px) {
-            .header p { display: none; }
+            .site-header p { display: none; }
             .container { gap: 8px; padding-top: 10px; }
-            .timer-display {
+            .main-content:not(:fullscreen):not(:-webkit-full-screen) .timer-display {
                 width: clamp(150px, min(48vh, 56vw), 240px);
                 height: clamp(150px, min(48vh, 56vw), 240px);
                 margin: 0.5vh 0;
@@ -730,9 +838,10 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <div class="container">
-        <div class="top-bar">
-            <div class="header">
-                <!-- FIX: higher-resolution logo source for crisp rendering -->
+
+        <!-- ===== SITE HEADER ===== -->
+        <header class="site-header">
+            <div class="brand">
                 <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
                 <div class="header-text">
                     <h1>Easy-to-Use Countdown Timer with Stopwatch</h1>
@@ -741,7 +850,6 @@
             </div>
 
             <div class="top-controls">
-                <!-- FIX: role="group" + aria-pressed instead of incomplete tablist -->
                 <div class="mode-switch" role="group" aria-label="Timer mode">
                     <button type="button" class="mode-btn active" id="btnModeCountdown" onclick="switchMode('countdown')" aria-pressed="true">
                         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
@@ -753,10 +861,9 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <div class="main-content">
-            <!-- FIX: data-minutes + aria-pressed for accessible pressed state -->
+        <div class="main-content" id="mainContent">
             <div class="presets" id="presetsSection" role="group" aria-label="Timer presets">
                 <button type="button" class="preset-btn" data-minutes="1"  aria-pressed="false" onclick="setPreset(1)">1 min</button>
                 <button type="button" class="preset-btn" data-minutes="5"  aria-pressed="false" onclick="setPreset(5)">5 min</button>
@@ -768,7 +875,7 @@
                 <button type="button" class="preset-btn" data-minutes="60" aria-pressed="false" onclick="setPreset(60)">1 hr</button>
             </div>
 
-            <div class="timer-display">
+            <div class="timer-display" id="timerDisplay">
                 <svg class="ring-svg" viewBox="0 0 280 280" aria-hidden="true">
                     <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
                     <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
@@ -777,6 +884,11 @@
                     <span id="mainTime">00:01:00</span><span class="ms-text" id="msTime"></span>
                 </div>
                 <div class="status-text" id="statusText" aria-live="polite">READY</div>
+
+                <!-- Exit fullscreen button (icon only, no background) -->
+                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen (Esc)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
             </div>
 
             <div class="input-group" id="inputsSection">
@@ -815,6 +927,10 @@
                         <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                         <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
                     </button>
+
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen clock" aria-label="Enter fullscreen clock">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
                 </div>
 
                 <div class="hint">
@@ -845,6 +961,7 @@
         // ---------- DOM Elements ----------
         const mainTime       = document.getElementById('mainTime');
         const msTime         = document.getElementById('msTime');
+        const timeDisplayEl  = document.getElementById('timeDisplay');
         const statusText     = document.getElementById('statusText');
         const startBtnText   = document.getElementById('startBtnText');
         const startBtn       = document.getElementById('startBtn');
@@ -873,10 +990,14 @@
         const langBtn        = document.getElementById('langBtn');
         const langDropdown   = document.getElementById('langDropdown');
 
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
         // ---------- State ----------
         let currentMode = 'countdown';
         let rafId = null;
-        let backstopId = null;          // FIX: setTimeout fallback for background tabs
+        let backstopId = null;
+        let zeroMsgTimeout = null;
         let isRunning = false;
 
         let targetTime = 0;
@@ -899,7 +1020,54 @@
         progressRing.style.strokeDasharray = circumference;
 
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
-        const ICON_LAP   = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>';
+        // FIX (#9): proper flag icon for "Lap" instead of a play-in-circle icon
+        const ICON_LAP   = '<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>';
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // FIX (#6): include MS-prefixed API in capability detection
+        const fsSupported = !!(
+            document.documentElement.requestFullscreen ||
+            document.documentElement.webkitRequestFullscreen ||
+            document.documentElement.msRequestFullscreen
+        );
+        if (!fsSupported) {
+            fsBtn.style.display = 'none';
+        }
 
         // ---------- Language Dropdown ----------
         function toggleLangDropdown(e) {
@@ -919,21 +1087,18 @@
             }
         });
 
-        // Blur buttons after MOUSE clicks only (so Space never re-triggers them,
-        // while keyboard users retain focus for accessibility).
         document.addEventListener('click', (e) => {
-            if (e.detail > 0) {
+            // FIX (#7): guard against non-Element targets
+            if (e.detail > 0 && e.target instanceof Element) {
                 const btn = e.target.closest('button');
                 if (btn) btn.blur();
             }
         });
 
         // ---------- UI helpers ----------
-        // state-driven setStartButton — 'paused' class means PAUSED (orange)
         function setStartButton(state) {
             const text = state === 'running' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Start');
             startBtnText.textContent = text;
-            // FIX: keep aria-label in sync with visible label
             startBtn.setAttribute('aria-label', `${text} timer`);
             startBtn.classList.toggle('paused', state === 'paused');
             playIcon.style.display  = state === 'running' ? 'none' : 'block';
@@ -947,7 +1112,6 @@
             resetIcon.innerHTML = lapMode ? ICON_LAP : ICON_RESET;
         }
 
-        // FIX: central helper to clear preset active state on manual edits
         function clearPresetActive() {
             document.querySelectorAll('.preset-btn').forEach(b => {
                 b.classList.remove('active');
@@ -969,7 +1133,6 @@
 
         function playBeep() {
             if (isMuted || !audioCtx) return;
-            // FIX: resume the context if the browser suspended it while hidden
             if (audioCtx.state === 'suspended') {
                 audioCtx.resume().catch(() => {});
             }
@@ -998,7 +1161,6 @@
         function switchMode(mode) {
             if (mode === currentMode) return;
 
-            // FIX: confirm if running OR if there is paused progress to discard
             const hasProgress = isRunning || remainingMs > 0 || stopwatchElapsed > 0;
             if (hasProgress) {
                 if (!confirm('Timer has progress. Switching modes will reset it. Continue?')) {
@@ -1007,10 +1169,10 @@
             }
 
             currentMode = mode;
+            // FIX (#1): resetTimer now clears BOTH countdown and stopwatch state,
+            // so switching stopwatch -> countdown can no longer leave stale lap data.
             resetTimer();
 
-            // FIX: re-enable inputs unconditionally on mode switch so they can't
-            // stay disabled from a previous countdown run.
             inputHours.disabled = false;
             inputMinutes.disabled = false;
             inputSeconds.disabled = false;
@@ -1067,12 +1229,16 @@
             mainTime.textContent =
                 `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
             msTime.textContent = '';
+            // FIX (#5): countdown never exceeds 8 chars, so clear the shrink class
+            timeDisplayEl.classList.remove('long-time');
         }
 
         function updateStopwatchDisplay() {
             const timeObj = formatStopwatchTime(stopwatchElapsed);
             mainTime.textContent = timeObj.main;
             msTime.textContent = timeObj.ms;
+            // FIX (#5): shrink text when the stopwatch runs past 99 hours
+            timeDisplayEl.classList.toggle('long-time', timeObj.main.length > 8);
 
             const currentSecs = (stopwatchElapsed / 1000) % 60;
             const offset = circumference - (currentSecs / 60) * circumference;
@@ -1095,10 +1261,6 @@
         }
 
         // ---------- Inputs ----------
-        // Only clamp when value exceeds bounds during typing; normalize on blur.
-        // FIX: do NOT call updateTimeFromInputs() on blur unless normalization
-        // actually changed the value — this prevents a paused countdown from being
-        // reset back to its original duration by an incidental focus/blur.
         function setupInput(input, max) {
             input.addEventListener('input', () => {
                 if (input.value !== '') {
@@ -1164,7 +1326,19 @@
             if (currentMode === 'countdown') {
                 if (remainingMs <= 0 && totalSeconds <= 0) updateTimeFromInputs();
                 const msToRun = remainingMs > 0 ? remainingMs : (totalSeconds * 1000);
-                if (msToRun <= 0) return;
+                if (msToRun <= 0) {
+                    // FIX (#10): give feedback instead of silently doing nothing
+                    statusText.textContent = 'SET TIME';
+                    statusText.style.color = 'var(--danger)';
+                    clearTimeout(zeroMsgTimeout);
+                    zeroMsgTimeout = setTimeout(() => {
+                        if (!isRunning && currentMode === 'countdown' && remainingMs <= 0 && totalSeconds <= 0) {
+                            statusText.textContent = 'READY';
+                            statusText.style.color = 'var(--text-muted)';
+                        }
+                    }, 1500);
+                    return;
+                }
 
                 if (remainingMs <= 0) initialTotalSeconds = totalSeconds;
 
@@ -1176,8 +1350,6 @@
                 inputMinutes.disabled = true;
                 inputSeconds.disabled = true;
 
-                // FIX: setTimeout backstop so the alarm still fires when rAF is
-                // throttled/paused in a hidden tab.
                 clearTimeout(backstopId);
                 backstopId = setTimeout(finishCountdown, msToRun);
             } else {
@@ -1195,7 +1367,7 @@
         }
 
         function countdownLoop() {
-            if (!isRunning) return; // orphan loop guard
+            if (!isRunning) return;
             const remaining = Math.max(0, targetTime - Date.now());
             remainingMs = remaining;
 
@@ -1219,14 +1391,14 @@
         }
 
         function stopwatchLoop() {
-            if (!isRunning) return; // orphan loop guard
+            if (!isRunning) return;
             stopwatchElapsed = Date.now() - stopwatchStartTime;
             updateStopwatchDisplay();
             rafId = requestAnimationFrame(stopwatchLoop);
         }
 
         function finishCountdown() {
-            if (!isRunning) return; // idempotent: ignore duplicate rAF/backstop calls
+            if (!isRunning) return;
             cancelAnimationFrame(rafId);
             rafId = null;
             clearTimeout(backstopId);
@@ -1239,7 +1411,8 @@
             statusText.textContent = "TIME'S UP!";
             statusText.style.color = 'var(--danger)';
             progressRing.style.stroke = 'var(--danger)';
-            progressRing.style.strokeDashoffset = '0';
+            // FIX (#2): empty ring at time-up (was '0', which drew a FULL red ring)
+            progressRing.style.strokeDashoffset = String(circumference);
             setStartButton('ready');
 
             playBeep();
@@ -1265,9 +1438,9 @@
                     progressRing.style.strokeDashoffset =
                         circumference - (remainingMs / initMs) * circumference;
                 }
-                inputHours.disabled = false;
-                inputMinutes.disabled = false;
-                inputSeconds.disabled = false;
+                // FIX (#4): keep inputs disabled while paused so a stray edit
+                // cannot silently throw away the paused remaining time.
+                // They are re-enabled on Reset / finish / preset-apply.
             } else {
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
                 updateStopwatchDisplay();
@@ -1284,30 +1457,32 @@
             rafId = null;
             clearTimeout(backstopId);
             backstopId = null;
+            clearTimeout(zeroMsgTimeout);
+            zeroMsgTimeout = null;
             isRunning = false;
             remainingMs = 0;
 
-            // FIX: re-enable inputs unconditionally (covers all reset paths)
             inputHours.disabled = false;
             inputMinutes.disabled = false;
             inputSeconds.disabled = false;
+
+            // FIX (#1): always clear stopwatch state, regardless of current mode
+            stopwatchElapsed = 0;
+            stopwatchStartTime = 0;
+            lapCount = 0;
+            lastLapMs = 0;
+            lapsSection.innerHTML = '';
 
             if (currentMode === 'countdown') {
                 updateTimeFromInputs();
                 progressRing.style.stroke = 'var(--green-primary)';
                 statusText.textContent = 'READY';
             } else {
-                stopwatchElapsed = 0;
-                stopwatchStartTime = 0;
-                lapCount = 0;
-                lastLapMs = 0;
-                lapsSection.innerHTML = '';
                 updateDisplay();
                 progressRing.style.stroke = 'var(--blue-primary)';
                 statusText.textContent = 'READY';
             }
 
-            // FIX: single assignment (was duplicated across branches)
             statusText.style.color = 'var(--text-muted)';
             setStartButton('ready');
             setLapButton(false);
@@ -1326,7 +1501,6 @@
         function recordLap() {
             if (!isRunning) return;
             lapCount++;
-            // FIX: keep state var and lap math consistent
             stopwatchElapsed = Date.now() - stopwatchStartTime;
             const currentTotalMs = stopwatchElapsed;
             const lapTime = currentTotalMs - lastLapMs;
@@ -1346,12 +1520,16 @@
 
         // ---------- Presets ----------
         function setPreset(minutes) {
-            if (isRunning && !confirm('Timer is running. Reset and apply this preset?')) return;
+            // FIX (#3): also confirm when a paused countdown has remaining time
+            const hasProgress = isRunning || remainingMs > 0;
+            if (hasProgress && !confirm('Timer is running or paused. Reset and apply this preset?')) return;
 
             cancelAnimationFrame(rafId);
             rafId = null;
             clearTimeout(backstopId);
             backstopId = null;
+            clearTimeout(zeroMsgTimeout);
+            zeroMsgTimeout = null;
             isRunning = false;
             remainingMs = 0;
 
@@ -1369,7 +1547,6 @@
             setStartButton('ready');
             setLapButton(false);
 
-            // FIX: reflect pressed state on the chosen preset
             document.querySelectorAll('.preset-btn').forEach(b => {
                 const active = b.dataset.minutes === String(minutes);
                 b.classList.toggle('active', active);
@@ -1433,7 +1610,6 @@
             inputSeconds.value = s;
             updateTimeFromInputs();
 
-            // FIX: even if the request was clamped, keep meta consistent with what is shown.
             const shortParts = [], longParts = [];
             if (h > 0) { shortParts.push(`${h} Hour`); longParts.push(`${h} hour`); }
             if (m > 0) { shortParts.push(`${m} Min`);  longParts.push(`${m} minute`); }
@@ -1445,13 +1621,24 @@
             const newDesc  = `Free online ${longLabel} countdown timer with visual ring. No signup required.`;
             const newH1    = `${shortLabel} Timer`;
 
-            // Build a normalized canonical URL (always minutes then seconds)
             const canonParams = new URLSearchParams();
             const totalMin = h * 60 + m;
             if (totalMin > 0) canonParams.set('minutes', totalMin);
             if (s > 0)        canonParams.set('seconds', s);
             const qs = canonParams.toString();
-            const newUrl = `https://timerclock.app/${qs ? '?' + qs : ''}`;
+            const querySuffix = qs ? '?' + qs : '';
+
+            // FIX (#8): make canonical / og:url locale-aware instead of always root.
+            const localePrefixes = { hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
+            let currentBase = '/';
+            for (const prefix of Object.values(localePrefixes)) {
+                if (window.location.pathname.startsWith(prefix)) {
+                    currentBase = prefix;
+                    break;
+                }
+            }
+            const newUrl  = `https://timerclock.app${currentBase}${querySuffix}`;
+            const rootUrl = `https://timerclock.app/${querySuffix}`;
 
             document.title = newTitle;
 
@@ -1467,17 +1654,17 @@
             setMeta('meta[name="twitter:title"]', 'content', newTitle);
             setMeta('meta[name="twitter:description"]', 'content', newDesc);
 
-            const h1 = document.querySelector('.header h1');
+            const h1 = document.querySelector('.site-header h1');
             if (h1) h1.textContent = newH1;
 
-            // FIX: keep hreflang alternates consistent with canonical
             const langPaths = { en: '/', hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
             document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
                 const lang = link.getAttribute('hreflang');
                 if (lang === 'x-default') {
-                    link.setAttribute('href', newUrl);
+                    // x-default always points to the English root
+                    link.setAttribute('href', rootUrl);
                 } else if (langPaths[lang]) {
-                    link.setAttribute('href', `https://timerclock.app${langPaths[lang]}${qs ? '?' + qs : ''}`);
+                    link.setAttribute('href', `https://timerclock.app${langPaths[lang]}${querySuffix}`);
                 }
             });
         }

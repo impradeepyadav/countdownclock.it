@@ -237,78 +237,6 @@ button:focus-visible{
 }
 
 /* ============================================================
-   LANGUAGE SWITCHER (new — matches tool pages)
-   ============================================================ */
-.lang-dropdown{
-  position: relative;
-}
-
-.lang-btn{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--text-strong);
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  white-space: nowrap;
-}
-
-.lang-btn:hover{
-  background-color: var(--hover-bg);
-}
-
-.caret{
-  font-size: 10px;
-  color: var(--text-muted);
-  margin-top: 1px;
-}
-
-.dropdown-content{
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 6px;
-  background-color: var(--bg);
-  min-width: 150px;
-  max-width: calc(100vw - 32px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  z-index: 200;
-  overflow: hidden;
-}
-
-.dropdown-content a{
-  display: block;
-  padding: 10px 14px;
-  font-size: 14px;
-  color: var(--text);
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  white-space: nowrap;
-}
-
-.dropdown-content a:hover{
-  background-color: var(--hover-bg);
-  color: var(--text-strong);
-  text-decoration: none;
-}
-
-.dropdown-content.show{
-  display: block;
-}
-
-/* ============================================================
    MAIN CONTENT
    ============================================================ */
 .terms-container{
@@ -446,7 +374,6 @@ code{
   .top-bar{
     padding: 10px 12px;
   }
-  /* FIX: hide branding on very small screens so language + feedback fit */
   .site-name{
     display: none;
   }
@@ -454,7 +381,6 @@ code{
     width: 20px;
     height: 20px;
   }
-  .lang-btn,
   .feedback-btn{
     font-size: 14px;
     padding: 7px 10px;
@@ -513,7 +439,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Top Navigation Bar -->
 <header class="top-bar">
   <div class="top-bar-left">
-    <!-- FIX: href="../" resolves to the correct localized home regardless of /privacy or /hi/privacy, /es/privacy, … -->
+    <!-- href="../" returns to the correct localized home regardless of /privacy or /hi/privacy, /es/privacy, … -->
     <a href="../" class="back-link" aria-label="Go back to timer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -524,20 +450,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="top-bar-right">
-    <!-- Language switcher (new) — links all localized privacy pages -->
-    <div class="lang-dropdown">
-      <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
-        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
-      </button>
-      <div class="dropdown-content" id="langDropdown" role="menu">
-        <a href="/privacy" hreflang="en" role="menuitem">English (US)</a>
-        <a href="/hi/privacy" hreflang="hi" role="menuitem">हिंदी</a>
-        <a href="/es/privacy" hreflang="es" role="menuitem">Español</a>
-        <a href="/fr/privacy" hreflang="fr" role="menuitem">Français</a>
-        <a href="/de/privacy" hreflang="de" role="menuitem">Deutsch</a>
-      </div>
-    </div>
-
     <button class="feedback-btn" onclick="window.location.href='mailto:contact@timerclock.app'" aria-label="Send feedback">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"></path>
@@ -700,37 +612,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </main>
 
 <script>
-  // ---------- Language dropdown ----------
-  function toggleLangDropdown(e) {
-    e.stopPropagation();
-    const dd = document.getElementById('langDropdown');
-    const btn = document.getElementById('langBtn');
-    const willShow = !dd.classList.contains('show');
-    dd.classList.toggle('show', willShow);
-    if (btn) btn.setAttribute('aria-expanded', willShow ? 'true' : 'false');
-  }
-
-  document.addEventListener('click', (e) => {
-    const btn = document.getElementById('langBtn');
-    const dd = document.getElementById('langDropdown');
-    if (!btn || !dd) return;
-    if (!btn.contains(e.target) && !dd.contains(e.target)) {
-      dd.classList.remove('show');
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const dd = document.getElementById('langDropdown');
-      const btn = document.getElementById('langBtn');
-      if (dd && dd.classList.contains('show')) {
-        dd.classList.remove('show');
-        if (btn) { btn.setAttribute('aria-expanded', 'false'); btn.focus(); }
-      }
-    }
-  });
-
   // Blur buttons after mouse clicks so Space won't re-trigger them (matches tool pages)
   document.addEventListener('click', (e) => {
     if (e.detail > 0) {

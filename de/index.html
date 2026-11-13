@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown-Timer und Stoppuhr - Timer Clock</title>
-    <meta name="description" content="Suchen Sie einen Online-Timer oder eine Stoppuhr? Stellen Sie einen kostenlosen Countdown-Timer ein, messen Sie die verstrichene Zeit und zählen Sie Sekunden, Minuten und Stunden.">
+    <title>Countdown-Timer und Stoppuhr online - timerclock.app</title>
+    <meta name="description" content="Suchen Sie einen Online-Timer oder eine Stoppuhr? Stellen Sie einen kostenlosen Countdown-Timer ein, verfolgen Sie die verstrichene Zeit und messen Sie Sekunden, Minuten und Stunden.">
     <link rel="canonical" href="https://timerclock.app/de/">
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-K4L3JFT4');
+    </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Global SEO Meta -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -13,8 +23,8 @@
     <meta name="theme-color" content="#4caf50">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Countdown-Timer und Stoppuhr - TimerClock">
-    <meta property="og:description" content="Suchen Sie einen kostenlosen Online-Timer? Nutzen Sie unseren Countdown-Timer und die Stoppuhr, um herunterzuzählen, die verstrichene Zeit zu messen und jede Sekunde zu verfolgen.">
+    <meta property="og:title" content="TimerClock.app: Countdown-Timer und Stoppuhr online">
+    <meta property="og:description" content="Suchen Sie einen kostenlosen Online-Timer? Nutzen Sie unseren Countdown-Timer und die Stoppuhr, um herunterzuzählen und jede Sekunde zu messen.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://timerclock.app/de/">
     <meta property="og:image" content="https://timerclock.app/og-image.png">
@@ -25,20 +35,19 @@
     <meta property="og:locale:alternate" content="en_US">
     <meta property="og:locale:alternate" content="hi_IN">
     <meta property="og:locale:alternate" content="es_ES">
-    <meta property="og:locale:alternate" content="fr_FR">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Countdown-Timer und Stoppuhr - TimerClock">
-    <meta name="twitter:description" content="Suchen Sie einen kostenlosen Online-Timer? Nutzen Sie unseren Countdown-Timer und die Stoppuhr, um herunterzuzählen, die verstrichene Zeit zu messen und jede Sekunde zu verfolgen.">
+    <meta name="twitter:title" content="TimerClock.app: Countdown-Timer und Stoppuhr online">
+    <meta name="twitter:description" content="Suchen Sie einen kostenlosen Online-Timer? Nutzen Sie unseren Countdown-Timer und die Stoppuhr, um herunterzuzählen und jede Sekunde zu messen.">
     <meta name="twitter:image" content="https://timerclock.app/og-image.png">
 
-    <!-- Hreflang — same block on every language page -->
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/">
     <link rel="alternate" hreflang="en" href="https://timerclock.app/">
     <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/">
     <link rel="alternate" hreflang="es" href="https://timerclock.app/es/">
     <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/">
-    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/">
     <link rel="alternate" hreflang="x-default" href="https://timerclock.app/">
 
     <!-- Favicon / Logo -->
@@ -53,7 +62,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Structured Data: WebApplication (German) -->
+    <!-- Structured Data: WebApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -61,15 +70,11 @@
       "name": "Timer Clock",
       "url": "https://timerclock.app/de/",
       "inLanguage": "de",
-      "description": "Suchen Sie einen Online-Timer oder eine Stoppuhr? Stellen Sie einen kostenlosen Countdown-Timer ein, messen Sie die verstrichene Zeit und zählen Sie Sekunden, Minuten und Stunden.",
+      "description": "Suchen Sie einen Online-Timer oder eine Stoppuhr? Stellen Sie einen kostenlosen Countdown-Timer ein, verfolgen Sie die verstrichene Zeit und messen Sie Sekunden, Minuten und Stunden.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      },
+      "browserRequirements": "JavaScript erforderlich",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "featureList": [
         "Countdown-Timer mit visuellem Ring",
         "Stoppuhr mit Rundenfunktion",
@@ -103,7 +108,15 @@
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
+        }
+
+        body {
             user-select: none;
+            -webkit-user-select: none;
+        }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
         }
 
         html {
@@ -136,10 +149,8 @@
             gap: clamp(10px, 2vh, 20px);
         }
 
-        /* ---------- Top Bar ---------- */
         .top-bar {
             width: 100%;
-            max-width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -170,7 +181,7 @@
         .header-text { min-width: 0; }
 
         .header h1 {
-            font-size: clamp(26px, min(4.4vh, 7vw), 42px);
+            font-size: clamp(24px, min(4.4vh, 7vw), 42px);
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 0.5vh;
@@ -197,69 +208,37 @@
             min-width: 0;
         }
 
-        .privacy-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
-            font-weight: 200;
-            transition: color 0.2s;
-            display: inline-block;
-            padding: 6px 2px;
+        .mode-switch {
+            display: flex;
+            background-color: var(--gray-light);
+            border-radius: 30px;
+            padding: 2px;
+            max-width: 100%;
         }
 
-        .privacy-link:hover { color: var(--text-main); }
-
-        .lang-dropdown { position: relative; }
-
-        .lang-btn {
-            background: transparent;
-            color: var(--text-muted);
+        .mode-btn {
+            padding: 4px clamp(10px, 2.5vw, 16px);
+            border-radius: 25px;
             border: none;
-            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
-            font-weight: 200;
+            background: transparent;
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 15px);
+            font-weight: 500;
+            color: var(--text-muted);
             cursor: pointer;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
-            transition: color 0.2s;
-            padding: 6px 2px;
-        }
-
-        .lang-btn:hover { color: var(--text-main); }
-
-        .caret { font-size: 8px; margin-top: 2px; }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 8px;
-            background-color: var(--card-bg);
-            min-width: 130px;
-            max-width: calc(100vw - 24px);
-            box-shadow: 0 4px 15px var(--shadow-color);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .dropdown-content a {
-            color: var(--text-main);
-            padding: 10px 14px;
-            text-decoration: none;
-            display: block;
-            font-size: 13px;
-            font-weight: 200;
-            transition: background-color 0.2s;
+            gap: 4px;
             white-space: nowrap;
+            min-width: 0;
         }
 
-        .dropdown-content a:hover { background-color: var(--gray-light); }
-        .dropdown-content.show { display: block; }
+        .mode-btn.active {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
 
-        /* ---------- Main area ---------- */
         .main-content {
             display: flex;
             flex-direction: column;
@@ -273,40 +252,6 @@
             min-width: 0;
         }
 
-        /* ---------- Mode Switch ---------- */
-        .mode-switch {
-            display: flex;
-            background-color: var(--gray-light);
-            border-radius: 30px;
-            padding: 4px;
-            margin-bottom: 5px;
-            max-width: 100%;
-        }
-
-        .mode-btn {
-            padding: 8px clamp(12px, 3vw, 20px);
-            border-radius: 25px;
-            border: none;
-            background: transparent;
-            font-size: clamp(13px, min(1.9vh, 3.4vw), 16px);
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            white-space: nowrap;
-            min-width: 0;
-        }
-
-        .mode-btn.active {
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            box-shadow: 0 2px 5px var(--shadow-color);
-        }
-
-        /* ---------- Presets ---------- */
         .presets {
             display: flex;
             justify-content: center;
@@ -335,7 +280,12 @@
             color: var(--text-main);
         }
 
-        /* ---------- Timer ring ---------- */
+        .preset-btn.active,
+        .preset-btn.active:hover {
+            background-color: var(--green-primary);
+            color: #fff;
+        }
+
         .timer-display {
             position: relative;
             width: clamp(180px, min(36vh, 74vw), 350px);
@@ -367,12 +317,9 @@
             stroke-linecap: round;
             stroke-dasharray: 817;
             stroke-dashoffset: 0;
-            transition: stroke-dashoffset 0.1s linear, stroke 0.3s;
+            transition: stroke 0.3s;
         }
 
-        .ring-progress.stopwatch-mode { stroke: var(--blue-primary); }
-
-        /* ---------- Big time digits ---------- */
         .time-text {
             font-size: clamp(2rem, min(6.5vh, 10.5vw), 3.9rem);
             font-weight: 900;
@@ -401,7 +348,6 @@
             text-align: center;
         }
 
-        /* ---------- Inputs ---------- */
         .input-group {
             display: flex;
             justify-content: center;
@@ -451,6 +397,7 @@
 
         .input-wrapper input::-webkit-outer-spin-button,
         .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .input-wrapper input[type=number] { -moz-appearance: textfield; }
 
         .colon {
             font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
@@ -459,7 +406,6 @@
             margin-bottom: 2vh;
         }
 
-        /* ---------- Laps List ---------- */
         .laps-container {
             width: 100%;
             max-width: 320px;
@@ -488,7 +434,6 @@
 
         .lap-item span:first-child { color: var(--text-muted); }
 
-        /* ---------- Controls ---------- */
         .controls-wrapper {
             display: flex;
             flex-direction: column;
@@ -541,6 +486,11 @@
             box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
         }
 
+        .btn-start.paused:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+        }
+
         .btn-start.sw-mode {
             background-color: var(--blue-primary);
             box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
@@ -552,6 +502,8 @@
             background-color: #ff9800;
             box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
         }
+
+        .btn-start.sw-mode.paused:hover { background-color: #f57c00; }
 
         .btn-reset {
             background-color: var(--gray-light);
@@ -620,7 +572,7 @@
             fill: currentColor;
             flex-shrink: 0;
         }
-        
+
         svg.hint-icon {
             width: clamp(14px, min(2.1vh, 3.4vw), 18px);
             height: clamp(14px, min(2.1vh, 3.4vw), 18px);
@@ -635,6 +587,78 @@
             outline-offset: 2px;
         }
 
+        .inline-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 0.5vh;
+            width: 100%;
+        }
+
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-weight: 200;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 6px 2px;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown { position: relative; }
+
+        .lang-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-weight: 200;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+            padding: 6px 2px;
+        }
+
+        .lang-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            margin-bottom: 8px;
+            background-color: var(--card-bg);
+            min-width: 130px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 -4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+            font-weight: 200;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
@@ -642,9 +666,9 @@
                 text-align: center;
                 gap: 12px;
             }
-            .header { 
-                text-align: center; 
-                max-width: 100%; 
+            .header {
+                text-align: center;
+                max-width: 100%;
                 flex-direction: column;
                 align-items: center;
             }
@@ -659,24 +683,26 @@
         @media (max-width: 480px) {
             .container { padding: 14px 12px 12px; }
             .controls-wrapper { gap: 1.2vh; }
-            .mode-btn { padding: 7px 12px; gap: 5px; }
+            .mode-btn { padding: 4px 10px; gap: 4px; }
             .preset-btn { padding: 7px 12px; }
             .btn { gap: 7px; }
             .colon { margin-bottom: 1.6vh; }
+            .inline-links { gap: 8px; }
         }
 
         @media (max-width: 380px) {
-            .mode-btn { padding: 7px 10px; font-size: 13px; }
+            .mode-btn { padding: 3px 8px; font-size: 12px; }
             .preset-btn { padding: 6px 10px; font-size: 12px; }
             .btn { padding: 10px 15px; font-size: 14px; }
             .btn-icon { width: 44px; height: 44px; }
             .controls { gap: 8px; }
             .input-group { gap: 6px; }
+            .inline-links { gap: 6px; }
         }
 
         @media (max-width: 330px) {
             .preset-btn { padding: 6px 8px; }
-            .mode-btn { padding: 6px 8px; }
+            .mode-btn { padding: 3px 6px; }
             .btn { padding: 10px 12px; }
         }
 
@@ -695,72 +721,58 @@
 </head>
 <body>
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4L3JFT4"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class="container">
-        <!-- Top Bar -->
         <div class="top-bar">
             <div class="header">
-                <img src="https://timerclock.app/favicon.ico" alt="TimerClock Logo" class="header-logo" width="48" height="48" loading="eager">
+                <img src="/apple-touch-icon.png" alt="TimerClock Logo" class="header-logo" width="48" height="48" loading="eager">
                 <div class="header-text">
-                    <h1>Countdown-Timer</h1>
-                    <p>Stellen Sie einen Countdown-Timer ein oder verwenden Sie eine Stoppuhr für Kochen, Lernen, Workouts und alltägliche Aufgaben.</p>
+                    <h1>Benutzerfreundlicher Countdown-Timer mit Stoppuhr</h1>
+                    <p>Stellen Sie einen Countdown-Timer ein oder nutzen Sie die Stoppuhr für Kochen, Lernen, Training und tägliche Aufgaben.</p>
                 </div>
             </div>
-            
+
             <div class="top-controls">
-                <div class="lang-dropdown">
-                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Sprache auswählen">
-                        <span>Deutsch</span> <span class="caret">▼</span>
+                <div class="mode-switch" role="group" aria-label="Timer-Modus">
+                    <button type="button" class="mode-btn active" id="btnModeCountdown" onclick="switchMode('countdown')" aria-pressed="true">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        Countdown
                     </button>
-                    <div class="dropdown-content" id="langDropdown">
-                        <a href="/" hreflang="en" onclick="switchLang(event, '/')">English (US)</a>
-                        <a href="/hi/" hreflang="hi" onclick="switchLang(event, '/hi/')">हिंदी</a>
-                        <a href="/es/" hreflang="es" onclick="switchLang(event, '/es/')">Español</a>
-                        <a href="/fr/" hreflang="fr" onclick="switchLang(event, '/fr/')">Français</a>
-                        <a href="/de/" hreflang="de" onclick="switchLang(event, '/de/')">Deutsch</a>
-                    </div>
+                    <button type="button" class="mode-btn" id="btnModeStopwatch" onclick="switchMode('stopwatch')" aria-pressed="false">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+                        Stoppuhr
+                    </button>
                 </div>
-                <a href="/privacy" class="privacy-link">Datenschutz</a>
             </div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-
-            <!-- Mode Switcher -->
-            <div class="mode-switch" role="tablist" aria-label="Timer-Modus">
-                <button type="button" class="mode-btn active" id="btnModeCountdown" onclick="switchMode('countdown')" role="tab" aria-selected="true">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
-                    Countdown
-                </button>
-                <button type="button" class="mode-btn" id="btnModeStopwatch" onclick="switchMode('stopwatch')" role="tab" aria-selected="false">
-                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9a8.994 8.994 0 0 0 7.03-14.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-                    Stoppuhr
-                </button>
-            </div>
-
-            <!-- Presets -->
             <div class="presets" id="presetsSection" role="group" aria-label="Timer-Voreinstellungen">
-                <button type="button" class="preset-btn" onclick="setPreset(1)">1 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(5)">5 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(10)">10 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(15)">15 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(25)">25 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(30)">30 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(45)">45 Min</button>
-                <button type="button" class="preset-btn" onclick="setPreset(60)">1 Std</button>
+                <button type="button" class="preset-btn" data-minutes="1"  aria-pressed="false" onclick="setPreset(1)">1 Min</button>
+                <button type="button" class="preset-btn" data-minutes="5"  aria-pressed="false" onclick="setPreset(5)">5 Min</button>
+                <button type="button" class="preset-btn" data-minutes="10" aria-pressed="false" onclick="setPreset(10)">10 Min</button>
+                <button type="button" class="preset-btn" data-minutes="15" aria-pressed="false" onclick="setPreset(15)">15 Min</button>
+                <button type="button" class="preset-btn" data-minutes="25" aria-pressed="false" onclick="setPreset(25)">25 Min</button>
+                <button type="button" class="preset-btn" data-minutes="30" aria-pressed="false" onclick="setPreset(30)">30 Min</button>
+                <button type="button" class="preset-btn" data-minutes="45" aria-pressed="false" onclick="setPreset(45)">45 Min</button>
+                <button type="button" class="preset-btn" data-minutes="60" aria-pressed="false" onclick="setPreset(60)">1 Std</button>
             </div>
 
-            <!-- Timer Display -->
             <div class="timer-display">
                 <svg class="ring-svg" viewBox="0 0 280 280" aria-hidden="true">
                     <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
                     <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
                 </svg>
-                <div class="time-text" id="timeDisplay" role="timer" aria-live="off">00:01:00</div>
+                <div class="time-text" id="timeDisplay" role="timer" aria-live="off">
+                    <span id="mainTime">00:01:00</span><span class="ms-text" id="msTime"></span>
+                </div>
                 <div class="status-text" id="statusText" aria-live="polite">BEREIT</div>
             </div>
 
-            <!-- Inputs -->
             <div class="input-group" id="inputsSection">
                 <div class="input-wrapper">
                     <label for="inputHours">STUNDEN</label>
@@ -778,19 +790,17 @@
                 </div>
             </div>
 
-            <!-- Laps -->
             <div class="laps-container hidden" id="lapsSection" aria-label="Rundenzeiten"></div>
 
-            <!-- Controls -->
             <div class="controls-wrapper">
                 <div class="controls">
-                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="Timer starten oder pausieren">
+                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="Timer starten">
                         <svg class="icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         <span id="startBtnText">Starten</span>
                     </button>
 
-                    <button type="button" class="btn btn-reset" id="resetLapBtn" onclick="handleResetLap()" aria-label="Timer zurücksetzen oder Runde aufzeichnen">
+                    <button type="button" class="btn btn-reset" id="resetLapBtn" onclick="handleResetLap()" aria-label="Timer zurücksetzen">
                         <svg class="icon" id="resetIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
                         <span id="resetLapText">Zurücksetzen</span>
                     </button>
@@ -805,26 +815,44 @@
                     <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     <kbd>Leertaste</kbd> drücken zum Starten / Pausieren
                 </div>
+
+                <div class="inline-links">
+                    <div class="lang-dropdown">
+                        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Sprache auswählen">
+                            <span>Deutsch</span> <span class="caret">▼</span>
+                        </button>
+                        <div class="dropdown-content" id="langDropdown">
+                            <a href="/de/" hreflang="de" onclick="switchLang(event, '/de/')">Deutsch</a>
+                            <a href="/" hreflang="en" onclick="switchLang(event, '/')">English (US)</a>
+                            <a href="/hi/" hreflang="hi" onclick="switchLang(event, '/hi/')">हिंदी</a>
+                            <a href="/es/" hreflang="es" onclick="switchLang(event, '/es/')">Español</a>
+                            <a href="/fr/" hreflang="fr" onclick="switchLang(event, '/fr/')">Français</a>
+                        </div>
+                    </div>
+                    <a href="/de/privacy" class="privacy-link">Datenschutz</a>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         // ---------- DOM Elements ----------
-        const timeDisplay    = document.getElementById('timeDisplay');
+        const mainTime       = document.getElementById('mainTime');
+        const msTime         = document.getElementById('msTime');
         const statusText     = document.getElementById('statusText');
         const startBtnText   = document.getElementById('startBtnText');
         const startBtn       = document.getElementById('startBtn');
         const playIcon       = document.getElementById('playIcon');
         const pauseIcon      = document.getElementById('pauseIcon');
+        const resetLapBtn    = document.getElementById('resetLapBtn');
         const resetLapText   = document.getElementById('resetLapText');
         const resetIcon      = document.getElementById('resetIcon');
-        
+
         const progressRing   = document.getElementById('progressRing');
         const inputHours     = document.getElementById('inputHours');
         const inputMinutes   = document.getElementById('inputMinutes');
         const inputSeconds   = document.getElementById('inputSeconds');
-        
+
         const muteBtn        = document.getElementById('muteBtn');
         const soundOnIcon    = document.getElementById('soundOnIcon');
         const soundOffIcon   = document.getElementById('soundOffIcon');
@@ -841,7 +869,8 @@
 
         // ---------- State ----------
         let currentMode = 'countdown';
-        let timerInterval = null;
+        let rafId = null;
+        let backstopId = null;
         let isRunning = false;
 
         let targetTime = 0;
@@ -859,16 +888,14 @@
         const circumference = 2 * Math.PI * 130;
         let audioCtx;
 
-        // Max supported time: 99 hours, 59 min, 59 sec
         const MAX_SECONDS = 99 * 3600 + 59 * 60 + 59;
 
         progressRing.style.strokeDasharray = circumference;
 
-        // Icon paths
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
         const ICON_LAP   = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>';
 
-        // ---------- Language Dropdown (navigates to real URLs, preserves params) ----------
+        // ---------- Language Dropdown ----------
         function toggleLangDropdown(e) {
             e.stopPropagation();
             langDropdown.classList.toggle('show');
@@ -886,33 +913,60 @@
             }
         });
 
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
         // ---------- UI helpers ----------
-        function setStartButton(running, label) {
-            startBtnText.textContent = label;
-            startBtn.classList.toggle('paused', running);
-            playIcon.style.display  = running ? 'none' : 'block';
-            pauseIcon.style.display = running ? 'block' : 'none';
+        function setStartButton(state) {
+            const textMap = {
+                running: 'Pausieren',
+                paused: 'Fortsetzen',
+                ready: 'Starten'
+            };
+            const text = textMap[state] || 'Starten';
+            startBtnText.textContent = text;
+            startBtn.setAttribute('aria-label', `${text} Timer`);
+            startBtn.classList.toggle('paused', state === 'paused');
+            playIcon.style.display  = state === 'running' ? 'none' : 'block';
+            pauseIcon.style.display = state === 'running' ? 'block' : 'none';
         }
 
         function setLapButton(lapMode) {
-            resetLapText.textContent = lapMode ? 'Runde' : 'Zurücksetzen';
+            const text = lapMode ? 'Runde' : 'Zurücksetzen';
+            resetLapText.textContent = text;
+            resetLapBtn.setAttribute('aria-label', lapMode ? 'Runde aufzeichnen' : 'Timer zurücksetzen');
             resetIcon.innerHTML = lapMode ? ICON_LAP : ICON_RESET;
+        }
+
+        function clearPresetActive() {
+            document.querySelectorAll('.preset-btn').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
         }
 
         // ---------- Audio ----------
         function initAudio() {
             if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (err) { return; }
             }
             if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+                audioCtx.resume().catch(() => {});
             }
         }
 
         function playBeep() {
-            if (isMuted) return;
+            if (isMuted || !audioCtx) return;
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => {});
+            }
             try {
-                initAudio();
                 const beep = (delay) => {
                     const osc  = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
@@ -937,8 +991,9 @@
         function switchMode(mode) {
             if (mode === currentMode) return;
 
-            if (isRunning) {
-                if (!confirm('Der Timer läuft. Möchten Sie wirklich den Modus wechseln? Der aktuelle Timer wird zurückgesetzt.')) {
+            const hasProgress = isRunning || remainingMs > 0 || stopwatchElapsed > 0;
+            if (hasProgress) {
+                if (!confirm('Der Timer hat Fortschritt. Ein Moduswechsel setzt ihn zurück. Fortfahren?')) {
                     return;
                 }
             }
@@ -946,31 +1001,35 @@
             currentMode = mode;
             resetTimer();
 
+            inputHours.disabled = false;
+            inputMinutes.disabled = false;
+            inputSeconds.disabled = false;
+
             if (mode === 'countdown') {
                 btnModeCountdown.classList.add('active');
-                btnModeCountdown.setAttribute('aria-selected', 'true');
+                btnModeCountdown.setAttribute('aria-pressed', 'true');
                 btnModeStopwatch.classList.remove('active');
-                btnModeStopwatch.setAttribute('aria-selected', 'false');
+                btnModeStopwatch.setAttribute('aria-pressed', 'false');
 
                 presetsSection.classList.remove('hidden');
                 inputsSection.classList.remove('hidden');
                 lapsSection.classList.add('hidden');
                 muteBtn.style.display = 'flex';
 
-                progressRing.classList.remove('stopwatch-mode');
+                progressRing.style.stroke = 'var(--green-primary)';
                 startBtn.classList.remove('sw-mode');
             } else {
                 btnModeStopwatch.classList.add('active');
-                btnModeStopwatch.setAttribute('aria-selected', 'true');
+                btnModeStopwatch.setAttribute('aria-pressed', 'true');
                 btnModeCountdown.classList.remove('active');
-                btnModeCountdown.setAttribute('aria-selected', 'false');
+                btnModeCountdown.setAttribute('aria-pressed', 'false');
 
                 presetsSection.classList.add('hidden');
                 inputsSection.classList.add('hidden');
                 lapsSection.classList.remove('hidden');
                 muteBtn.style.display = 'none';
 
-                progressRing.classList.add('stopwatch-mode');
+                progressRing.style.stroke = 'var(--blue-primary)';
                 startBtn.classList.add('sw-mode');
             }
         }
@@ -991,44 +1050,74 @@
             return { main: `${hStr}${mStr}:${sStr}`, ms: `.${cStr}` };
         }
 
+        function updateCountdownText() {
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = totalSeconds % 60;
+            mainTime.textContent =
+                `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            msTime.textContent = '';
+        }
+
+        function updateStopwatchDisplay() {
+            const timeObj = formatStopwatchTime(stopwatchElapsed);
+            mainTime.textContent = timeObj.main;
+            msTime.textContent = timeObj.ms;
+
+            const currentSecs = (stopwatchElapsed / 1000) % 60;
+            const offset = circumference - (currentSecs / 60) * circumference;
+            progressRing.style.strokeDashoffset = offset;
+        }
+
         function updateDisplay() {
             if (currentMode === 'countdown') {
-                const h = Math.floor(totalSeconds / 3600);
-                const m = Math.floor((totalSeconds % 3600) / 60);
-                const s = totalSeconds % 60;
-                timeDisplay.textContent =
-                    `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-
-                if (initialTotalSeconds > 0) {
-                    const offset = circumference - (totalSeconds / initialTotalSeconds) * circumference;
-                    progressRing.style.strokeDashoffset = offset;
+                updateCountdownText();
+                const initMs = initialTotalSeconds * 1000;
+                if (initMs > 0) {
+                    progressRing.style.strokeDashoffset =
+                        circumference - ((totalSeconds * 1000) / initMs) * circumference;
                 } else {
                     progressRing.style.strokeDashoffset = circumference;
                 }
             } else {
-                const timeObj = formatStopwatchTime(stopwatchElapsed);
-                timeDisplay.innerHTML = `${timeObj.main}<span class="ms-text">${timeObj.ms}</span>`;
-
-                const currentSecs = (stopwatchElapsed / 1000) % 60;
-                const offset = circumference - (currentSecs / 60) * circumference;
-                progressRing.style.strokeDashoffset = offset;
+                updateStopwatchDisplay();
             }
         }
 
         // ---------- Inputs ----------
-        function validateInput(input, max) {
-            let val = parseInt(input.value, 10);
-            if (isNaN(val) || val < 0) val = 0;
-            if (val > max) val = max;
-            input.value = val;
+        function setupInput(input, max) {
+            input.addEventListener('input', () => {
+                if (input.value !== '') {
+                    const val = parseInt(input.value, 10);
+                    if (!isNaN(val)) {
+                        if (val > max) input.value = String(max);
+                        if (val < 0)  input.value = '0';
+                    }
+                }
+                if (!isRunning && currentMode === 'countdown') {
+                    clearPresetActive();
+                    updateTimeFromInputs();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                let val = parseInt(input.value, 10);
+                if (isNaN(val) || val < 0) val = 0;
+                if (val > max) val = max;
+                const normalized = String(val);
+                if (input.value !== normalized) {
+                    input.value = normalized;
+                    if (!isRunning && currentMode === 'countdown') {
+                        clearPresetActive();
+                        updateTimeFromInputs();
+                    }
+                }
+            });
         }
 
-        [inputHours, inputMinutes, inputSeconds].forEach(input => {
-            input.addEventListener('input', () => {
-                validateInput(input, input === inputHours ? 99 : 59);
-                if (!isRunning && currentMode === 'countdown') updateTimeFromInputs();
-            });
-        });
+        setupInput(inputHours, 99);
+        setupInput(inputMinutes, 59);
+        setupInput(inputSeconds, 59);
 
         function updateTimeFromInputs() {
             const h = parseInt(inputHours.value, 10) || 0;
@@ -1043,7 +1132,7 @@
                 progressRing.style.stroke = 'var(--green-primary)';
                 statusText.textContent = 'BEREIT';
                 statusText.style.color = 'var(--text-muted)';
-                setStartButton(false, 'Starten');
+                setStartButton('ready');
             }
 
             updateDisplay();
@@ -1063,96 +1152,133 @@
                 const msToRun = remainingMs > 0 ? remainingMs : (totalSeconds * 1000);
                 if (msToRun <= 0) return;
 
+                if (remainingMs <= 0) initialTotalSeconds = totalSeconds;
+
                 progressRing.style.stroke = 'var(--green-primary)';
                 targetTime = Date.now() + msToRun;
-                remainingMs = 0;
+                remainingMs = msToRun;
 
                 inputHours.disabled = true;
                 inputMinutes.disabled = true;
                 inputSeconds.disabled = true;
 
-                timerInterval = setInterval(() => {
-                    const remaining = Math.max(0, targetTime - Date.now());
-                    const remainingSecs = Math.ceil(remaining / 1000);
-
-                    if (remainingSecs !== totalSeconds) {
-                        totalSeconds = remainingSecs;
-                        updateDisplay();
-                    }
-
-                    if (remaining <= 0) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                        isRunning = false;
-                        remainingMs = 0;
-                        totalSeconds = 0;
-                        updateDisplay();
-
-                        statusText.textContent = "ZEIT ABGELAUFEN!";
-                        statusText.style.color = 'var(--danger)';
-                        progressRing.style.stroke = 'var(--danger)';
-                        progressRing.style.strokeDashoffset = '0';
-                        setStartButton(false, 'Starten');
-
-                        playBeep();
-
-                        inputHours.disabled = false;
-                        inputMinutes.disabled = false;
-                        inputSeconds.disabled = false;
-                    }
-                }, 200);
+                clearTimeout(backstopId);
+                backstopId = setTimeout(finishCountdown, msToRun);
             } else {
                 stopwatchStartTime = Date.now() - stopwatchElapsed;
-                timerInterval = setInterval(() => {
-                    stopwatchElapsed = Date.now() - stopwatchStartTime;
-                    updateDisplay();
-                }, 31);
-
                 setLapButton(true);
             }
 
             isRunning = true;
             statusText.textContent = 'LÄUFT';
             statusText.style.color = currentMode === 'countdown' ? 'var(--green-primary)' : 'var(--blue-primary)';
-            setStartButton(true, 'Pause');
+            setStartButton('running');
+
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(currentMode === 'countdown' ? countdownLoop : stopwatchLoop);
+        }
+
+        function countdownLoop() {
+            if (!isRunning) return;
+            const remaining = Math.max(0, targetTime - Date.now());
+            remainingMs = remaining;
+
+            const secs = Math.ceil(remaining / 1000);
+            if (secs !== totalSeconds) {
+                totalSeconds = secs;
+                updateCountdownText();
+            }
+
+            const initMs = initialTotalSeconds * 1000;
+            if (initMs > 0) {
+                progressRing.style.strokeDashoffset =
+                    circumference - (remaining / initMs) * circumference;
+            }
+
+            if (remaining <= 0) {
+                finishCountdown();
+                return;
+            }
+            rafId = requestAnimationFrame(countdownLoop);
+        }
+
+        function stopwatchLoop() {
+            if (!isRunning) return;
+            stopwatchElapsed = Date.now() - stopwatchStartTime;
+            updateStopwatchDisplay();
+            rafId = requestAnimationFrame(stopwatchLoop);
+        }
+
+        function finishCountdown() {
+            if (!isRunning) return;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+            isRunning = false;
+            remainingMs = 0;
+            totalSeconds = 0;
+            updateCountdownText();
+
+            statusText.textContent = 'ZEIT ABGELAUFEN!';
+            statusText.style.color = 'var(--danger)';
+            progressRing.style.stroke = 'var(--danger)';
+            progressRing.style.strokeDashoffset = '0';
+            setStartButton('ready');
+
+            playBeep();
+
+            inputHours.disabled = false;
+            inputMinutes.disabled = false;
+            inputSeconds.disabled = false;
         }
 
         function pauseTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
             isRunning = false;
 
             if (currentMode === 'countdown') {
                 remainingMs = Math.max(0, targetTime - Date.now());
                 totalSeconds = Math.ceil(remainingMs / 1000);
-                updateDisplay();
+                updateCountdownText();
+                const initMs = initialTotalSeconds * 1000;
+                if (initMs > 0) {
+                    progressRing.style.strokeDashoffset =
+                        circumference - (remainingMs / initMs) * circumference;
+                }
                 inputHours.disabled = false;
                 inputMinutes.disabled = false;
                 inputSeconds.disabled = false;
             } else {
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
-                updateDisplay();
+                updateStopwatchDisplay();
                 setLapButton(false);
             }
 
             statusText.textContent = 'PAUSIERT';
             statusText.style.color = 'var(--text-muted)';
-            setStartButton(false, 'Fortsetzen');
+            setStartButton('paused');
         }
 
         function resetTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
             isRunning = false;
             remainingMs = 0;
 
+            inputHours.disabled = false;
+            inputMinutes.disabled = false;
+            inputSeconds.disabled = false;
+
             if (currentMode === 'countdown') {
                 updateTimeFromInputs();
-                statusText.textContent = 'BEREIT';
                 progressRing.style.stroke = 'var(--green-primary)';
-                inputHours.disabled = false;
-                inputMinutes.disabled = false;
-                inputSeconds.disabled = false;
+                statusText.textContent = 'BEREIT';
             } else {
                 stopwatchElapsed = 0;
                 stopwatchStartTime = 0;
@@ -1160,12 +1286,12 @@
                 lastLapMs = 0;
                 lapsSection.innerHTML = '';
                 updateDisplay();
-                statusText.textContent = 'BEREIT';
                 progressRing.style.stroke = 'var(--blue-primary)';
+                statusText.textContent = 'BEREIT';
             }
 
             statusText.style.color = 'var(--text-muted)';
-            setStartButton(false, 'Starten');
+            setStartButton('ready');
             setLapButton(false);
         }
 
@@ -1180,18 +1306,22 @@
         }
 
         function recordLap() {
+            if (!isRunning) return;
             lapCount++;
-            const currentTotalMs = Date.now() - stopwatchStartTime;
+            stopwatchElapsed = Date.now() - stopwatchStartTime;
+            const currentTotalMs = stopwatchElapsed;
             const lapTime = currentTotalMs - lastLapMs;
             lastLapMs = currentTotalMs;
 
             const lapObj = formatStopwatchTime(lapTime);
             const lapDiv = document.createElement('div');
             lapDiv.className = 'lap-item';
-            lapDiv.innerHTML = `
-                <span>Runde ${lapCount}</span>
-                <span>+${lapObj.main}${lapObj.ms}</span>
-            `;
+            const label = document.createElement('span');
+            label.textContent = `Runde ${lapCount}`;
+            const value = document.createElement('span');
+            value.textContent = `+${lapObj.main}${lapObj.ms}`;
+            lapDiv.appendChild(label);
+            lapDiv.appendChild(value);
             lapsSection.prepend(lapDiv);
         }
 
@@ -1199,8 +1329,10 @@
         function setPreset(minutes) {
             if (isRunning && !confirm('Der Timer läuft. Zurücksetzen und diese Voreinstellung anwenden?')) return;
 
-            clearInterval(timerInterval);
-            timerInterval = null;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
             isRunning = false;
             remainingMs = 0;
 
@@ -1215,8 +1347,14 @@
             inputHours.disabled = false;
             inputMinutes.disabled = false;
             inputSeconds.disabled = false;
-            setStartButton(false, 'Starten');
+            setStartButton('ready');
             setLapButton(false);
+
+            document.querySelectorAll('.preset-btn').forEach(b => {
+                const active = b.dataset.minutes === String(minutes);
+                b.classList.toggle('active', active);
+                b.setAttribute('aria-pressed', active ? 'true' : 'false');
+            });
         }
 
         // ---------- Mute ----------
@@ -1236,7 +1374,7 @@
         // ---------- Keyboard ----------
         document.addEventListener('keydown', (e) => {
             if (e.repeat) return;
-            const el = e.target;
+            const el = e.target instanceof Element ? e.target : document.body;
             if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
 
             if (e.code === 'Space' || e.key === ' ') {
@@ -1245,92 +1383,83 @@
             }
         });
 
-        // ---------- Programmatic SEO: URL Parameter Init (German) ----------
+        // ---------- Programmatic SEO: URL Parameter Init ----------
         function initFromURL() {
             const params = new URLSearchParams(window.location.search);
-            const minutesParam = params.get('minutes');
-            const secondsParam = params.get('seconds');
+            const rawMin = params.get('minutes');
+            const rawSec = params.get('seconds');
 
-            const minutes = minutesParam !== null ? parseInt(minutesParam, 10) : NaN;
-            const seconds = secondsParam !== null ? parseInt(secondsParam, 10) : NaN;
+            if (rawMin === null && rawSec === null) return;
 
-            let hasTimeParam = false;
+            const minNum = rawMin !== null ? parseInt(rawMin, 10) : NaN;
+            const secNum = rawSec !== null ? parseInt(rawSec, 10) : NaN;
+
+            const validMin = !isNaN(minNum) && minNum >= 0;
+            const validSec = !isNaN(secNum) && secNum >= 0;
+            if (!validMin && !validSec) return;
+
             let totalSecs = 0;
+            if (validMin) totalSecs += minNum * 60;
+            if (validSec) totalSecs += secNum;
+            if (totalSecs <= 0) return;
 
-            if (!isNaN(minutes) && minutes >= 0) {
-                totalSecs += minutes * 60;
-                hasTimeParam = true;
-            }
-            if (!isNaN(seconds) && seconds >= 0) {
-                totalSecs += seconds;
-                hasTimeParam = true;
-            }
+            const clamped = Math.min(totalSecs, MAX_SECONDS);
+            const h = Math.min(99, Math.floor(clamped / 3600));
+            const m = Math.min(59, Math.floor((clamped % 3600) / 60));
+            const s = Math.min(59, clamped % 60);
 
-            if (hasTimeParam && totalSecs > 0) {
-                if (currentMode !== 'countdown') switchMode('countdown');
+            inputHours.value   = h;
+            inputMinutes.value = m;
+            inputSeconds.value = s;
+            updateTimeFromInputs();
 
-                inputHours.value   = Math.min(99, Math.floor(totalSecs / 3600));
-                inputMinutes.value = Math.min(59, Math.floor((totalSecs % 3600) / 60));
-                inputSeconds.value = Math.min(59, totalSecs % 60);
-                updateTimeFromInputs();
+            const shortParts = [], longParts = [];
+            if (h > 0) { shortParts.push(`${h} Std`);   longParts.push(`${h} Stunde`); }
+            if (m > 0) { shortParts.push(`${m} Min`);   longParts.push(`${m} Minute`); }
+            if (s > 0) { shortParts.push(`${s} Sek`);   longParts.push(`${s} Sekunde`); }
+            const shortLabel = shortParts.join(' ');
+            const longLabel  = longParts.join(' ');
 
-                // Skip title update if request exceeds supported max
-                if (totalSecs > MAX_SECONDS) return;
+            const newTitle = `${shortLabel} Timer - Kostenloser Online-Countdown`;
+            const newDesc  = `Kostenloser Online-Countdown-Timer für ${longLabel} mit visuellem Ring. Keine Anmeldung erforderlich.`;
+            const newH1    = `${shortLabel} Timer`;
 
-                let newTitle = null;
-                let newDesc  = null;
-                let newUrl   = null;
-                let newH1    = null;
+            const canonParams = new URLSearchParams();
+            const totalMin = h * 60 + m;
+            if (totalMin > 0) canonParams.set('minutes', totalMin);
+            if (s > 0)        canonParams.set('seconds', s);
+            const qs = canonParams.toString();
+            const newUrl = `https://timerclock.app/de/${qs ? '?' + qs : ''}`;
 
-                if (!isNaN(minutes) && minutes > 0 && isNaN(seconds)) {
-                    newTitle = `${minutes}-Minuten-Timer - Kostenloser Online-Countdown`;
-                    newDesc  = `Kostenloser Online-Countdown-Timer für ${minutes} Minuten mit visuellem Ring. Ideal zum Kochen, Lernen, für Workouts und Meetings. Keine Anmeldung erforderlich.`;
-                    newUrl   = `https://timerclock.app/de/?minutes=${minutes}`;
-                    newH1    = `${minutes}-Minuten-Timer`;
-                } else if (isNaN(minutes) && !isNaN(seconds) && seconds > 0) {
-                    newTitle = `${seconds}-Sekunden-Timer - Kostenloser Online-Countdown`;
-                    newDesc  = `Kostenloser Online-Countdown-Timer für ${seconds} Sekunden mit visuellem Ring. Perfekt für schnelle Aufgaben, Workouts und Kochen. Keine Anmeldung erforderlich.`;
-                    newUrl   = `https://timerclock.app/de/?seconds=${seconds}`;
-                    newH1    = `${seconds}-Sekunden-Timer`;
-                } else if (!isNaN(minutes) && minutes > 0 && !isNaN(seconds) && seconds > 0) {
-                    newTitle = `${minutes}-Minuten-${seconds}-Sekunden-Timer - Kostenloser Online-Countdown`;
-                    newDesc  = `Kostenloser Online-Countdown-Timer für ${minutes} Minuten und ${seconds} Sekunden mit visuellem Ring. Keine Anmeldung erforderlich.`;
-                    newUrl   = `https://timerclock.app/de/?minutes=${minutes}&seconds=${seconds}`;
-                    newH1    = `${minutes}m-${seconds}s-Timer`;
+            document.title = newTitle;
+
+            const setMeta = (selector, attr, value) => {
+                const el = document.querySelector(selector);
+                if (el) el.setAttribute(attr, value);
+            };
+            setMeta('meta[name="description"]', 'content', newDesc);
+            setMeta('link[rel="canonical"]', 'href', newUrl);
+            setMeta('meta[property="og:title"]', 'content', newTitle);
+            setMeta('meta[property="og:description"]', 'content', newDesc);
+            setMeta('meta[property="og:url"]', 'content', newUrl);
+            setMeta('meta[name="twitter:title"]', 'content', newTitle);
+            setMeta('meta[name="twitter:description"]', 'content', newDesc);
+
+            const h1 = document.querySelector('.header h1');
+            if (h1) h1.textContent = newH1;
+
+            const langPaths = { de: '/de/', en: '/', hi: '/hi/', es: '/es/', fr: '/fr/' };
+            document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
+                const lang = link.getAttribute('hreflang');
+                if (lang === 'x-default') {
+                    link.setAttribute('href', `https://timerclock.app/${qs ? '?' + qs : ''}`);
+                } else if (langPaths[lang]) {
+                    link.setAttribute('href', `https://timerclock.app${langPaths[lang]}${qs ? '?' + qs : ''}`);
                 }
-
-                if (newTitle) {
-                    document.title = newTitle;
-
-                    const metaDesc = document.querySelector('meta[name="description"]');
-                    if (metaDesc) metaDesc.setAttribute('content', newDesc);
-
-                    const canonical = document.querySelector('link[rel="canonical"]');
-                    if (canonical) canonical.setAttribute('href', newUrl);
-
-                    const ogTitle = document.querySelector('meta[property="og:title"]');
-                    if (ogTitle) ogTitle.setAttribute('content', newTitle);
-
-                    const ogDesc = document.querySelector('meta[property="og:description"]');
-                    if (ogDesc) ogDesc.setAttribute('content', newDesc);
-
-                    const ogUrl = document.querySelector('meta[property="og:url"]');
-                    if (ogUrl) ogUrl.setAttribute('content', newUrl);
-
-                    const twTitle = document.querySelector('meta[name="twitter:title"]');
-                    if (twTitle) twTitle.setAttribute('content', newTitle);
-
-                    const twDesc = document.querySelector('meta[name="twitter:description"]');
-                    if (twDesc) twDesc.setAttribute('content', newDesc);
-
-                    const h1 = document.querySelector('.header h1');
-                    if (h1) h1.textContent = newH1;
-                }
-            }
+            });
         }
 
         // ---------- Init ----------
-        switchMode('countdown');
         updateTimeFromInputs();
         initFromURL();
     </script>

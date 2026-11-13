@@ -61,7 +61,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -182,8 +182,9 @@
         .header-text { min-width: 0; }
 
         .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
             font-size: clamp(22px, min(4vh, 6.4vw), 38px);
-            font-weight: 900;
+            font-weight: 800;
             letter-spacing: -0.5px;
             line-height: 1.15;
             color: var(--text-main);
@@ -340,7 +341,6 @@
             margin-left: 2px;
         }
 
-        /* FIX (#5): shrink text for long stopwatch durations (100+ hours) */
         .time-text.long-time {
             font-size: clamp(1.3rem, min(4.4vh, 7vw), 2.6rem);
         }
@@ -376,7 +376,6 @@
             overflow-x: hidden;
         }
 
-        /* Hide presets in fullscreen */
         .main-content:fullscreen .presets,
         .main-content:-webkit-full-screen .presets {
             display: none !important;
@@ -414,7 +413,6 @@
             letter-spacing: 0.4vh;
         }
 
-        /* Exit button — icon only, NO background */
         .fs-exit-btn {
             display: none;
             position: fixed;
@@ -832,10 +830,8 @@
 </head>
 <body>
 
-    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K4L3JFT4"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <div class="container">
 
@@ -845,7 +841,6 @@
                 <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
                 <div class="header-text">
                     <h1>Set a Countdown Timer or Use an Online Stopwatch</h1>
-                    <p>Set a free countdown timer, track elapsed time, and measure seconds, minutes, and hours. track cooking, studying, workouts, and daily tasks.</p>
                 </div>
             </div>
 
@@ -885,7 +880,6 @@
                 </div>
                 <div class="status-text" id="statusText" aria-live="polite">READY</div>
 
-                <!-- Exit fullscreen button (icon only, no background) -->
                 <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen (Esc)">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
@@ -958,7 +952,6 @@
     </div>
 
     <script>
-        // ---------- DOM Elements ----------
         const mainTime       = document.getElementById('mainTime');
         const msTime         = document.getElementById('msTime');
         const timeDisplayEl  = document.getElementById('timeDisplay');
@@ -993,7 +986,6 @@
         const mainContent    = document.getElementById('mainContent');
         const fsBtn          = document.getElementById('fsBtn');
 
-        // ---------- State ----------
         let currentMode = 'countdown';
         let rafId = null;
         let backstopId = null;
@@ -1020,10 +1012,8 @@
         progressRing.style.strokeDasharray = circumference;
 
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
-        // FIX (#9): proper flag icon for "Lap" instead of a play-in-circle icon
         const ICON_LAP   = '<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>';
 
-        // ---------- Fullscreen ----------
         function getFullscreenElement() {
             return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
         }
@@ -1059,7 +1049,6 @@
         document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
         document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
-        // FIX (#6): include MS-prefixed API in capability detection
         const fsSupported = !!(
             document.documentElement.requestFullscreen ||
             document.documentElement.webkitRequestFullscreen ||
@@ -1069,7 +1058,6 @@
             fsBtn.style.display = 'none';
         }
 
-        // ---------- Language Dropdown ----------
         function toggleLangDropdown(e) {
             e.stopPropagation();
             langDropdown.classList.toggle('show');
@@ -1088,14 +1076,12 @@
         });
 
         document.addEventListener('click', (e) => {
-            // FIX (#7): guard against non-Element targets
             if (e.detail > 0 && e.target instanceof Element) {
                 const btn = e.target.closest('button');
                 if (btn) btn.blur();
             }
         });
 
-        // ---------- UI helpers ----------
         function setStartButton(state) {
             const text = state === 'running' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Start');
             startBtnText.textContent = text;
@@ -1119,7 +1105,6 @@
             });
         }
 
-        // ---------- Audio ----------
         function initAudio() {
             if (!audioCtx) {
                 try {
@@ -1157,7 +1142,6 @@
             } catch (err) { }
         }
 
-        // ---------- Mode ----------
         function switchMode(mode) {
             if (mode === currentMode) return;
 
@@ -1169,8 +1153,6 @@
             }
 
             currentMode = mode;
-            // FIX (#1): resetTimer now clears BOTH countdown and stopwatch state,
-            // so switching stopwatch -> countdown can no longer leave stale lap data.
             resetTimer();
 
             inputHours.disabled = false;
@@ -1206,7 +1188,6 @@
             }
         }
 
-        // ---------- Formatting / Display ----------
         function formatStopwatchTime(ms) {
             const totalSecs = Math.floor(ms / 1000);
             const h = Math.floor(totalSecs / 3600);
@@ -1229,7 +1210,6 @@
             mainTime.textContent =
                 `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
             msTime.textContent = '';
-            // FIX (#5): countdown never exceeds 8 chars, so clear the shrink class
             timeDisplayEl.classList.remove('long-time');
         }
 
@@ -1237,7 +1217,6 @@
             const timeObj = formatStopwatchTime(stopwatchElapsed);
             mainTime.textContent = timeObj.main;
             msTime.textContent = timeObj.ms;
-            // FIX (#5): shrink text when the stopwatch runs past 99 hours
             timeDisplayEl.classList.toggle('long-time', timeObj.main.length > 8);
 
             const currentSecs = (stopwatchElapsed / 1000) % 60;
@@ -1260,7 +1239,6 @@
             }
         }
 
-        // ---------- Inputs ----------
         function setupInput(input, max) {
             input.addEventListener('input', () => {
                 if (input.value !== '') {
@@ -1314,7 +1292,6 @@
             updateDisplay();
         }
 
-        // ---------- Timer control ----------
         function toggleTimer() {
             if (isRunning) pauseTimer();
             else startTimer();
@@ -1327,7 +1304,6 @@
                 if (remainingMs <= 0 && totalSeconds <= 0) updateTimeFromInputs();
                 const msToRun = remainingMs > 0 ? remainingMs : (totalSeconds * 1000);
                 if (msToRun <= 0) {
-                    // FIX (#10): give feedback instead of silently doing nothing
                     statusText.textContent = 'SET TIME';
                     statusText.style.color = 'var(--danger)';
                     clearTimeout(zeroMsgTimeout);
@@ -1411,7 +1387,6 @@
             statusText.textContent = "TIME'S UP!";
             statusText.style.color = 'var(--danger)';
             progressRing.style.stroke = 'var(--danger)';
-            // FIX (#2): empty ring at time-up (was '0', which drew a FULL red ring)
             progressRing.style.strokeDashoffset = String(circumference);
             setStartButton('ready');
 
@@ -1422,15 +1397,21 @@
             inputSeconds.disabled = false;
         }
 
+        /* ==== FIXED: pause-at-0 now finishes instead of restarting ==== */
         function pauseTimer() {
             cancelAnimationFrame(rafId);
             rafId = null;
             clearTimeout(backstopId);
             backstopId = null;
-            isRunning = false;
 
             if (currentMode === 'countdown') {
                 remainingMs = Math.max(0, targetTime - Date.now());
+                if (remainingMs <= 0) {
+                    // Timer already elapsed while pausing; finalize as finished.
+                    finishCountdown();
+                    return;
+                }
+                isRunning = false;
                 totalSeconds = Math.ceil(remainingMs / 1000);
                 updateCountdownText();
                 const initMs = initialTotalSeconds * 1000;
@@ -1438,10 +1419,8 @@
                     progressRing.style.strokeDashoffset =
                         circumference - (remainingMs / initMs) * circumference;
                 }
-                // FIX (#4): keep inputs disabled while paused so a stray edit
-                // cannot silently throw away the paused remaining time.
-                // They are re-enabled on Reset / finish / preset-apply.
             } else {
+                isRunning = false;
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
                 updateStopwatchDisplay();
                 setLapButton(false);
@@ -1466,7 +1445,6 @@
             inputMinutes.disabled = false;
             inputSeconds.disabled = false;
 
-            // FIX (#1): always clear stopwatch state, regardless of current mode
             stopwatchElapsed = 0;
             stopwatchStartTime = 0;
             lapCount = 0;
@@ -1488,7 +1466,6 @@
             setLapButton(false);
         }
 
-        // ---------- Reset / Lap ----------
         function handleResetLap() {
             if (currentMode === 'countdown') {
                 resetTimer();
@@ -1518,9 +1495,7 @@
             lapsSection.prepend(lapDiv);
         }
 
-        // ---------- Presets ----------
         function setPreset(minutes) {
-            // FIX (#3): also confirm when a paused countdown has remaining time
             const hasProgress = isRunning || remainingMs > 0;
             if (hasProgress && !confirm('Timer is running or paused. Reset and apply this preset?')) return;
 
@@ -1554,7 +1529,6 @@
             });
         }
 
-        // ---------- Mute ----------
         function toggleMute() {
             isMuted = !isMuted;
             if (isMuted) {
@@ -1568,7 +1542,6 @@
             }
         }
 
-        // ---------- Keyboard ----------
         document.addEventListener('keydown', (e) => {
             if (e.repeat) return;
             const el = e.target instanceof Element ? e.target : document.body;
@@ -1580,7 +1553,6 @@
             }
         });
 
-        // ---------- Programmatic SEO: URL Parameter Init ----------
         function initFromURL() {
             const params = new URLSearchParams(window.location.search);
             const rawMin = params.get('minutes');
@@ -1628,7 +1600,6 @@
             const qs = canonParams.toString();
             const querySuffix = qs ? '?' + qs : '';
 
-            // FIX (#8): make canonical / og:url locale-aware instead of always root.
             const localePrefixes = { hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
             let currentBase = '/';
             for (const prefix of Object.values(localePrefixes)) {
@@ -1661,7 +1632,6 @@
             document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
                 const lang = link.getAttribute('hreflang');
                 if (lang === 'x-default') {
-                    // x-default always points to the English root
                     link.setAttribute('href', rootUrl);
                 } else if (langPaths[lang]) {
                     link.setAttribute('href', `https://timerclock.app${langPaths[lang]}${querySuffix}`);
@@ -1669,7 +1639,6 @@
             });
         }
 
-        // ---------- Init ----------
         updateTimeFromInputs();
         initFromURL();
     </script>

@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interval Timer - Free HIIT & Tabata Timer | timerclock.app</title>
+    <meta name="description" content="Free online interval timer for HIIT, Tabata, and circuit training. Configure work, rest, rounds, and sets with audio cues and a visual countdown ring.">
+    <link rel="canonical" href="https://timerclock.app/interval-timer">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Interval Timer - Free HIIT & Tabata Timer">
+    <meta property="og:description" content="Free online interval timer for HIIT, Tabata, and circuit training. Configure work, rest, rounds, and sets.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/interval-timer">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Interval Timer - Free HIIT & Tabata Timer">
+    <meta name="twitter:description" content="Free online interval timer for HIIT, Tabata, and circuit training.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/interval-timer">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/interval-timer">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/interval-timer">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/interval-timer">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/interval-timer">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/interval-timer">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Interval Timer",
+      "url": "https://timerclock.app/interval-timer",
+      "inLanguage": "en",
+      "description": "Free online interval timer for HIIT, Tabata, and circuit training.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Configurable work and rest intervals",
+        "Multiple rounds and sets",
+        "Tabata and HIIT presets",
+        "Audio cues for interval transitions",
+        "Visual countdown ring",
+        "Round and set tracking",
+        "Fullscreen mode",
+        "Settings saved in browser storage"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+
+            --interval-work: #e11d48;
+            --interval-work-hover: #be123c;
+            --interval-work-soft: rgba(225, 29, 72, 0.12);
+            --interval-rest: #16a34a;
+            --interval-rest-hover: #15803d;
+            --interval-rest-soft: rgba(22, 163, 74, 0.12);
+            --interval-prepare: #f59e0b;
+            --interval-prepare-soft: rgba(245, 158, 11, 0.12);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(10px, 2vh, 20px);
+            min-width: 0;
+        }
+
+        /* ================= PRESET TABS ================= */
+        .preset-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: clamp(4px, 0.8vw, 8px);
+            background-color: var(--gray-light);
+            border-radius: 30px;
+            padding: 4px;
+            width: 100%;
+            max-width: 520px;
+            flex-shrink: 0;
+        }
+
+        .preset-tab {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            background: transparent;
+            padding: clamp(7px, 1.2vh, 12px) clamp(8px, 1.5vw, 16px);
+            border-radius: 26px;
+            font-size: clamp(11px, min(1.8vh, 3.2vw), 14px);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+            touch-action: manipulation;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .preset-tab:hover { color: var(--text-main); }
+        .preset-tab.active {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        .preset-tab.active[data-preset="tabata"] { color: var(--interval-work); }
+        .preset-tab.active[data-preset="hiit"] { color: var(--interval-rest); }
+        .preset-tab.active[data-preset="custom"] { color: var(--blue-primary); }
+
+        /* ================= TIMER DISPLAY ================= */
+        .timer-display {
+            position: relative;
+            width: clamp(200px, min(40vh, 78vw), 380px);
+            height: clamp(200px, min(40vh, 78vw), 380px);
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5vh 0;
+            flex-shrink: 0;
+        }
+
+        .ring-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg { fill: none; stroke: var(--gray-light); stroke-width: 12; }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--interval-work);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 816.81;
+            stroke-dashoffset: 0;
+            transition: stroke 0.3s, stroke-dashoffset 0.2s linear;
+        }
+
+        .time-text {
+            font-size: clamp(2.6rem, min(9vh, 14vw), 5rem);
+            font-weight: 900;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            z-index: 10;
+            line-height: 1;
+            letter-spacing: -2px;
+            white-space: nowrap;
+        }
+
+        .interval-label {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            font-weight: 700;
+            color: var(--interval-work);
+            letter-spacing: 2px;
+            z-index: 10;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 0.3vh;
+            transition: color 0.3s;
+        }
+
+        .round-info {
+            font-size: clamp(11px, min(1.7vh, 3vw), 14px);
+            font-weight: 600;
+            color: var(--text-muted);
+            z-index: 10;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-top: 0.3vh;
+        }
+
+        /* ================= CONFIG PANEL ================= */
+        .config-panel {
+            width: 100%;
+            max-width: 560px;
+            background-color: var(--gray-light);
+            border-radius: 16px;
+            padding: clamp(14px, 2.5vh, 22px);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(8px, 1.5vw, 14px);
+            flex-shrink: 0;
+        }
+
+        .config-panel.hidden { display: none; }
+
+        .config-field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .config-field label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .config-field input {
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: clamp(14px, min(2.2vh, 3.6vw), 18px);
+            font-weight: 700;
+            color: var(--text-main);
+            text-align: center;
+            background-color: var(--card-bg);
+            padding: clamp(8px, 1.4vh, 12px) 6px;
+            outline: none;
+            width: 100%;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            min-width: 0;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .config-field input:focus {
+            border-color: var(--interval-work);
+            box-shadow: 0 0 0 3px var(--interval-work-soft);
+        }
+
+        .config-field input::-webkit-outer-spin-button,
+        .config-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .config-field input[type=number] { -moz-appearance: textfield; }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: clamp(10px, 1.8vh, 16px) clamp(16px, 4vw, 34px);
+            border-radius: 30px;
+            font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+
+        .btn-start {
+            background-color: var(--interval-work);
+            color: white;
+            box-shadow: 0 4px 10px rgba(225, 29, 72, 0.3);
+        }
+
+        .btn-start:hover {
+            background-color: var(--interval-work-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-start.paused {
+            background-color: #ff9800;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-start.paused:hover { background-color: #f57c00; }
+
+        .btn-reset {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        .btn-reset:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon.muted {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(10px, 1.8vh, 22px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .config-panel,
+        .main-content:-webkit-full-screen .config-panel,
+        .main-content:fullscreen .preset-tabs,
+        .main-content:-webkit-full-screen .preset-tabs {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .timer-display,
+        .main-content:-webkit-full-screen .timer-display {
+            width: clamp(220px, min(52vh, 60vw), 500px);
+            height: clamp(220px, min(52vh, 60vw), 500px);
+        }
+
+        .main-content:fullscreen .time-text,
+        .main-content:-webkit-full-screen .time-text {
+            font-size: clamp(3rem, min(12vh, 15vw), 6.5rem);
+        }
+
+        .main-content:fullscreen .interval-label,
+        .main-content:-webkit-full-screen .interval-label {
+            font-size: clamp(14px, min(2.8vh, 4vw), 22px);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: modal-fade-in 0.15s ease;
+        }
+        @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+        .modal p {
+            font-size: clamp(14px, min(2vh, 3.4vw), 16px);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-buttons .btn { padding: 10px 22px; font-size: 15px; }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .controls-wrapper { gap: 1.2vh; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .config-panel { grid-template-columns: repeat(2, 1fr); }
+            .preset-tab { padding: 7px 8px; font-size: 11px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn { padding: 10px 15px; font-size: 14px; }
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .main-content:not(:fullscreen):not(:-webkit-full-screen) .timer-display {
+                width: clamp(150px, min(48vh, 60vw), 240px);
+                height: clamp(150px, min(48vh, 60vw), 240px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Interval Timer</h1>
+                    <p>Free HIIT & Tabata timer with configurable work, rest, rounds, and sets.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/interval-timer" hreflang="en">English (US)</a>
+                        <a href="/hi/interval-timer" hreflang="hi">हिंदी</a>
+                        <a href="/es/interval-timer" hreflang="es">Español</a>
+                        <a href="/fr/interval-timer" hreflang="fr">Français</a>
+                        <a href="/de/interval-timer" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== INTERVAL TIMER MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Preset tabs -->
+            <div class="preset-tabs" role="group" aria-label="Interval presets">
+                <button type="button" class="preset-tab active" data-preset="tabata" id="tabTabata" onclick="applyPreset('tabata')" aria-pressed="true">Tabata</button>
+                <button type="button" class="preset-tab" data-preset="hiit" id="tabHiit" onclick="applyPreset('hiit')" aria-pressed="false">HIIT</button>
+                <button type="button" class="preset-tab" data-preset="custom" id="tabCustom" onclick="applyPreset('custom')" aria-pressed="false">Custom</button>
+            </div>
+
+            <!-- Timer display -->
+            <div class="timer-display" id="timerDisplay">
+                <svg class="ring-svg" viewBox="0 0 280 280" aria-hidden="true">
+                    <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
+                    <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
+                </svg>
+                <div class="time-text" id="timeText" role="timer" aria-live="off">20</div>
+                <div class="interval-label" id="intervalLabel">WORK</div>
+                <div class="round-info" id="roundInfo">Round 1 of 8 · Set 1 of 1</div>
+
+                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+
+            <!-- Configuration panel -->
+            <div class="config-panel" id="configPanel">
+                <div class="config-field">
+                    <label for="inputWork">Work (sec)</label>
+                    <input type="number" id="inputWork" value="20" min="1" max="600" inputmode="numeric">
+                </div>
+                <div class="config-field">
+                    <label for="inputRest">Rest (sec)</label>
+                    <input type="number" id="inputRest" value="10" min="0" max="600" inputmode="numeric">
+                </div>
+                <div class="config-field">
+                    <label for="inputRounds">Rounds</label>
+                    <input type="number" id="inputRounds" value="8" min="1" max="100" inputmode="numeric">
+                </div>
+                <div class="config-field">
+                    <label for="inputSets">Sets</label>
+                    <input type="number" id="inputSets" value="1" min="1" max="20" inputmode="numeric">
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="Start interval timer">
+                        <svg class="icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        <span id="startBtnText">Start</span>
+                    </button>
+
+                    <button type="button" class="btn btn-reset" id="resetBtn" onclick="handleReset()" aria-label="Reset interval timer">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                        <span>Reset</span>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="Mute / unmute sound" aria-label="Mute">
+                        <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen timer" aria-label="Enter fullscreen timer">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>Space</kbd> start/pause &nbsp;·&nbsp; <kbd>R</kbd> reset &nbsp;·&nbsp; <kbd>F</kbd> fullscreen
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-reset" id="modalCancel">Cancel</button>
+                <button type="button" class="btn btn-start" id="modalOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ INTERVAL TIMER LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const timeText       = document.getElementById('timeText');
+        const intervalLabel  = document.getElementById('intervalLabel');
+        const roundInfo      = document.getElementById('roundInfo');
+        const progressRing   = document.getElementById('progressRing');
+        const startBtn       = document.getElementById('startBtn');
+        const startBtnText   = document.getElementById('startBtnText');
+        const playIcon       = document.getElementById('playIcon');
+        const pauseIcon      = document.getElementById('pauseIcon');
+
+        const tabTabata      = document.getElementById('tabTabata');
+        const tabHiit        = document.getElementById('tabHiit');
+        const tabCustom      = document.getElementById('tabCustom');
+
+        const inputWork      = document.getElementById('inputWork');
+        const inputRest      = document.getElementById('inputRest');
+        const inputRounds    = document.getElementById('inputRounds');
+        const inputSets      = document.getElementById('inputSets');
+        const configPanel    = document.getElementById('configPanel');
+
+        const muteBtn        = document.getElementById('muteBtn');
+        const soundOnIcon    = document.getElementById('soundOnIcon');
+        const soundOffIcon   = document.getElementById('soundOffIcon');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        const modalOverlay   = document.getElementById('modalOverlay');
+        const modalMessage   = document.getElementById('modalMessage');
+        const modalOk        = document.getElementById('modalOk');
+        const modalCancel    = document.getElementById('modalCancel');
+
+        // ---------- Config & presets ----------
+        const PRESETS = {
+            tabata: { work: 20, rest: 10, rounds: 8, sets: 1 },
+            hiit:   { work: 40, rest: 20, rounds: 8, sets: 1 },
+            custom: { work: 30, rest: 15, rounds: 5, sets: 1 }
+        };
+
+        const STORAGE_KEY = 'timerclock_interval_settings_v1';
+        const circumference = 2 * Math.PI * 130;
+        progressRing.style.strokeDasharray = circumference;
+
+        // ---------- State ----------
+        let config = { work: 20, rest: 10, rounds: 8, sets: 1 };
+        let activePreset = 'tabata';
+
+        let isRunning = false;
+        let rafId = null;
+        let backstopId = null;
+
+        // Current position in the workout
+        let currentPhase = 'work';   // 'work' | 'rest' | 'set-rest' | 'done'
+        let currentRound = 1;        // 1..config.rounds
+        let currentSet = 1;          // 1..config.sets
+        let phaseDurationMs = 0;
+        let phaseElapsedMs = 0;
+        let phaseStartMs = 0;
+
+        let isMuted = false;
+        let audioCtx = null;
+
+        // ---------- Persistence ----------
+        function loadSettings() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const parsed = JSON.parse(raw);
+                if (!parsed) return;
+                if (typeof parsed.work === 'number') config.work = parsed.work;
+                if (typeof parsed.rest === 'number') config.rest = parsed.rest;
+                if (typeof parsed.rounds === 'number') config.rounds = parsed.rounds;
+                if (typeof parsed.sets === 'number') config.sets = parsed.sets;
+                if (typeof parsed.preset === 'string' && PRESETS[parsed.preset]) activePreset = parsed.preset;
+            } catch (e) { /* ignore */ }
+        }
+
+        function saveSettings() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    work: config.work,
+                    rest: config.rest,
+                    rounds: config.rounds,
+                    sets: config.sets,
+                    preset: activePreset
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- Confirm modal ----------
+        let modalResolve = null;
+
+        function showConfirm(message) {
+            if (modalResolve) return Promise.resolve(false);
+            return new Promise((resolve) => {
+                modalMessage.textContent = message;
+                modalOverlay.classList.remove('hidden');
+                modalResolve = resolve;
+                setTimeout(() => modalOk.focus(), 0);
+            });
+        }
+
+        function closeModal(result) {
+            modalOverlay.classList.add('hidden');
+            const r = modalResolve;
+            modalResolve = null;
+            if (r) r(result);
+        }
+
+        modalOk.addEventListener('click', () => closeModal(true));
+        modalCancel.addEventListener('click', () => closeModal(false));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal(false);
+        });
+
+        // ---------- Audio ----------
+        function initAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                catch (err) { return; }
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        }
+
+        function playBeep(frequency, duration) {
+            if (isMuted || !audioCtx) return;
+            const schedule = () => {
+                try {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const t0 = audioCtx.currentTime;
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(frequency, t0);
+                    gain.gain.setValueAtTime(0.12, t0);
+                    gain.gain.exponentialRampToValueAtTime(0.001, t0 + duration);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(t0);
+                    osc.stop(t0 + duration);
+                } catch (err) { /* ignore */ }
+            };
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(schedule).catch(() => {});
+            } else {
+                schedule();
+            }
+        }
+
+        function playTransitionSound(newPhase) {
+            if (newPhase === 'work') {
+                // Rising double beep
+                playBeep(880, 0.15);
+                setTimeout(() => playBeep(1100, 0.2), 180);
+            } else if (newPhase === 'rest') {
+                // Single lower beep
+                playBeep(520, 0.25);
+            } else if (newPhase === 'set-rest') {
+                // Triple beep
+                playBeep(660, 0.12);
+                setTimeout(() => playBeep(660, 0.12), 180);
+                setTimeout(() => playBeep(660, 0.12), 360);
+            } else if (newPhase === 'done') {
+                // Completion chime
+                playBeep(523.25, 0.3);
+                setTimeout(() => playBeep(659.25, 0.3), 260);
+                setTimeout(() => playBeep(783.99, 0.5), 520);
+            }
+        }
+
+        // ---------- Helpers ----------
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function formatTime(secs) {
+            if (secs >= 60) {
+                const m = Math.floor(secs / 60);
+                const s = secs % 60;
+                return m + ':' + pad(s);
+            }
+            return String(secs);
+        }
+
+        // ---------- UI updates ----------
+        function updateTheme() {
+            let color = '#e11d48';  // work
+            let soft = 'rgba(225,29,72,0.12)';
+
+            if (currentPhase === 'rest') {
+                color = '#16a34a';
+                soft = 'rgba(22,163,74,0.12)';
+            } else if (currentPhase === 'set-rest') {
+                color = '#f59e0b';
+                soft = 'rgba(245,158,11,0.12)';
+            } else if (currentPhase === 'done') {
+                color = '#4caf50';
+                soft = 'rgba(76,175,80,0.15)';
+            }
+
+            progressRing.style.stroke = color;
+            intervalLabel.style.color = color;
+
+            if (isRunning) {
+                startBtn.style.backgroundColor = color;
+                startBtn.style.boxShadow = '0 4px 10px ' + soft;
+            } else if (phaseElapsedMs > 0) {
+                startBtn.style.backgroundColor = '#ff9800';
+                startBtn.style.boxShadow = '0 4px 10px rgba(255,152,0,0.3)';
+            } else {
+                startBtn.style.backgroundColor = color;
+                startBtn.style.boxShadow = '0 4px 10px ' + soft;
+            }
+        }
+
+        function updateTimeText() {
+            const remainingSecs = Math.max(0, Math.ceil((phaseDurationMs - phaseElapsedMs) / 1000));
+            timeText.textContent = formatTime(remainingSecs);
+        }
+
+        function updateProgress() {
+            if (phaseDurationMs > 0) {
+                const remaining = Math.max(0, phaseDurationMs - phaseElapsedMs);
+                progressRing.style.strokeDashoffset =
+                    circumference - (remaining / phaseDurationMs) * circumference;
+            } else {
+                progressRing.style.strokeDashoffset = 0;
+            }
+        }
+
+        function updateLabels() {
+            if (currentPhase === 'work') intervalLabel.textContent = 'WORK';
+            else if (currentPhase === 'rest') intervalLabel.textContent = 'REST';
+            else if (currentPhase === 'set-rest') intervalLabel.textContent = 'SET REST';
+            else intervalLabel.textContent = 'DONE';
+
+            if (currentPhase === 'done') {
+                roundInfo.textContent = 'Workout complete';
+            } else {
+                roundInfo.textContent = 'Round ' + currentRound + ' of ' + config.rounds +
+                    ' · Set ' + currentSet + ' of ' + config.sets;
+            }
+        }
+
+        function renderAll() {
+            updateTimeText();
+            updateProgress();
+            updateTheme();
+            updateLabels();
+        }
+
+        // ---------- Button state ----------
+        function setStartButton(state) {
+            const text = state === 'running' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Start');
+            startBtnText.textContent = text;
+            startBtn.setAttribute('aria-label', text + ' interval timer');
+            startBtn.classList.toggle('paused', state === 'paused');
+            playIcon.style.display = state === 'running' ? 'none' : 'block';
+            pauseIcon.style.display = state === 'running' ? 'block' : 'none';
+        }
+
+        // ---------- Phase setup ----------
+        function setupInitialPhase() {
+            currentPhase = 'work';
+            currentRound = 1;
+            currentSet = 1;
+            phaseDurationMs = config.work * 1000;
+            phaseElapsedMs = 0;
+            setStartButton('ready');
+            renderAll();
+        }
+
+        function advancePhase() {
+            // Called when the current phase's time runs out
+            const prevPhase = currentPhase;
+
+            if (currentPhase === 'work') {
+                // Work finished. Is there another round?
+                if (currentRound < config.rounds) {
+                    // Go to rest
+                    currentPhase = 'rest';
+                    phaseDurationMs = config.rest * 1000;
+                } else {
+                    // Last round of this set finished.
+                    if (currentSet < config.sets) {
+                        // Go to set-rest before next set
+                        currentPhase = 'set-rest';
+                        phaseDurationMs = config.rest * 1000; // use rest duration for set rest
+                    } else {
+                        // All sets done
+                        currentPhase = 'done';
+                        phaseDurationMs = 0;
+                    }
+                }
+            } else if (currentPhase === 'rest') {
+                // Rest finished → next round's work
+                currentRound++;
+                currentPhase = 'work';
+                phaseDurationMs = config.work * 1000;
+            } else if (currentPhase === 'set-rest') {
+                // Set rest finished → next set's first work
+                currentSet++;
+                currentRound = 1;
+                currentPhase = 'work';
+                phaseDurationMs = config.work * 1000;
+            }
+
+            phaseElapsedMs = 0;
+
+            if (currentPhase !== prevPhase) {
+                playTransitionSound(currentPhase);
+            }
+
+            if (currentPhase === 'done') {
+                stopRunning();
+                setStartButton('ready');
+                renderAll();
+                return;
+            }
+
+            // Auto-continue the workout
+            phaseStartMs = Date.now();
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(tick);
+            clearTimeout(backstopId);
+            backstopId = setTimeout(advancePhase, phaseDurationMs);
+
+            renderAll();
+        }
+
+        // ---------- Timer control ----------
+        function toggleTimer() {
+            if (isRunning) pauseTimer();
+            else startTimer();
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            if (currentPhase === 'done') {
+                // Restart from beginning
+                setupInitialPhase();
+            }
+            initAudio();
+            isRunning = true;
+            phaseStartMs = Date.now() - phaseElapsedMs;
+
+            setStartButton('running');
+            updateTheme();
+
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(tick);
+
+            const remainingMs = Math.max(0, phaseDurationMs - phaseElapsedMs);
+            clearTimeout(backstopId);
+            backstopId = setTimeout(advancePhase, remainingMs);
+        }
+
+        function pauseTimer() {
+            if (!isRunning) return;
+            isRunning = false;
+            phaseElapsedMs = Date.now() - phaseStartMs;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+
+            setStartButton('paused');
+            updateTheme();
+            renderAll();
+        }
+
+        function stopRunning() {
+            isRunning = false;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+        }
+
+        function tick() {
+            if (!isRunning) return;
+            phaseElapsedMs = Date.now() - phaseStartMs;
+            updateTimeText();
+            updateProgress();
+            if (phaseElapsedMs >= phaseDurationMs) {
+                advancePhase();
+                return;
+            }
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function resetTimer() {
+            stopRunning();
+            setupInitialPhase();
+        }
+
+        function handleReset() {
+            if (isRunning || phaseElapsedMs > 0) {
+                showConfirm('Reset the interval timer? The current workout will be lost.').then(ok => {
+                    if (ok) resetTimer();
+                });
+            } else {
+                resetTimer();
+            }
+        }
+
+        // ---------- Presets ----------
+        function applyPreset(name) {
+            if (!PRESETS[name]) return;
+
+            const apply = () => {
+                activePreset = name;
+                const p = PRESETS[name];
+                config.work = p.work;
+                config.rest = p.rest;
+                config.rounds = p.rounds;
+                config.sets = p.sets;
+
+                inputWork.value = String(config.work);
+                inputRest.value = String(config.rest);
+                inputRounds.value = String(config.rounds);
+                inputSets.value = String(config.sets);
+
+                // Update tab styles
+                tabTabata.classList.toggle('active', name === 'tabata');
+                tabTabata.setAttribute('aria-pressed', name === 'tabata' ? 'true' : 'false');
+                tabHiit.classList.toggle('active', name === 'hiit');
+                tabHiit.setAttribute('aria-pressed', name === 'hiit' ? 'true' : 'false');
+                tabCustom.classList.toggle('active', name === 'custom');
+                tabCustom.setAttribute('aria-pressed', name === 'custom' ? 'true' : 'false');
+
+                saveSettings();
+                resetTimer();
+            };
+
+            if (isRunning || phaseElapsedMs > 0) {
+                showConfirm('Switch preset and reset the current workout?').then(ok => {
+                    if (ok) apply();
+                });
+            } else {
+                apply();
+            }
+        }
+
+        // ---------- Config input handlers ----------
+        function setupNumberInput(input, key, min, max) {
+            input.addEventListener('input', () => {
+                let v = parseInt(input.value, 10);
+                if (isNaN(v) || v < min) v = min;
+                if (v > max) v = max;
+                input.value = String(v);
+                config[key] = v;
+
+                // Mark preset as custom
+                activePreset = 'custom';
+                tabCustom.classList.add('active');
+                tabCustom.setAttribute('aria-pressed', 'true');
+                tabTabata.classList.remove('active');
+                tabTabata.setAttribute('aria-pressed', 'false');
+                tabHiit.classList.remove('active');
+                tabHiit.setAttribute('aria-pressed', 'false');
+
+                saveSettings();
+                if (!isRunning && phaseElapsedMs === 0) {
+                    resetTimer();
+                }
+            });
+
+            input.addEventListener('blur', () => {
+                let v = parseInt(input.value, 10);
+                if (isNaN(v) || v < min) v = min;
+                if (v > max) v = max;
+                input.value = String(v);
+                config[key] = v;
+                saveSettings();
+            });
+        }
+
+        setupNumberInput(inputWork, 'work', 1, 600);
+        setupNumberInput(inputRest, 'rest', 0, 600);
+        setupNumberInput(inputRounds, 'rounds', 1, 100);
+        setupNumberInput(inputSets, 'sets', 1, 20);
+
+        // ---------- Mute ----------
+        function toggleMute() {
+            isMuted = !isMuted;
+            muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+            } else {
+                muteBtn.classList.remove('muted');
+                soundOnIcon.style.display = 'block';
+                soundOffIcon.style.display = 'none';
+            }
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            if (modalResolve) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeModal(false);
+                }
+                return;
+            }
+
+            if (e.repeat) return;
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
+
+            if (e.code === 'Space' || e.key === ' ') {
+                e.preventDefault();
+                toggleTimer();
+                return;
+            }
+
+            if (e.key === 'r' || e.key === 'R') {
+                e.preventDefault();
+                handleReset();
+                return;
+            }
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Init ----------
+        loadSettings();
+        inputWork.value = String(config.work);
+        inputRest.value = String(config.rest);
+        inputRounds.value = String(config.rounds);
+        inputSets.value = String(config.sets);
+
+        if (activePreset && PRESETS[activePreset]) {
+            tabTabata.classList.toggle('active', activePreset === 'tabata');
+            tabTabata.setAttribute('aria-pressed', activePreset === 'tabata' ? 'true' : 'false');
+            tabHiit.classList.toggle('active', activePreset === 'hiit');
+            tabHiit.setAttribute('aria-pressed', activePreset === 'hiit' ? 'true' : 'false');
+            tabCustom.classList.toggle('active', activePreset === 'custom');
+            tabCustom.setAttribute('aria-pressed', activePreset === 'custom' ? 'true' : 'false');
+        }
+
+        setupInitialPhase();
+    </script>
+</body>
+</html>

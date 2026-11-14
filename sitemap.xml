@@ -67,6 +67,190 @@
     <priority>0.9</priority>
   </url>
 
+  <!-- ==================== ENGLISH TOOL PAGES ==================== -->
+
+  <url>
+    <loc>https://timerclock.app/timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/countdown-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/countdown-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/countdown-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/stopwatch</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/stopwatch"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/stopwatch"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/alarm-clock</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/alarm-clock"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/alarm-clock"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/online-clock</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/online-clock"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/online-clock"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/world-clock</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/world-clock"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/world-clock"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/pomodoro-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/pomodoro-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/pomodoro-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/interval-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/interval-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/interval-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/digital-clock</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/digital-clock"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/digital-clock"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/egg-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/egg-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/egg-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/time-zone-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/time-zone-converter"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/time-zone-converter"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/countdown-to-date</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/countdown-to-date"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/countdown-to-date"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/tabata-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/tabata-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/tabata-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/kitchen-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/kitchen-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/kitchen-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/metronome</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/metronome"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/metronome"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/5-minute-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/5-minute-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/5-minute-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/10-minute-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/10-minute-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/10-minute-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/15-minute-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/15-minute-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/15-minute-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/30-minute-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/30-minute-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/30-minute-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://timerclock.app/1-hour-timer</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://timerclock.app/1-hour-timer"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://timerclock.app/1-hour-timer"/>
+    <lastmod>2025-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- ==================== PRIVACY ==================== -->
+
   <url>
     <loc>https://timerclock.app/privacy</loc>
     <lastmod>2025-11-12</lastmod>

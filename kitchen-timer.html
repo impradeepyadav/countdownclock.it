@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitchen Timer - Free Online Multi-Timer for Cooking | timerclock.app</title>
+    <meta name="description" content="Free online kitchen timer for cooking. Run multiple timers at once for pasta, rice, eggs, bread, and more. Sound alerts, color-coded cards, and no signup required.">
+    <link rel="canonical" href="https://timerclock.app/kitchen-timer">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#e11d48">
+
+    <meta property="og:title" content="Kitchen Timer - Free Online Multi-Timer for Cooking">
+    <meta property="og:description" content="Free online kitchen timer for cooking. Run multiple timers at once for pasta, rice, eggs, bread, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/kitchen-timer">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kitchen Timer - Free Online Multi-Timer for Cooking">
+    <meta name="twitter:description" content="Free online kitchen timer. Run multiple timers at once for pasta, rice, eggs, and more.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/kitchen-timer">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/kitchen-timer">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/kitchen-timer">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/kitchen-timer">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/kitchen-timer">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/kitchen-timer">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Kitchen Timer",
+      "url": "https://timerclock.app/kitchen-timer",
+      "inLanguage": "en",
+      "description": "Free online kitchen timer with multiple simultaneous timers for pasta, rice, eggs, bread, and more.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Run multiple timers at the same time",
+        "Quick presets for common cooking tasks",
+        "Custom time input in minutes and seconds",
+        "Color-coded timer cards with progress bars",
+        "Repeating sound alert when timers finish",
+        "Shows when each timer will be ready",
+        "Timers saved in browser storage",
+        "Fullscreen mode",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+
+            --kitchen-primary: #e11d48;
+            --kitchen-primary-hover: #be123c;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text, .timer-card {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(10px, 2vh, 20px);
+            min-width: 0;
+        }
+
+        /* ================= PRESET CHIPS ================= */
+        .preset-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .section-label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding-left: 4px;
+        }
+
+        .presets {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: clamp(6px, 1.2vw, 10px);
+            width: 100%;
+            min-width: 0;
+        }
+
+        .preset-chip {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+            border: 2px solid transparent;
+            padding: clamp(8px, 1.2vh, 11px) clamp(12px, 2vw, 16px);
+            border-radius: 14px;
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 14px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            touch-action: manipulation;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .preset-chip:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-1px);
+        }
+
+        .preset-chip:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .preset-chip .chip-time {
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* ================= CUSTOM FORM ================= */
+        .custom-form {
+            display: flex;
+            gap: clamp(6px, 1vw, 10px);
+            align-items: stretch;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .custom-form input[type="number"],
+        .custom-form input[type="text"] {
+            font-family: inherit;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--gray-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(10px, 1.6vw, 14px);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-width: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .custom-form input:focus {
+            border-color: var(--kitchen-primary);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+            background-color: var(--card-bg);
+        }
+
+        .custom-form input[type="number"]::-webkit-outer-spin-button,
+        .custom-form input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .custom-form input[type="number"] { -moz-appearance: textfield; }
+
+        .custom-form .minutes,
+        .custom-form .seconds {
+            width: clamp(64px, 14vw, 80px);
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .custom-form .label-input {
+            flex: 1 1 180px;
+            min-width: 0;
+        }
+
+        .btn-add {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(14px, 2.5vw, 20px);
+            border-radius: 12px;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 700;
+            color: white;
+            background-color: var(--kitchen-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(225, 29, 72, 0.3);
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+
+        .btn-add:hover {
+            background-color: var(--kitchen-primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-add:active { transform: translateY(0); }
+
+        .btn-add svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ================= TIMERS GRID ================= */
+        .timers-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .timers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+            gap: clamp(10px, 1.6vw, 16px);
+            width: 100%;
+            min-width: 0;
+        }
+
+        .empty-state {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(24px, 5vh, 48px) 20px;
+            text-align: center;
+            gap: 8px;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: clamp(2.5rem, 7vh, 4rem);
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        .empty-state-title {
+            font-size: clamp(15px, min(2.2vh, 3.8vw), 18px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .empty-state-sub {
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 14px);
+            font-weight: 500;
+            max-width: 40ch;
+            line-height: 1.4;
+        }
+
+        /* ================= TIMER CARD ================= */
+        .timer-card {
+            position: relative;
+            background-color: var(--timer-bg);
+            border: 2px solid var(--timer-border);
+            border-radius: 18px;
+            padding: clamp(14px, 2vh, 18px) clamp(14px, 2vw, 18px) clamp(12px, 1.8vh, 16px);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: transform 0.15s, box-shadow 0.2s;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .timer-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .timer-card.finished {
+            animation: pulse-glow 1.4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 0 0 var(--timer-border); }
+            50% { box-shadow: 0 0 0 8px transparent; }
+        }
+
+        .timer-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .timer-label {
+            font-size: clamp(13px, min(1.9vh, 3.2vw), 15px);
+            font-weight: 700;
+            color: var(--timer-text);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+            line-height: 1.25;
+        }
+
+        .timer-actions {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .timer-action-btn {
+            background: transparent;
+            border: none;
+            color: var(--timer-text);
+            cursor: pointer;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 16px;
+            line-height: 1;
+            opacity: 0.6;
+            transition: all 0.15s;
+            font-family: inherit;
+            padding: 0;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .timer-action-btn:hover {
+            opacity: 1;
+            background-color: rgba(0,0,0,0.06);
+        }
+
+        .timer-display {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(2rem, min(6vh, 9vw), 2.6rem);
+            font-weight: 800;
+            color: var(--timer-text);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .timer-card.finished .timer-display {
+            font-size: clamp(1.6rem, min(4.5vh, 7vw), 2rem);
+            letter-spacing: -0.5px;
+            animation: fade-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes fade-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .timer-ready-at {
+            font-size: clamp(11px, min(1.6vh, 2.8vw), 13px);
+            font-weight: 500;
+            color: var(--timer-text);
+            opacity: 0.75;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .timer-progress {
+            width: 100%;
+            height: clamp(5px, 0.8vh, 7px);
+            background-color: rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 2px;
+        }
+
+        .timer-progress-fill {
+            height: 100%;
+            background-color: var(--timer-text);
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.5s linear;
+        }
+
+        .timer-card.finished .timer-progress-fill {
+            background-color: var(--timer-border);
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon.muted {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            max-height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            overflow-y: auto;
+            overflow-x: hidden;
+            gap: clamp(12px, 2.2vh, 22px);
+        }
+
+        .main-content:fullscreen .custom-form,
+        .main-content:-webkit-full-screen .custom-form,
+        .main-content:fullscreen .preset-section,
+        .main-content:-webkit-full-screen .preset-section {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .timers-grid,
+        .main-content:-webkit-full-screen .timers-grid {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+            gap: clamp(14px, 2vw, 22px);
+        }
+
+        .main-content:fullscreen .timer-display,
+        .main-content:-webkit-full-screen .timer-display {
+            font-size: clamp(2.4rem, min(8vh, 12vw), 4rem);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .timers-grid { grid-template-columns: 1fr; }
+            .preset-chip { padding: 7px 10px; font-size: 11px; }
+            .custom-form .minutes,
+            .custom-form .seconds { width: 56px; }
+            .custom-form .label-input { flex-basis: 100%; }
+            .btn-add { flex: 1 1 100%; }
+        }
+
+        @media (max-width: 380px) {
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .empty-state { padding: 20px 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Kitchen Timer</h1>
+                    <p>Run multiple cooking timers at once — pasta, rice, eggs, bread, and more.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/kitchen-timer" hreflang="en">English (US)</a>
+                        <a href="/hi/kitchen-timer" hreflang="hi">हिंदी</a>
+                        <a href="/es/kitchen-timer" hreflang="es">Español</a>
+                        <a href="/fr/kitchen-timer" hreflang="fr">Français</a>
+                        <a href="/de/kitchen-timer" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== KITCHEN TIMER MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Preset section -->
+            <div class="preset-section">
+                <div class="section-label">QUICK PRESETS</div>
+                <div class="presets" id="presetsContainer" role="group" aria-label="Cooking presets"></div>
+            </div>
+
+            <!-- Custom form -->
+            <div class="custom-form" id="customForm">
+                <input type="number" class="minutes" id="customMinutes" value="5" min="0" max="999" inputmode="numeric" aria-label="Minutes">
+                <input type="number" class="seconds" id="customSeconds" value="0" min="0" max="59" inputmode="numeric" aria-label="Seconds">
+                <input type="text" class="label-input" id="customLabel" placeholder="Label (optional)" maxlength="30" aria-label="Timer label">
+                <button type="button" class="btn-add" onclick="addCustomTimer()" aria-label="Add timer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    <span>Add</span>
+                </button>
+            </div>
+
+            <!-- Active timers -->
+            <div class="timers-section">
+                <div class="timers-grid" id="timersGrid" role="list" aria-label="Active kitchen timers"></div>
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-state-icon" aria-hidden="true">🍳</div>
+                    <div class="empty-state-title">No timers running</div>
+                    <div class="empty-state-sub">Tap a preset above or add a custom timer to start cooking.</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="Mute / unmute sound" aria-label="Mute">
+                        <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen timers" aria-label="Enter fullscreen timers">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                    <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>F</kbd> fullscreen &nbsp;·&nbsp; Timers run independently &nbsp;·&nbsp; Saved automatically
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ KITCHEN TIMER LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const presetsContainer = document.getElementById('presetsContainer');
+        const customMinutes    = document.getElementById('customMinutes');
+        const customSeconds    = document.getElementById('customSeconds');
+        const customLabel      = document.getElementById('customLabel');
+
+        const timersGrid       = document.getElementById('timersGrid');
+        const emptyState       = document.getElementById('emptyState');
+
+        const muteBtn          = document.getElementById('muteBtn');
+        const soundOnIcon      = document.getElementById('soundOnIcon');
+        const soundOffIcon     = document.getElementById('soundOffIcon');
+
+        const toolsBtn         = document.getElementById('toolsBtn');
+        const toolsDropdown    = document.getElementById('toolsDropdown');
+        const langBtn          = document.getElementById('langBtn');
+        const langDropdown     = document.getElementById('langDropdown');
+
+        const mainContent      = document.getElementById('mainContent');
+        const fsBtn            = document.getElementById('fsBtn');
+
+        // ---------- Presets ----------
+        const PRESETS = [
+            { label: '🥚 Eggs',     minutes: 7,  name: 'Eggs' },
+            { label: '🍝 Pasta',    minutes: 10, name: 'Pasta' },
+            { label: '🍚 Rice',     minutes: 18, name: 'Rice' },
+            { label: '🥦 Veggies',  minutes: 6,  name: 'Veggies' },
+            { label: '🥩 Steak',    minutes: 6,  name: 'Steak' },
+            { label: '🍞 Bread',    minutes: 25, name: 'Bread' },
+            { label: '☕ Coffee',   minutes: 4,  name: 'Coffee' },
+            { label: '🍵 Tea',      minutes: 4,  name: 'Tea' },
+            { label: '🍕 Pizza',    minutes: 14, name: 'Pizza' },
+            { label: '🍗 Chicken',  minutes: 22, name: 'Chicken' },
+            { label: '🥔 Potatoes', minutes: 15, name: 'Potatoes' },
+            { label: '🍰 Cake',     minutes: 30, name: 'Cake' },
+        ];
+
+        // ---------- Color palette for timer cards ----------
+        const COLORS = [
+            { bg: '#fef3c7', border: '#f59e0b', text: '#b45309' }, // amber
+            { bg: '#fee2e2', border: '#ef4444', text: '#b91c1c' }, // red
+            { bg: '#dcfce7', border: '#22c55e', text: '#15803d' }, // green
+            { bg: '#dbeafe', border: '#3b82f6', text: '#1d4ed8' }, // blue
+            { bg: '#f3e8ff', border: '#a855f7', text: '#7e22ce' }, // purple
+            { bg: '#ffedd5', border: '#f97316', text: '#c2410c' }, // orange
+            { bg: '#ccfbf1', border: '#14b8a6', text: '#0f766e' }, // teal
+            { bg: '#ffe4e6', border: '#f43f5e', text: '#be123c' }, // rose
+        ];
+
+        // ---------- State ----------
+        const STORAGE_KEY = 'timerclock_kitchentimer_v1';
+        let timers = [];            // { id, label, totalMs, endMs, finished, colorIdx }
+        let isMuted = false;
+        let audioCtx = null;
+        let tickInterval = null;
+        let alertInterval = null;
+        let lastColorIdx = -1;
+
+        // ---------- Persistence ----------
+        function loadTimers() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return [];
+                const parsed = JSON.parse(raw);
+                if (!Array.isArray(parsed)) return [];
+                return parsed.filter(t =>
+                    t && typeof t.label === 'string' &&
+                    typeof t.totalMs === 'number' &&
+                    typeof t.endMs === 'number'
+                ).map(t => ({
+                    id: t.id || genId(),
+                    label: t.label,
+                    totalMs: t.totalMs,
+                    endMs: t.endMs,
+                    finished: !!t.finished || Date.now() >= t.endMs,
+                    colorIdx: typeof t.colorIdx === 'number' ? t.colorIdx : 0
+                }));
+            } catch (e) { return []; }
+        }
+
+        function saveTimers() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(timers));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- Helpers ----------
+        function genId() {
+            return 't_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6);
+        }
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function formatMMSS(ms) {
+            const totalSecs = Math.max(0, Math.ceil(ms / 1000));
+            const m = Math.floor(totalSecs / 60);
+            const s = totalSecs % 60;
+            return pad(m) + ':' + pad(s);
+        }
+
+        function formatReadyAt(ms) {
+            try {
+                return new Date(ms).toLocaleTimeString(undefined, {
+                    hour: 'numeric',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function pickColorIdx() {
+            // Rotate through palette, avoiding immediate repeat
+            lastColorIdx = (lastColorIdx + 1) % COLORS.length;
+            return lastColorIdx;
+        }
+
+        // ---------- Audio ----------
+        function initAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                catch (err) { return; }
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        }
+
+        function playChime() {
+            if (isMuted || !audioCtx) return;
+            const schedule = () => {
+                try {
+                    // Warm two-note chime
+                    const beep = (freq, delay, dur) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        const t0 = audioCtx.currentTime + delay;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, t0);
+                        gain.gain.setValueAtTime(0.15, t0);
+                        gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(t0);
+                        osc.stop(t0 + dur + 0.05);
+                    };
+                    beep(880, 0, 0.2);
+                    beep(1320, 0.22, 0.35);
+                } catch (err) { /* ignore */ }
+            };
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(schedule).catch(() => {});
+            } else {
+                schedule();
+            }
+        }
+
+        function startAlerting() {
+            if (alertInterval) return;
+            playChime();
+            alertInterval = setInterval(() => {
+                if (timers.some(t => t.finished)) {
+                    playChime();
+                } else {
+                    stopAlerting();
+                }
+            }, 3000);
+        }
+
+        function stopAlerting() {
+            if (alertInterval) {
+                clearInterval(alertInterval);
+                alertInterval = null;
+            }
+        }
+
+        // ---------- Render preset chips ----------
+        function renderPresets() {
+            presetsContainer.innerHTML = '';
+            PRESETS.forEach(p => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'preset-chip';
+                btn.innerHTML = `<span>${p.label}</span><span class="chip-time">${p.minutes}m</span>`;
+                btn.addEventListener('click', () => addTimer(p.name, p.minutes * 60 * 1000));
+                presetsContainer.appendChild(btn);
+            });
+        }
+
+        // ---------- Render timers ----------
+        function renderTimers() {
+            if (timers.length === 0) {
+                timersGrid.innerHTML = '';
+                timersGrid.style.display = 'none';
+                emptyState.style.display = 'flex';
+                return;
+            }
+
+            timersGrid.style.display = '';
+            emptyState.style.display = 'none';
+
+            // Sort: finished first, then by endMs ascending (soonest first)
+            const sorted = [...timers].sort((a, b) => {
+                if (a.finished !== b.finished) return a.finished ? -1 : 1;
+                return a.endMs - b.endMs;
+            });
+
+            timersGrid.innerHTML = '';
+
+            sorted.forEach(t => {
+                const color = COLORS[t.colorIdx % COLORS.length];
+                const card = document.createElement('div');
+                card.className = 'timer-card' + (t.finished ? ' finished' : '');
+                card.dataset.id = t.id;
+                card.setAttribute('role', 'listitem');
+                card.style.setProperty('--timer-bg', color.bg);
+                card.style.setProperty('--timer-border', color.border);
+                card.style.setProperty('--timer-text', color.text);
+
+                const remainingMs = t.finished ? 0 : Math.max(0, t.endMs - Date.now());
+
+                card.innerHTML = `
+                    <div class="timer-card-header">
+                        <div class="timer-label" title="${escapeHtml(t.label)}">${escapeHtml(t.label)}</div>
+                        <div class="timer-actions">
+                            ${t.finished ? `<button type="button" class="timer-action-btn" data-action="restart" title="Restart">↻</button>` : ''}
+                            <button type="button" class="timer-action-btn" data-action="remove" title="Remove">×</button>
+                        </div>
+                    </div>
+                    <div class="timer-display">${t.finished ? 'DONE!' : formatMMSS(remainingMs)}</div>
+                    <div class="timer-ready-at">${t.finished ? 'Tap ↻ to restart' : 'Ready at ' + formatReadyAt(t.endMs)}</div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-fill" style="width:${t.finished ? 100 : ((t.totalMs - remainingMs) / t.totalMs) * 100}%"></div>
+                    </div>
+                `;
+
+                // Wire up buttons
+                card.querySelectorAll('.timer-action-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const action = btn.dataset.action;
+                        if (action === 'remove') removeTimer(t.id);
+                        else if (action === 'restart') restartTimer(t.id);
+                    });
+                });
+
+                timersGrid.appendChild(card);
+            });
+        }
+
+        function escapeHtml(s) {
+            const div = document.createElement('div');
+            div.textContent = s;
+            return div.innerHTML;
+        }
+
+        // ---------- Update timer displays (called every second) ----------
+        function updateDisplays() {
+            const now = Date.now();
+            let anyFinishedNow = false;
+
+            timers.forEach(t => {
+                if (!t.finished && now >= t.endMs) {
+                    t.finished = true;
+                    anyFinishedNow = true;
+                }
+            });
+
+            if (anyFinishedNow) {
+                saveTimers();
+                startAlerting();
+            }
+
+            // If there are no more finished timers, stop alerting
+            if (!timers.some(t => t.finished)) {
+                stopAlerting();
+            }
+
+            // If any timer just finished, do a full re-render to show DONE state
+            if (anyFinishedNow) {
+                renderTimers();
+                return;
+            }
+
+            // Otherwise just update the live text/progress for running timers
+            timers.forEach(t => {
+                if (t.finished) return;
+                const card = timersGrid.querySelector(`[data-id="${t.id}"]`);
+                if (!card) return;
+
+                const display = card.querySelector('.timer-display');
+                const progress = card.querySelector('.timer-progress-fill');
+                const remaining = Math.max(0, t.endMs - now);
+
+                if (display) display.textContent = formatMMSS(remaining);
+                if (progress) progress.style.width = ((t.totalMs - remaining) / t.totalMs * 100) + '%';
+            });
+        }
+
+        // ---------- Actions ----------
+        function addTimer(label, totalMs) {
+            if (!totalMs || totalMs <= 0) return;
+            initAudio();
+
+            const timer = {
+                id: genId(),
+                label: label || 'Timer ' + (timers.length + 1),
+                totalMs: totalMs,
+                endMs: Date.now() + totalMs,
+                finished: false,
+                colorIdx: pickColorIdx()
+            };
+            timers.push(timer);
+            saveTimers();
+            renderTimers();
+        }
+
+        function addCustomTimer() {
+            let mins = parseInt(customMinutes.value, 10);
+            let secs = parseInt(customSeconds.value, 10);
+
+            if (isNaN(mins) || mins < 0) mins = 0;
+            if (isNaN(secs) || secs < 0) secs = 0;
+            if (secs > 59) secs = 59;
+            if (mins > 999) mins = 999;
+
+            const totalMs = (mins * 60 + secs) * 1000;
+            if (totalMs <= 0) {
+                customMinutes.focus();
+                return;
+            }
+
+            const label = (customLabel.value || '').trim().slice(0, 30) || 'Timer ' + (timers.length + 1);
+
+            addTimer(label, totalMs);
+
+            // Reset custom form
+            customMinutes.value = '5';
+            customSeconds.value = '0';
+            customLabel.value = '';
+        }
+
+        function removeTimer(id) {
+            timers = timers.filter(t => t.id !== id);
+            saveTimers();
+            if (!timers.some(t => t.finished)) stopAlerting();
+            renderTimers();
+        }
+
+        function restartTimer(id) {
+            const t = timers.find(x => x.id === id);
+            if (!t) return;
+            t.endMs = Date.now() + t.totalMs;
+            t.finished = false;
+            saveTimers();
+            if (!timers.some(x => x.finished)) stopAlerting();
+            renderTimers();
+        }
+
+        // ---------- Mute ----------
+        function toggleMute() {
+            isMuted = !isMuted;
+            muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+                stopAlerting();
+            } else {
+                muteBtn.classList.remove('muted');
+                soundOnIcon.style.display = 'block';
+                soundOffIcon.style.display = 'none';
+                if (timers.some(t => t.finished)) startAlerting();
+            }
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('input, textarea, select, [contenteditable="true"]')) {
+                // Press Enter on the label input to add timer
+                if (e.key === 'Enter' && e.target === customLabel) {
+                    e.preventDefault();
+                    addCustomTimer();
+                }
+                return;
+            }
+            if (e.repeat) return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Custom form input validation ----------
+        function setupNumberInput(input, max) {
+            input.addEventListener('input', () => {
+                if (input.value !== '') {
+                    const val = parseInt(input.value, 10);
+                    if (!isNaN(val)) {
+                        if (val > max) input.value = String(max);
+                        if (val < 0) input.value = '0';
+                    }
+                }
+            });
+            input.addEventListener('blur', () => {
+                let v = parseInt(input.value, 10);
+                if (isNaN(v) || v < 0) v = 0;
+                if (v > max) v = max;
+                input.value = String(v);
+            });
+        }
+
+        setupNumberInput(customMinutes, 999);
+        setupNumberInput(customSeconds, 59);
+
+        // ---------- Init ----------
+        (function init() {
+            renderPresets();
+
+            timers = loadTimers();
+
+            if (timers.length > 0) {
+                // If any loaded timer is already finished, alert
+                if (timers.some(t => t.finished)) {
+                    // We'll trigger the alerting on first tick
+                }
+                lastColorIdx = Math.max(-1, ...timers.map(t => t.colorIdx));
+            }
+
+            renderTimers();
+
+            // Start ticking every second
+            if (tickInterval) clearInterval(tickInterval);
+            tickInterval = setInterval(updateDisplays, 1000);
+
+            // Initial tick to catch any finished timers
+            updateDisplays();
+
+            // Resume alerting if there are already-finished timers
+            if (timers.some(t => t.finished)) {
+                startAlerting();
+            }
+        })();
+    </script>
+</body>
+</html>

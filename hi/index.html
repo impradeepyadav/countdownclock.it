@@ -17,7 +17,6 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Global SEO Meta -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="author" content="Timer Clock">
     <meta name="theme-color" content="#4caf50">
@@ -78,10 +77,10 @@
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "featureList": [
         "विज़ुअल रिंग के साथ काउंटडाउन टाइमर",
-        "लैप कार्यक्षमता के साथ स्टॉपवॉच",
-        "1 से 60 मिनट तक कस्टम प्रीसेट",
-        "ध्वनि अलर्ट",
-        "क्लॉक और सेटिंग्स के साथ फुलस्क्रीन मोड",
+        "लैप फ़ंक्शन के साथ स्टॉपवॉच",
+        "1 से 60 मिनट तक कस्टम टाइम प्रीसेट",
+        "साउंड अलर्ट",
+        "घड़ी और सेटिंग्स के साथ फ़ुलस्क्रीन मोड",
         "कीबोर्ड शॉर्टकट (स्टार्ट/पॉज़ के लिए स्पेस)",
         "सभी डिवाइस के लिए रिस्पॉन्सिव डिज़ाइन"
       ],
@@ -109,7 +108,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -182,11 +181,11 @@
         .header-text { min-width: 0; }
 
         .site-header h1 {
-            font-family: 'Outfit', 'Inter', 'Noto Sans Devanagari', sans-serif;
+            font-family: 'Outfit', 'Inter', sans-serif;
             font-size: clamp(22px, min(4vh, 6.4vw), 38px);
             font-weight: 800;
-            letter-spacing: -0.3px;
-            line-height: 1.2;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
             color: var(--text-main);
             margin-bottom: 0.4vh;
             overflow-wrap: break-word;
@@ -195,7 +194,7 @@
         .site-header p {
             font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
             color: var(--text-muted);
-            line-height: 1.55;
+            line-height: 1.45;
             max-width: 62ch;
             overflow-wrap: break-word;
         }
@@ -318,7 +317,7 @@
             stroke: var(--green-primary);
             stroke-width: 12;
             stroke-linecap: round;
-            stroke-dasharray: 817;
+            stroke-dasharray: 816.81;
             stroke-dashoffset: 0;
             transition: stroke 0.3s;
         }
@@ -766,6 +765,44 @@
         .dropdown-content a:hover { background-color: var(--gray-light); }
         .dropdown-content.show { display: block; }
 
+        /* ================= CONFIRM MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: modal-fade-in 0.15s ease;
+        }
+        @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+        .modal p {
+            font-size: clamp(14px, min(2vh, 3.4vw), 16px);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-buttons .btn {
+            padding: 10px 22px;
+            font-size: 15px;
+        }
+
         @media (max-width: 768px) {
             .site-header {
                 flex-direction: column;
@@ -841,6 +878,7 @@
                 <img src="/apple-touch-icon.png" alt="TimerClock लोगो" class="header-logo" width="48" height="48" loading="eager">
                 <div class="header-text">
                     <h1>काउंटडाउन टाइमर सेट करें या ऑनलाइन स्टॉपवॉच का उपयोग करें</h1>
+                    <p>काम, पढ़ाई, व्यायाम और रोज़मर्रा के कामों के लिए ऑनलाइन काउंटडाउन टाइमर और स्टॉपवॉच</p>
                 </div>
             </div>
 
@@ -880,7 +918,7 @@
                 </div>
                 <div class="status-text" id="statusText" aria-live="polite">तैयार</div>
 
-                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="फुलस्क्रीन से बाहर निकलें" title="फुलस्क्रीन से बाहर निकलें (Esc)">
+                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="फ़ुलस्क्रीन से बाहर निकलें" title="फ़ुलस्क्रीन से बाहर निकलें (Esc)">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
             </div>
@@ -902,11 +940,11 @@
                 </div>
             </div>
 
-            <div class="laps-container hidden" id="lapsSection" aria-label="लैप समय"></div>
+            <div class="laps-container hidden" id="lapsSection" role="list" aria-live="polite" aria-label="लैप समय"></div>
 
             <div class="controls-wrapper">
                 <div class="controls">
-                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="टाइमर शुरू करें">
+                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="टाइमर प्रारंभ करें">
                         <svg class="icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                         <span id="startBtnText">प्रारंभ करें</span>
@@ -917,12 +955,12 @@
                         <span id="resetLapText">रीसेट</span>
                     </button>
 
-                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="ध्वनि टॉगल करें" aria-label="ध्वनि टॉगल करें">
+                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="साउंड म्यूट / अनम्यूट करें" aria-label="म्यूट करें">
                         <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                         <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
                     </button>
 
-                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="फुलस्क्रीन क्लॉक" aria-label="फुलस्क्रीन क्लॉक खोलें">
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="फ़ुलस्क्रीन घड़ी" aria-label="फ़ुलस्क्रीन घड़ी खोलें">
                         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
                     </button>
                 </div>
@@ -934,8 +972,8 @@
 
                 <div class="inline-links">
                     <div class="lang-dropdown">
-                        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="भाषा चुनें">
-                            <span>हिंदी</span> <span class="caret">▼</span>
+                        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="भाषा चुनें" aria-expanded="false" aria-controls="langDropdown">
+                            <span>हिंदी</span> <span class="caret" aria-hidden="true">▼</span>
                         </button>
                         <div class="dropdown-content" id="langDropdown">
                             <a href="/" hreflang="en" onclick="switchLang(event, '/')">English (US)</a>
@@ -951,8 +989,18 @@
         </div>
     </div>
 
+    <!-- Confirm Modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-reset" id="modalCancel">रद्द करें</button>
+                <button type="button" class="btn btn-start" id="modalOk">ठीक है</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // ---------- DOM Elements ----------
         const mainTime       = document.getElementById('mainTime');
         const msTime         = document.getElementById('msTime');
         const timeDisplayEl  = document.getElementById('timeDisplay');
@@ -987,7 +1035,11 @@
         const mainContent    = document.getElementById('mainContent');
         const fsBtn          = document.getElementById('fsBtn');
 
-        // ---------- State ----------
+        const modalOverlay   = document.getElementById('modalOverlay');
+        const modalMessage   = document.getElementById('modalMessage');
+        const modalOk        = document.getElementById('modalOk');
+        const modalCancel    = document.getElementById('modalCancel');
+
         let currentMode = 'countdown';
         let rafId = null;
         let backstopId = null;
@@ -1010,13 +1062,40 @@
         let audioCtx;
 
         const MAX_SECONDS = 99 * 3600 + 59 * 60 + 59;
+        const MAX_LAPS = 100;
 
         progressRing.style.strokeDasharray = circumference;
 
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
         const ICON_LAP   = '<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>';
 
-        // ---------- Fullscreen ----------
+        /* ---------- Confirm Modal ---------- */
+        let modalResolve = null;
+
+        function showConfirm(message) {
+            if (modalResolve) return Promise.resolve(false);
+            return new Promise((resolve) => {
+                modalMessage.textContent = message;
+                modalOverlay.classList.remove('hidden');
+                modalResolve = resolve;
+                setTimeout(() => modalOk.focus(), 0);
+            });
+        }
+
+        function closeModal(result) {
+            modalOverlay.classList.add('hidden');
+            const r = modalResolve;
+            modalResolve = null;
+            if (r) r(result);
+        }
+
+        modalOk.addEventListener('click', () => closeModal(true));
+        modalCancel.addEventListener('click', () => closeModal(false));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal(false);
+        });
+
+        /* ---------- Fullscreen ---------- */
         function getFullscreenElement() {
             return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
         }
@@ -1052,6 +1131,13 @@
         document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
         document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
+        const fullscreenErrorHandler = () => {
+            if (fsBtn && !getFullscreenElement()) fsBtn.style.display = '';
+            console.warn('फ़ुलस्क्रीन अनुरोध ब्राउज़र द्वारा अस्वीकार कर दिया गया।');
+        };
+        document.addEventListener('fullscreenerror', fullscreenErrorHandler);
+        document.addEventListener('webkitfullscreenerror', fullscreenErrorHandler);
+
         const fsSupported = !!(
             document.documentElement.requestFullscreen ||
             document.documentElement.webkitRequestFullscreen ||
@@ -1061,21 +1147,21 @@
             fsBtn.style.display = 'none';
         }
 
-        // ---------- Language Dropdown ----------
-        function toggleLangDropdown(e) {
-            e.stopPropagation();
-            langDropdown.classList.toggle('show');
+        /* ---------- Language dropdown ---------- */
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
 
         function switchLang(e, baseUrl) {
             e.preventDefault();
-            const params = window.location.search;
-            window.location.href = baseUrl + params;
+            window.location.href = baseUrl + window.location.search + window.location.hash;
         }
 
         document.addEventListener('click', (e) => {
             if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
                 langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -1086,9 +1172,12 @@
             }
         });
 
-        // ---------- UI helpers ----------
+        /* ---------- Button state helpers ---------- */
         function setStartButton(state) {
-            const text = state === 'running' ? 'पॉज़ करें' : (state === 'paused' ? 'फिर शुरू करें' : 'प्रारंभ करें');
+            let text;
+            if (state === 'running') text = 'पॉज़ करें';
+            else if (state === 'paused') text = 'फिर से शुरू करें';
+            else text = 'प्रारंभ करें';
             startBtnText.textContent = text;
             startBtn.setAttribute('aria-label', `${text} टाइमर`);
             startBtn.classList.toggle('paused', state === 'paused');
@@ -1110,7 +1199,7 @@
             });
         }
 
-        // ---------- Audio ----------
+        /* ---------- Audio ---------- */
         function initAudio() {
             if (!audioCtx) {
                 try {
@@ -1124,39 +1213,42 @@
 
         function playBeep() {
             if (isMuted || !audioCtx) return;
+
+            const schedule = () => {
+                try {
+                    const beep = (delay) => {
+                        const osc  = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        const t0 = audioCtx.currentTime + delay;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(880, t0);
+                        gain.gain.setValueAtTime(0.1, t0);
+                        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.5);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(t0);
+                        osc.stop(t0 + 1.5);
+                    };
+                    beep(0);
+                    beep(0.3);
+                } catch (err) { }
+            };
+
             if (audioCtx.state === 'suspended') {
-                audioCtx.resume().catch(() => {});
+                audioCtx.resume().then(schedule).catch(() => {});
+            } else {
+                schedule();
             }
-            try {
-                const beep = (delay) => {
-                    const osc  = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
-                    const t0 = audioCtx.currentTime + delay;
-
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(880, t0);
-                    gain.gain.setValueAtTime(0.1, t0);
-                    gain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.5);
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-                    osc.start(t0);
-                    osc.stop(t0 + 1.5);
-                };
-                beep(0);
-                beep(0.3);
-            } catch (err) { }
         }
 
-        // ---------- Mode ----------
-        function switchMode(mode) {
+        /* ---------- Mode switching ---------- */
+        async function switchMode(mode) {
             if (mode === currentMode) return;
 
             const hasProgress = isRunning || remainingMs > 0 || stopwatchElapsed > 0;
             if (hasProgress) {
-                if (!confirm('टाइमर प्रगति में है। मोड बदलने से यह रीसेट हो जाएगा। जारी रखें?')) {
-                    return;
-                }
+                const ok = await showConfirm('टाइमर प्रगति में है। मोड बदलने से यह रीसेट हो जाएगा। जारी रखें?');
+                if (!ok) return;
             }
 
             currentMode = mode;
@@ -1195,7 +1287,7 @@
             }
         }
 
-        // ---------- Formatting / Display ----------
+        /* ---------- Formatting ---------- */
         function formatStopwatchTime(ms) {
             const totalSecs = Math.floor(ms / 1000);
             const h = Math.floor(totalSecs / 3600);
@@ -1225,7 +1317,7 @@
             const timeObj = formatStopwatchTime(stopwatchElapsed);
             mainTime.textContent = timeObj.main;
             msTime.textContent = timeObj.ms;
-            timeDisplayEl.classList.toggle('long-time', timeObj.main.length > 8);
+            timeDisplayEl.classList.toggle('long-time', timeObj.main.length >= 8);
 
             const currentSecs = (stopwatchElapsed / 1000) % 60;
             const offset = circumference - (currentSecs / 60) * circumference;
@@ -1247,8 +1339,15 @@
             }
         }
 
-        // ---------- Inputs ----------
+        /* ---------- Input handling ---------- */
         function setupInput(input, max) {
+            input.addEventListener('keydown', (e) => {
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
+                if (e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-' || e.key === '.') {
+                    e.preventDefault();
+                }
+            });
+
             input.addEventListener('input', () => {
                 if (input.value !== '') {
                     const val = parseInt(input.value, 10);
@@ -1301,7 +1400,7 @@
             updateDisplay();
         }
 
-        // ---------- Timer control ----------
+        /* ---------- Timer control ---------- */
         function toggleTimer() {
             if (isRunning) pauseTimer();
             else startTimer();
@@ -1407,7 +1506,6 @@
             inputSeconds.disabled = false;
         }
 
-        /* ==== FIXED: pause-at-0 now finishes instead of restarting ==== */
         function pauseTimer() {
             cancelAnimationFrame(rafId);
             rafId = null;
@@ -1428,6 +1526,9 @@
                     progressRing.style.strokeDashoffset =
                         circumference - (remainingMs / initMs) * circumference;
                 }
+                inputHours.disabled = false;
+                inputMinutes.disabled = false;
+                inputSeconds.disabled = false;
             } else {
                 isRunning = false;
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
@@ -1475,13 +1576,19 @@
             setLapButton(false);
         }
 
-        // ---------- Reset / Lap ----------
-        function handleResetLap() {
+        async function handleResetLap() {
             if (currentMode === 'countdown') {
                 resetTimer();
             } else {
-                if (isRunning) recordLap();
-                else resetTimer();
+                if (isRunning) {
+                    recordLap();
+                } else {
+                    if (stopwatchElapsed > 0) {
+                        const ok = await showConfirm('स्टॉपवॉच रीसेट करें? सभी लैप समय खो जाएंगे।');
+                        if (!ok) return;
+                    }
+                    resetTimer();
+                }
             }
         }
 
@@ -1496,6 +1603,7 @@
             const lapObj = formatStopwatchTime(lapTime);
             const lapDiv = document.createElement('div');
             lapDiv.className = 'lap-item';
+            lapDiv.setAttribute('role', 'listitem');
             const label = document.createElement('span');
             label.textContent = `लैप ${lapCount}`;
             const value = document.createElement('span');
@@ -1503,12 +1611,20 @@
             lapDiv.appendChild(label);
             lapDiv.appendChild(value);
             lapsSection.prepend(lapDiv);
+
+            lapsSection.scrollTop = 0;
+
+            while (lapsSection.children.length > MAX_LAPS) {
+                lapsSection.removeChild(lapsSection.lastElementChild);
+            }
         }
 
-        // ---------- Presets ----------
-        function setPreset(minutes) {
+        async function setPreset(minutes) {
             const hasProgress = isRunning || remainingMs > 0;
-            if (hasProgress && !confirm('टाइमर चल रहा है या रुका हुआ है। रीसेट करें और यह प्रीसेट लागू करें?')) return;
+            if (hasProgress) {
+                const ok = await showConfirm('टाइमर चल रहा है या रुका हुआ है। रीसेट करके यह प्रीसेट लागू करें?');
+                if (!ok) return;
+            }
 
             cancelAnimationFrame(rafId);
             rafId = null;
@@ -1540,9 +1656,9 @@
             });
         }
 
-        // ---------- Mute ----------
         function toggleMute() {
             isMuted = !isMuted;
+            muteBtn.setAttribute('aria-label', isMuted ? 'अनम्यूट करें' : 'म्यूट करें');
             if (isMuted) {
                 muteBtn.classList.add('muted');
                 soundOnIcon.style.display = 'none';
@@ -1554,8 +1670,17 @@
             }
         }
 
-        // ---------- Keyboard ----------
+        /* ---------- Keyboard ---------- */
         document.addEventListener('keydown', (e) => {
+            if (modalResolve) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeModal(false);
+                }
+                return;
+            }
+
             if (e.repeat) return;
             const el = e.target instanceof Element ? e.target : document.body;
             if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
@@ -1566,7 +1691,7 @@
             }
         });
 
-        // ---------- Programmatic SEO: URL Parameter Init ----------
+        /* ---------- URL params ---------- */
         function initFromURL() {
             const params = new URLSearchParams(window.location.search);
             const rawMin = params.get('minutes');
@@ -1574,11 +1699,11 @@
 
             if (rawMin === null && rawSec === null) return;
 
-            const minNum = rawMin !== null ? parseInt(rawMin, 10) : NaN;
-            const secNum = rawSec !== null ? parseInt(rawSec, 10) : NaN;
+            const minNum = (rawMin !== null && /^\d+$/.test(rawMin)) ? parseInt(rawMin, 10) : NaN;
+            const secNum = (rawSec !== null && /^\d+$/.test(rawSec)) ? parseInt(rawSec, 10) : NaN;
 
-            const validMin = !isNaN(minNum) && minNum >= 0;
-            const validSec = !isNaN(secNum) && secNum >= 0;
+            const validMin = Number.isFinite(minNum);
+            const validSec = Number.isFinite(secNum);
             if (!validMin && !validSec) return;
 
             let totalSecs = 0;
@@ -1597,14 +1722,14 @@
             updateTimeFromInputs();
 
             const shortParts = [], longParts = [];
-            if (h > 0) { shortParts.push(`${h} घंटा`); longParts.push(`${h} घंटे`); }
+            if (h > 0) { shortParts.push(`${h} घंटा`);   longParts.push(`${h} घंटा`); }
             if (m > 0) { shortParts.push(`${m} मिनट`); longParts.push(`${m} मिनट`); }
             if (s > 0) { shortParts.push(`${s} सेकंड`); longParts.push(`${s} सेकंड`); }
             const shortLabel = shortParts.join(' ');
             const longLabel  = longParts.join(' ');
 
             const newTitle = `${shortLabel} टाइमर - मुफ़्त ऑनलाइन काउंटडाउन`;
-            const newDesc  = `मुफ़्त ऑनलाइन ${longLabel} काउंटडाउन टाइमर विज़ुअल रिंग के साथ। साइनअप की ज़रूरत नहीं।`;
+            const newDesc  = `विज़ुअल रिंग के साथ मुफ़्त ऑनलाइन ${longLabel} काउंटडाउन टाइमर। साइनअप की ज़रूरत नहीं।`;
             const newH1    = `${shortLabel} टाइमर`;
 
             const canonParams = new URLSearchParams();
@@ -1615,7 +1740,8 @@
             const querySuffix = qs ? '?' + qs : '';
 
             const localePrefixes = { hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
-            let currentBase = '/hi/';
+            const localeLangs    = { '/': 'en', '/hi/': 'hi', '/es/': 'es', '/fr/': 'fr', '/de/': 'de' };
+            let currentBase = '/';
             for (const prefix of Object.values(localePrefixes)) {
                 if (window.location.pathname.startsWith(prefix)) {
                     currentBase = prefix;
@@ -1642,6 +1768,18 @@
             const h1 = document.querySelector('.site-header h1');
             if (h1) h1.textContent = newH1;
 
+            const ldJsonEl = document.querySelector('script[type="application/ld+json"]');
+            if (ldJsonEl) {
+                try {
+                    const data = JSON.parse(ldJsonEl.textContent);
+                    data.name        = 'Timer Clock';
+                    data.description = newDesc;
+                    data.url         = newUrl;
+                    data.inLanguage  = localeLangs[currentBase] || 'hi';
+                    ldJsonEl.textContent = JSON.stringify(data);
+                } catch (err) { }
+            }
+
             const langPaths = { en: '/', hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
             document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(link => {
                 const lang = link.getAttribute('hreflang');
@@ -1653,7 +1791,6 @@
             });
         }
 
-        // ---------- Init ----------
         updateTimeFromInputs();
         initFromURL();
     </script>

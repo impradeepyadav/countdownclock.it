@@ -147,18 +147,18 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
-            gap: clamp(10px, 2vh, 20px);
+            padding: clamp(10px, 3vh, 32px) clamp(10px, 4vw, 40px) clamp(10px, 2.5vh, 24px);
+            gap: clamp(8px, 2vh, 20px);
         }
 
-        /* ================= SITE HEADER ================= */
+        /* ================= SITE HEADER (desktop layout on every device) ================= */
         .site-header {
             width: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             flex-wrap: wrap;
-            gap: clamp(10px, 2vw, 22px);
+            gap: clamp(8px, 2vw, 22px);
             flex-shrink: 0;
             min-width: 0;
         }
@@ -166,14 +166,14 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: clamp(10px, 2vw, 16px);
+            gap: clamp(7px, 1.8vw, 16px);
             flex: 1 1 auto;
             min-width: 0;
         }
 
         .header-logo {
-            width: clamp(32px, 6vw, 48px);
-            height: clamp(32px, 6vw, 48px);
+            width: clamp(26px, 6vw, 48px);
+            height: clamp(26px, 6vw, 48px);
             object-fit: contain;
             flex-shrink: 0;
             border-radius: 8px;
@@ -183,12 +183,11 @@
 
         .site-header h1 {
             font-family: 'Outfit', 'Inter', sans-serif;
-            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-size: clamp(16px, min(3.6vh, 4.6vw), 38px);
             font-weight: 800;
             letter-spacing: -0.5px;
             line-height: 1.15;
             color: var(--text-main);
-            margin-bottom: 0.4vh;
             overflow-wrap: break-word;
         }
 
@@ -205,10 +204,10 @@
             align-items: center;
             justify-content: flex-end;
             flex-wrap: wrap;
-            gap: clamp(10px, 1.8vw, 22px);
+            gap: clamp(8px, 1.8vw, 22px);
             flex: 0 0 auto;
             min-width: 0;
-            padding-top: clamp(4px, 0.8vh, 8px);
+            margin-left: auto;
         }
 
         .mode-switch {
@@ -220,26 +219,32 @@
         }
 
         .mode-btn {
-            padding: 4px clamp(10px, 2.5vw, 16px);
+            padding: 4px clamp(7px, 2vw, 16px);
             border-radius: 25px;
             border: none;
             background: transparent;
-            font-size: clamp(12px, min(1.8vh, 3.2vw), 15px);
+            font-size: clamp(9px, min(1.8vh, 2.95vw), 15px);
             font-weight: 500;
             color: var(--text-muted);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             white-space: nowrap;
             min-width: 0;
+            line-height: 1.2;
         }
 
         .mode-btn.active {
             background-color: var(--card-bg);
             color: var(--text-main);
             box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        .mode-btn svg.icon {
+            width: clamp(12px, 3.1vw, 22px);
+            height: clamp(12px, 3.1vw, 22px);
         }
 
         .main-content {
@@ -251,7 +256,7 @@
             max-width: 1000px;
             flex-grow: 1;
             flex-shrink: 0;
-            gap: clamp(10px, 2vh, 20px);
+            gap: clamp(8px, 2vh, 20px);
             min-width: 0;
         }
 
@@ -259,7 +264,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: clamp(6px, 1.2vw, 14px);
+            gap: clamp(4px, 1.2vw, 14px);
             width: 100%;
             min-width: 0;
         }
@@ -268,14 +273,15 @@
             background-color: var(--gray-light);
             color: var(--text-muted);
             border: none;
-            padding: 0.7vh clamp(12px, 2.2vw, 20px);
+            padding: 0.7vh clamp(8px, 2.2vw, 20px);
             border-radius: 20px;
-            font-size: clamp(13px, min(2vh, 3.6vw), 17px);
+            font-size: clamp(11px, min(2vh, 3.2vw), 17px);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
             white-space: nowrap;
+            line-height: 1.2;
         }
 
         .preset-btn:hover {
@@ -291,8 +297,8 @@
 
         .timer-display {
             position: relative;
-            width: clamp(180px, min(36vh, 74vw), 350px);
-            height: clamp(180px, min(36vh, 74vw), 350px);
+            width: clamp(170px, min(36vh, 74vw), 350px);
+            height: clamp(170px, min(36vh, 74vw), 350px);
             max-width: 100%;
             display: flex;
             flex-direction: column;
@@ -324,7 +330,7 @@
         }
 
         .time-text {
-            font-size: clamp(2rem, min(6.5vh, 10.5vw), 3.9rem);
+            font-size: clamp(1.9rem, min(6.5vh, 10.5vw), 3.9rem);
             font-weight: 900;
             color: var(--text-main);
             font-variant-numeric: tabular-nums;
@@ -336,20 +342,20 @@
         }
 
         .time-text .ms-text {
-            font-size: clamp(1.1rem, min(3.2vh, 5.5vw), 2.1rem);
+            font-size: clamp(1rem, min(3.2vh, 5.5vw), 2.1rem);
             color: var(--text-muted);
             margin-left: 2px;
         }
 
         .time-text.long-time {
-            font-size: clamp(1.3rem, min(4.4vh, 7vw), 2.6rem);
+            font-size: clamp(1.2rem, min(4.4vh, 7vw), 2.6rem);
         }
         .time-text.long-time .ms-text {
-            font-size: clamp(0.8rem, min(2.2vh, 3.8vw), 1.4rem);
+            font-size: clamp(0.75rem, min(2.2vh, 3.8vw), 1.4rem);
         }
 
         .status-text {
-            font-size: clamp(12px, min(1.8vh, 3.4vw), 17px);
+            font-size: clamp(11px, min(1.8vh, 3.4vw), 17px);
             font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 2px;
@@ -459,7 +465,7 @@
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: clamp(6px, 1.6vw, 25px);
+            gap: clamp(4px, 1.6vw, 25px);
             flex-wrap: wrap;
             max-width: 100%;
             min-width: 0;
@@ -468,19 +474,20 @@
         .input-wrapper { display: flex; flex-direction: column; align-items: center; min-width: 0; }
 
         .input-wrapper label {
-            font-size: clamp(11px, min(1.7vh, 3.2vw), 15px);
+            font-size: clamp(9px, min(1.7vh, 2.7vw), 15px);
             font-weight: 700;
             color: var(--text-muted);
             letter-spacing: 1px;
             margin-bottom: 0.8vh;
+            white-space: nowrap;
         }
 
         .input-wrapper input {
-            width: clamp(64px, 20vw, 110px);
-            height: clamp(48px, min(8vh, 13vw), 78px);
+            width: clamp(58px, 20vw, 110px);
+            height: clamp(44px, min(8vh, 13vw), 78px);
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
+            font-size: clamp(1.2rem, min(3.6vh, 6.4vw), 2.2rem);
             font-weight: 700;
             color: var(--text-main);
             text-align: center;
@@ -504,10 +511,10 @@
 
         .input-wrapper input::-webkit-outer-spin-button,
         .input-wrapper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .input-wrapper input[type=number] { -moz-appearance: textfield; }
+        .input-wrapper input[type=number] { -moz-appearance: textfield; appearance: textfield; }
 
         .colon {
-            font-size: clamp(1.3rem, min(3.6vh, 6.8vw), 2.2rem);
+            font-size: clamp(1.2rem, min(3.6vh, 6.4vw), 2.2rem);
             font-weight: 700;
             color: var(--text-muted);
             margin-bottom: 2vh;
@@ -533,7 +540,7 @@
             gap: 10px;
             padding: 8px 16px;
             border-bottom: 1px solid var(--gray-light);
-            font-size: clamp(13px, min(1.9vh, 3.4vw), 16px);
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
             font-weight: 600;
             color: var(--text-main);
             min-width: 0;
@@ -555,7 +562,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: clamp(8px, 2vw, 20px);
+            gap: clamp(6px, 2vw, 20px);
             flex-wrap: wrap;
             max-width: 100%;
             min-width: 0;
@@ -565,10 +572,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 9px;
-            padding: clamp(10px, 1.8vh, 16px) clamp(14px, 4.5vw, 38px);
+            gap: 7px;
+            padding: clamp(9px, 1.8vh, 16px) clamp(12px, 4.5vw, 38px);
             border-radius: 30px;
-            font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
+            font-size: clamp(13px, min(2.4vh, 4.2vw), 20px);
             font-weight: 700;
             cursor: pointer;
             border: none;
@@ -623,8 +630,8 @@
         }
 
         .btn-icon {
-            width: clamp(44px, min(6.8vh, 10vw), 58px);
-            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            width: clamp(40px, min(6.8vh, 10vw), 58px);
+            height: clamp(40px, min(6.8vh, 10vw), 58px);
             border-radius: 50%;
             background-color: var(--gray-light);
             color: var(--text-muted);
@@ -650,12 +657,12 @@
         }
 
         .hint {
-            font-size: clamp(12px, min(1.9vh, 3.4vw), 17px);
+            font-size: clamp(11px, min(1.9vh, 3.1vw), 17px);
             color: var(--text-muted);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             text-align: center;
             max-width: 100%;
@@ -668,21 +675,21 @@
             border-radius: 6px;
             padding: 3px 8px;
             font-family: inherit;
-            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-size: clamp(10px, min(1.7vh, 2.8vw), 15px);
             font-weight: 700;
             color: var(--text-main);
         }
 
         svg.icon {
-            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
-            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            width: clamp(16px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(16px, min(2.5vh, 4.2vw), 24px);
             fill: currentColor;
             flex-shrink: 0;
         }
 
         svg.hint-icon {
-            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
-            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            width: clamp(13px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(13px, min(2.1vh, 3.4vw), 18px);
             flex-shrink: 0;
         }
 
@@ -707,7 +714,7 @@
         .privacy-link {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-size: clamp(11px, min(1.6vh, 2.8vw), 14px);
             font-weight: 200;
             transition: color 0.2s;
             display: inline-block;
@@ -722,7 +729,7 @@
             background: transparent;
             color: var(--text-muted);
             border: none;
-            font-size: clamp(12px, min(1.6vh, 3vw), 14px);
+            font-size: clamp(11px, min(1.6vh, 2.8vw), 14px);
             font-weight: 200;
             cursor: pointer;
             display: flex;
@@ -766,33 +773,10 @@
         .dropdown-content a:hover { background-color: var(--gray-light); }
         .dropdown-content.show { display: block; }
 
-        @media (max-width: 768px) {
-            .site-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 12px;
-            }
-            .brand {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                max-width: 100%;
-            }
-            .top-controls { justify-content: center; padding-top: 0; }
-            .dropdown-content {
-                right: auto;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-
+        /* ===== Small screens: ONLY size tuning, layout stays identical to desktop ===== */
         @media (max-width: 480px) {
-            .container { padding: 14px 12px 12px; }
+            .container { padding: 12px 10px 10px; }
             .controls-wrapper { gap: 1.2vh; }
-            .mode-btn { padding: 4px 10px; gap: 4px; }
-            .preset-btn { padding: 7px 12px; }
-            .btn { gap: 7px; }
             .colon { margin-bottom: 1.6vh; }
             .inline-links { gap: 8px; }
             .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
@@ -800,19 +784,19 @@
         }
 
         @media (max-width: 380px) {
-            .mode-btn { padding: 3px 8px; font-size: 12px; }
-            .preset-btn { padding: 6px 10px; font-size: 12px; }
-            .btn { padding: 10px 15px; font-size: 14px; }
-            .btn-icon { width: 44px; height: 44px; }
-            .controls { gap: 8px; }
-            .input-group { gap: 6px; }
+            .mode-btn { padding: 3px 6px; }
+            .preset-btn { padding: 6px 7px; }
+            .btn { padding: 9px 13px; }
+            .btn-icon { width: 40px; height: 40px; }
+            .controls { gap: 6px; }
+            .input-group { gap: 4px; }
             .inline-links { gap: 6px; }
         }
 
         @media (max-width: 330px) {
-            .preset-btn { padding: 6px 8px; }
-            .mode-btn { padding: 3px 6px; }
-            .btn { padding: 10px 12px; }
+            .mode-btn { padding: 3px 5px; }
+            .preset-btn { padding: 6px 6px; }
+            .btn { padding: 9px 11px; }
         }
 
         @media (max-height: 520px) {
@@ -1397,7 +1381,7 @@
             inputSeconds.disabled = false;
         }
 
-        /* ==== FIXED: pause-at-0 now finishes instead of restarting ==== */
+        /* ==== pause-at-0 now finishes instead of restarting ==== */
         function pauseTimer() {
             cancelAnimationFrame(rafId);
             rafId = null;
@@ -1407,7 +1391,6 @@
             if (currentMode === 'countdown') {
                 remainingMs = Math.max(0, targetTime - Date.now());
                 if (remainingMs <= 0) {
-                    // Timer already elapsed while pausing; finalize as finished.
                     finishCountdown();
                     return;
                 }

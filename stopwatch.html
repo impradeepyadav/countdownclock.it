@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Stopwatch with Laps - timerclock.app</title>
+    <meta name="description" content="Free online stopwatch with lap splits, millisecond precision, keyboard shortcuts, and fullscreen mode. Time workouts, meetings, and races in your browser.">
+    <link rel="canonical" href="https://timerclock.app/stopwatch">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Online Stopwatch with Laps - timerclock.app">
+    <meta property="og:description" content="Free online stopwatch with lap splits, millisecond precision, keyboard shortcuts, and fullscreen mode.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/stopwatch">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Online Stopwatch with Laps - timerclock.app">
+    <meta name="twitter:description" content="Free online stopwatch with lap splits, millisecond precision, keyboard shortcuts, and fullscreen mode.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/stopwatch">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/stopwatch">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/stopwatch">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/stopwatch">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/stopwatch">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/stopwatch">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Stopwatch",
+      "url": "https://timerclock.app/stopwatch",
+      "inLanguage": "en",
+      "description": "Free online stopwatch with lap splits, millisecond precision, keyboard shortcuts, and fullscreen mode.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Lap splits with best and worst highlighting",
+        "Millisecond precision using performance.now()",
+        "Keyboard shortcuts (Space, L, R, F)",
+        "Fullscreen mode",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --blue-hover: #2563eb;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(10px, 2vh, 20px);
+            min-width: 0;
+        }
+
+        /* ================= STOPWATCH DISPLAY ================= */
+        .stopwatch-display {
+            position: relative;
+            width: clamp(200px, min(40vh, 80vw), 380px);
+            height: clamp(200px, min(40vh, 80vw), 380px);
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 1vh 0;
+            flex-shrink: 0;
+        }
+
+        .ring-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg { fill: none; stroke: var(--gray-light); stroke-width: 10; }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--blue-primary);
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 816.81;
+            stroke-dashoffset: 0;
+            transition: stroke 0.3s;
+        }
+
+        .time-text {
+            font-size: clamp(2.2rem, min(7vh, 11vw), 4.2rem);
+            font-weight: 900;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            z-index: 10;
+            line-height: 1;
+            margin-bottom: 0.2vh;
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .ms-text {
+            font-size: clamp(1.2rem, min(3.5vh, 6vw), 2.4rem);
+            font-weight: 700;
+            color: var(--text-muted);
+            z-index: 10;
+            letter-spacing: 0;
+            white-space: nowrap;
+        }
+
+        .status-text {
+            font-size: clamp(12px, min(1.8vh, 3.4vw), 17px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            z-index: 10;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 0.3vh;
+        }
+
+        /* ================= FULLSCREEN MODE ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(10px, 1.8vh, 22px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .stopwatch-display,
+        .main-content:-webkit-full-screen .stopwatch-display {
+            width: clamp(220px, min(50vh, 58vw), 500px);
+            height: clamp(220px, min(50vh, 58vw), 500px);
+            margin: 0.5vh 0;
+        }
+
+        .main-content:fullscreen .time-text,
+        .main-content:-webkit-full-screen .time-text {
+            font-size: clamp(2.5rem, min(10vh, 12vw), 5.8rem);
+        }
+
+        .main-content:fullscreen .ms-text,
+        .main-content:-webkit-full-screen .ms-text {
+            font-size: clamp(1.4rem, min(5vh, 6vw), 3rem);
+        }
+
+        .main-content:fullscreen .status-text,
+        .main-content:-webkit-full-screen .status-text {
+            font-size: clamp(13px, min(2.6vh, 3.8vw), 22px);
+            letter-spacing: 0.4vh;
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= LAP LIST ================= */
+        .laps-section {
+            width: 100%;
+            max-width: 480px;
+            flex-shrink: 0;
+            margin-top: 0.5vh;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+
+        .laps-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 clamp(4px, 1vw, 12px) 0.6vh;
+            font-size: clamp(11px, min(1.6vh, 3vw), 14px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .laps-header span:last-child { text-align: right; }
+
+        .laps-list {
+            width: 100%;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            border-radius: 12px;
+            max-height: clamp(120px, 22vh, 260px);
+            min-height: 44px;
+        }
+
+        .laps-list::-webkit-scrollbar { width: 6px; }
+        .laps-list::-webkit-scrollbar-thumb { background-color: var(--gray-hover); border-radius: 10px; }
+
+        .lap-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: clamp(4px, 1vw, 12px);
+            padding: clamp(7px, 1vh, 11px) clamp(4px, 1vw, 12px);
+            border-bottom: 1px solid var(--gray-light);
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 16px);
+            font-weight: 600;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            align-items: center;
+        }
+
+        .lap-item span:first-child { color: var(--text-muted); font-weight: 500; }
+        .lap-item span:nth-child(2) { text-align: center; color: var(--text-muted); }
+        .lap-item span:last-child { text-align: right; font-weight: 700; }
+
+        .lap-item.best-lap span:last-child { color: var(--green-primary); }
+        .lap-item.worst-lap span:last-child { color: var(--danger); }
+
+        .lap-empty {
+            text-align: center;
+            padding: clamp(12px, 2vh, 20px) 4px;
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 15px);
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: clamp(10px, 1.8vh, 16px) clamp(14px, 4.5vw, 38px);
+            border-radius: 30px;
+            font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+
+        .btn-start {
+            background-color: var(--blue-primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-start:hover {
+            background-color: var(--blue-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-start.paused {
+            background-color: #ff9800;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-start.paused:hover { background-color: #f57c00; }
+
+        .btn-lap {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        .btn-lap:hover { background-color: var(--gray-hover); transform: translateY(-2px); }
+
+        .btn-lap:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-reset {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        .btn-reset:hover { background-color: var(--gray-hover); transform: translateY(-2px); }
+
+        .btn-reset:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover { background-color: var(--gray-hover); color: var(--text-main); }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 17px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: modal-fade-in 0.15s ease;
+        }
+        @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+        .modal p {
+            font-size: clamp(14px, min(2vh, 3.4vw), 16px);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-buttons .btn { padding: 10px 22px; font-size: 15px; }
+
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .controls-wrapper { gap: 1.2vh; }
+            .btn { gap: 7px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .lap-item { font-size: 12px; grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        @media (max-width: 380px) {
+            .btn { padding: 10px 15px; font-size: 14px; }
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+            .lap-item { font-size: 11px; padding: 6px 2px; }
+        }
+
+        @media (max-width: 330px) {
+            .btn { padding: 10px 12px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content:not(:fullscreen):not(:-webkit-full-screen) .stopwatch-display {
+                width: clamp(150px, min(48vh, 60vw), 240px);
+                height: clamp(150px, min(48vh, 60vw), 240px);
+                margin: 0.5vh 0;
+            }
+            .main-content { gap: 8px; }
+            .laps-list { max-height: 80px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS index.html) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Online Stopwatch with Laps</h1>
+                    <p>Free millisecond-precision stopwatch with lap splits, keyboard shortcuts, and fullscreen mode.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/stopwatch" hreflang="en">English (US)</a>
+                        <a href="/hi/stopwatch" hreflang="hi">हिंदी</a>
+                        <a href="/es/stopwatch" hreflang="es">Español</a>
+                        <a href="/fr/stopwatch" hreflang="fr">Français</a>
+                        <a href="/de/stopwatch" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== STOPWATCH MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Stopwatch display with progress ring -->
+            <div class="stopwatch-display" id="stopwatchDisplay">
+                <svg class="ring-svg" viewBox="0 0 280 280" aria-hidden="true">
+                    <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
+                    <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
+                </svg>
+                <div class="time-text" id="mainTime" role="timer" aria-live="off">00:00</div>
+                <div class="ms-text" id="msTime" aria-live="off">.00</div>
+                <div class="status-text" id="statusText" aria-live="polite">READY</div>
+
+                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+
+            <!-- Lap list -->
+            <div class="laps-section" id="lapsSection">
+                <div class="laps-header">
+                    <span>Lap</span>
+                    <span>Split</span>
+                    <span>Total</span>
+                </div>
+                <div class="laps-list" id="lapsList" role="list" aria-live="polite" aria-label="Lap times">
+                    <div class="lap-empty" id="lapEmpty">No laps yet. Press L or tap Lap to record.</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleStopwatch()" aria-label="Start stopwatch">
+                        <svg class="icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        <span id="startBtnText">Start</span>
+                    </button>
+
+                    <button type="button" class="btn btn-lap" id="lapBtn" onclick="recordLap()" aria-label="Record lap" disabled>
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>
+                        <span>Lap</span>
+                    </button>
+
+                    <button type="button" class="btn btn-reset" id="resetBtn" onclick="handleReset()" aria-label="Reset stopwatch" disabled>
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                        <span>Reset</span>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen stopwatch" aria-label="Enter fullscreen stopwatch">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>Space</kbd> start/pause &nbsp;·&nbsp; <kbd>L</kbd> lap &nbsp;·&nbsp; <kbd>R</kbd> reset &nbsp;·&nbsp; <kbd>F</kbd> fullscreen
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-reset" id="modalCancel">Cancel</button>
+                <button type="button" class="btn btn-start" id="modalOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ STOPWATCH LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const mainTime       = document.getElementById('mainTime');
+        const msTime         = document.getElementById('msTime');
+        const statusText     = document.getElementById('statusText');
+        const startBtn       = document.getElementById('startBtn');
+        const startBtnText   = document.getElementById('startBtnText');
+        const playIcon       = document.getElementById('playIcon');
+        const pauseIcon      = document.getElementById('pauseIcon');
+        const lapBtn         = document.getElementById('lapBtn');
+        const resetBtn       = document.getElementById('resetBtn');
+
+        const progressRing   = document.getElementById('progressRing');
+
+        const lapsList       = document.getElementById('lapsList');
+        const lapEmpty       = document.getElementById('lapEmpty');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        const modalOverlay   = document.getElementById('modalOverlay');
+        const modalMessage   = document.getElementById('modalMessage');
+        const modalOk        = document.getElementById('modalOk');
+        const modalCancel    = document.getElementById('modalCancel');
+
+        // ---------- State ----------
+        let rafId = null;
+        let isRunning = false;
+        let startTimestamp = 0;         // performance.now() when started
+        let accumulatedMs = 0;          // total elapsed while paused
+        let currentElapsedMs = 0;
+
+        let lapCount = 0;
+        let lastLapElapsedMs = 0;
+        let lapRecords = [];             // { totalMs, splitMs }
+
+        const circumference = 2 * Math.PI * 130;
+        progressRing.style.strokeDasharray = circumference;
+
+        // ---------- Confirm modal ----------
+        let modalResolve = null;
+
+        function showConfirm(message) {
+            if (modalResolve) return Promise.resolve(false);
+            return new Promise((resolve) => {
+                modalMessage.textContent = message;
+                modalOverlay.classList.remove('hidden');
+                modalResolve = resolve;
+                setTimeout(() => modalOk.focus(), 0);
+            });
+        }
+
+        function closeModal(result) {
+            modalOverlay.classList.add('hidden');
+            const r = modalResolve;
+            modalResolve = null;
+            if (r) r(result);
+        }
+
+        modalOk.addEventListener('click', () => closeModal(true));
+        modalCancel.addEventListener('click', () => closeModal(false));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal(false);
+        });
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Formatting ----------
+        function formatStopwatch(ms) {
+            const totalSecs = Math.floor(ms / 1000);
+            const h = Math.floor(totalSecs / 3600);
+            const m = Math.floor((totalSecs % 3600) / 60);
+            const s = totalSecs % 60;
+            const centiseconds = Math.floor((ms % 1000) / 10);
+
+            const hStr = h > 0 ? `${String(h).padStart(2, '0')}:` : '';
+            const mStr = String(m).padStart(2, '0');
+            const sStr = String(s).padStart(2, '0');
+            const csStr = String(centiseconds).padStart(2, '0');
+
+            return {
+                main: `${hStr}${mStr}:${sStr}`,
+                ms: `.${csStr}`
+            };
+        }
+
+        function updateDisplay() {
+            const t = formatStopwatch(currentElapsedMs);
+            mainTime.textContent = t.main;
+            msTime.textContent = t.ms;
+
+            // Progress ring cycles every 60 seconds
+            const secs = (currentElapsedMs / 1000) % 60;
+            const offset = circumference - (secs / 60) * circumference;
+            progressRing.style.strokeDashoffset = offset;
+        }
+
+        // ---------- Stopwatch loop ----------
+        function tick() {
+            if (!isRunning) return;
+            currentElapsedMs = accumulatedMs + (performance.now() - startTimestamp);
+            updateDisplay();
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function startStopwatch() {
+            if (isRunning) return;
+            isRunning = true;
+            startTimestamp = performance.now();
+            statusText.textContent = 'RUNNING';
+            statusText.style.color = 'var(--blue-primary)';
+            startBtn.classList.remove('paused');
+            startBtnText.textContent = 'Pause';
+            startBtn.setAttribute('aria-label', 'Pause stopwatch');
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+            lapBtn.disabled = false;
+            resetBtn.disabled = false;
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(tick);
+        }
+
+        function pauseStopwatch() {
+            if (!isRunning) return;
+            isRunning = false;
+            accumulatedMs += performance.now() - startTimestamp;
+            currentElapsedMs = accumulatedMs;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            updateDisplay();
+            statusText.textContent = 'PAUSED';
+            statusText.style.color = 'var(--text-muted)';
+            startBtn.classList.add('paused');
+            startBtnText.textContent = 'Resume';
+            startBtn.setAttribute('aria-label', 'Resume stopwatch');
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
+
+        function toggleStopwatch() {
+            if (isRunning) pauseStopwatch();
+            else startStopwatch();
+        }
+
+        function resetStopwatch() {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            isRunning = false;
+            startTimestamp = 0;
+            accumulatedMs = 0;
+            currentElapsedMs = 0;
+            lapCount = 0;
+            lastLapElapsedMs = 0;
+            lapRecords = [];
+
+            updateDisplay();
+            progressRing.style.strokeDashoffset = 0;
+
+            statusText.textContent = 'READY';
+            statusText.style.color = 'var(--text-muted)';
+            startBtn.classList.remove('paused');
+            startBtnText.textContent = 'Start';
+            startBtn.setAttribute('aria-label', 'Start stopwatch');
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+            lapBtn.disabled = true;
+            resetBtn.disabled = true;
+
+            renderLaps();
+        }
+
+        async function handleReset() {
+            if (lapCount > 0) {
+                const ok = await showConfirm('Reset the stopwatch? All lap times will be lost.');
+                if (!ok) return;
+            }
+            resetStopwatch();
+        }
+
+        // ---------- Lap handling ----------
+        function recordLap() {
+            if (!isRunning && currentElapsedMs === 0) return;
+            if (!isRunning && currentElapsedMs > 0) {
+                // Allow lap while paused only if there's elapsed time
+            }
+            lapCount++;
+            const totalMs = isRunning
+                ? accumulatedMs + (performance.now() - startTimestamp)
+                : currentElapsedMs;
+            const splitMs = totalMs - lastLapElapsedMs;
+            lastLapElapsedMs = totalMs;
+
+            lapRecords.push({ totalMs, splitMs });
+            renderLaps();
+        }
+
+        function renderLaps() {
+            if (lapRecords.length === 0) {
+                lapsList.innerHTML = '<div class="lap-empty" id="lapEmpty">No laps yet. Press L or tap Lap to record.</div>';
+                return;
+            }
+
+            // Find best (smallest) and worst (largest) split
+            let bestIdx = 0, worstIdx = 0;
+            lapRecords.forEach((lap, i) => {
+                if (lap.splitMs < lapRecords[bestIdx].splitMs) bestIdx = i;
+                if (lap.splitMs > lapRecords[worstIdx].splitMs) worstIdx = i;
+            });
+            // Don't highlight if only one lap
+            const highlightBest = lapRecords.length > 1;
+            const highlightWorst = lapRecords.length > 1 && bestIdx !== worstIdx;
+
+            let html = '';
+            lapRecords.forEach((lap, i) => {
+                const split = formatStopwatch(lap.splitMs);
+                const total = formatStopwatch(lap.totalMs);
+                let cls = 'lap-item';
+                if (highlightBest && i === bestIdx) cls += ' best-lap';
+                else if (highlightWorst && i === worstIdx) cls += ' worst-lap';
+
+                html += `<div class="${cls}" role="listitem">
+                    <span>Lap ${i + 1}</span>
+                    <span>+${split.main}${split.ms}</span>
+                    <span>${total.main}${total.ms}</span>
+                </div>`;
+            });
+            lapsList.innerHTML = html;
+            lapsList.scrollTop = 0;
+        }
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            if (modalResolve) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeModal(false);
+                }
+                return;
+            }
+
+            if (e.repeat) return;
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
+
+            if (e.code === 'Space' || e.key === ' ') {
+                e.preventDefault();
+                toggleStopwatch();
+                return;
+            }
+
+            if (e.key === 'l' || e.key === 'L') {
+                if (!lapBtn.disabled) {
+                    e.preventDefault();
+                    recordLap();
+                }
+                return;
+            }
+
+            if (e.key === 'r' || e.key === 'R') {
+                if (!resetBtn.disabled) {
+                    e.preventDefault();
+                    handleReset();
+                }
+                return;
+            }
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) {
+                    exitFullscreen();
+                }
+            }
+        });
+
+        // ---------- Init ----------
+        updateDisplay();
+        renderLaps();
+    </script>
+</body>
+</html>

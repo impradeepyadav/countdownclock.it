@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Converter - Free World Clock Converter | timerclock.app</title>
+    <meta name="description" content="Free time zone converter. Convert any time between major cities worldwide with automatic DST handling, live clocks, and 12/24-hour format.">
+    <link rel="canonical" href="https://timerclock.app/time-zone-converter">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Time Zone Converter - Free World Clock Converter">
+    <meta property="og:description" content="Convert any time between major cities worldwide with automatic DST handling and live clocks.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/time-zone-converter">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Time Zone Converter - Free World Clock Converter">
+    <meta name="twitter:description" content="Convert any time between major cities worldwide with automatic DST handling and live clocks.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/time-zone-converter">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/time-zone-converter">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/time-zone-converter">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/time-zone-converter">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/time-zone-converter">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/time-zone-converter">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Time Zone Converter",
+      "url": "https://timerclock.app/time-zone-converter",
+      "inLanguage": "en",
+      "description": "Free time zone converter with automatic DST handling, live clocks, and 12/24-hour format.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Convert between 60+ major time zones",
+        "Automatic DST handling",
+        "Live clocks for both zones",
+        "12-hour and 24-hour format",
+        "Day difference indicator",
+        "Swap zones",
+        "Fullscreen mode",
+        "Preferences saved in browser storage"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(12px, 2vh, 20px);
+            min-width: 0;
+        }
+
+        /* ================= CONVERTER CARD ================= */
+        .converter-card {
+            width: 100%;
+            max-width: 720px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(16px, 2.8vh, 28px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(14px, 2.2vh, 22px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+
+        .zone-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: clamp(8px, 1.5vw, 16px);
+            align-items: center;
+        }
+
+        .zone-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .zone-panel label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .zone-select {
+            width: 100%;
+            font-family: inherit;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--gray-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(10px, 1.6vw, 14px);
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-width: 0;
+            text-overflow: ellipsis;
+        }
+
+        .zone-select:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+        }
+
+        .zone-now {
+            font-size: clamp(11px, min(1.6vh, 3vw), 13px);
+            font-weight: 500;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            padding: 0 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .swap-btn {
+            width: clamp(38px, min(5.5vh, 8vw), 46px);
+            height: clamp(38px, min(5.5vh, 8vw), 46px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            font-size: clamp(16px, min(2.4vh, 4vw), 20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            align-self: center;
+            margin-top: 18px;
+            flex-shrink: 0;
+            touch-action: manipulation;
+        }
+
+        .swap-btn:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: rotate(180deg);
+        }
+
+        /* ================= DATETIME ROW ================= */
+        .datetime-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: clamp(8px, 1.5vw, 14px);
+            align-items: flex-end;
+        }
+
+        .datetime-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .datetime-field label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .datetime-field input {
+            width: 100%;
+            font-family: inherit;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--gray-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(10px, 1.6vw, 14px);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-width: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .datetime-field input:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+        }
+
+        .btn-now {
+            padding: clamp(9px, 1.4vh, 12px) clamp(14px, 2.5vw, 20px);
+            border-radius: 12px;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+            background-color: var(--gray-light);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+            align-self: flex-end;
+            height: fit-content;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+
+        .btn-now:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-1px);
+        }
+
+        /* ================= RESULT CARD ================= */
+        .result-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 18px;
+            padding: clamp(14px, 2.5vh, 22px) clamp(16px, 2.5vw, 24px);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .result-label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--green-hover);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .format-toggle {
+            display: inline-flex;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 2px;
+            gap: 1px;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        .fmt-btn {
+            background: transparent;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 18px;
+            font-size: clamp(11px, min(1.7vh, 3vw), 13px);
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            touch-action: manipulation;
+            line-height: 1.2;
+        }
+
+        .fmt-btn:hover { color: var(--text-main); }
+        .fmt-btn.active {
+            background-color: var(--green-primary);
+            color: white;
+        }
+
+        .result-time {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(2.4rem, min(8vh, 13vw), 4.2rem);
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -2px;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .result-date {
+            font-size: clamp(13px, min(2vh, 3.6vw), 17px);
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.35;
+        }
+
+        .result-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            font-size: clamp(11px, min(1.7vh, 3vw), 14px);
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .result-zone {
+            font-weight: 700;
+            color: var(--green-hover);
+        }
+
+        .result-dot { opacity: 0.5; }
+
+        .result-daydiff {
+            font-weight: 600;
+            color: var(--text-main);
+            background: rgba(76, 175, 80, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(14px, 2.5vh, 26px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .hint,
+        .main-content:-webkit-full-screen .hint {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .converter-card,
+        .main-content:-webkit-full-screen .converter-card {
+            max-width: 900px;
+            padding: clamp(20px, 3.5vh, 40px);
+        }
+
+        .main-content:fullscreen .result-time,
+        .main-content:-webkit-full-screen .result-time {
+            font-size: clamp(3.2rem, min(12vh, 16vw), 6.5rem);
+        }
+
+        .main-content:fullscreen .result-date,
+        .main-content:-webkit-full-screen .result-date {
+            font-size: clamp(16px, min(2.8vh, 4.5vw), 24px);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+
+            .zone-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .swap-btn {
+                margin-top: 0;
+                justify-self: center;
+                transform: rotate(90deg);
+            }
+            .swap-btn:hover { transform: rotate(270deg); }
+
+            .datetime-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            .datetime-row .btn-now {
+                grid-column: 1 / -1;
+                justify-self: stretch;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .converter-card { padding: 14px; border-radius: 18px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+            .result-time { letter-spacing: -1px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .result-time { font-size: clamp(1.8rem, 9vh, 3rem); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Time Zone Converter</h1>
+                    <p>Convert any time between major cities worldwide with automatic DST handling.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/time-zone-converter" hreflang="en">English (US)</a>
+                        <a href="/hi/time-zone-converter" hreflang="hi">हिंदी</a>
+                        <a href="/es/time-zone-converter" hreflang="es">Español</a>
+                        <a href="/fr/time-zone-converter" hreflang="fr">Français</a>
+                        <a href="/de/time-zone-converter" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== TIME ZONE CONVERTER MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <div class="converter-card">
+                <!-- Zone row -->
+                <div class="zone-row">
+                    <div class="zone-panel">
+                        <label for="sourceSelect">FROM</label>
+                        <select class="zone-select" id="sourceSelect" aria-label="Source timezone"></select>
+                        <div class="zone-now" id="sourceNow">Now: --</div>
+                    </div>
+
+                    <button type="button" class="swap-btn" onclick="swapZones()" aria-label="Swap timezones" title="Swap zones">⇅</button>
+
+                    <div class="zone-panel">
+                        <label for="targetSelect">TO</label>
+                        <select class="zone-select" id="targetSelect" aria-label="Target timezone"></select>
+                        <div class="zone-now" id="targetNow">Now: --</div>
+                    </div>
+                </div>
+
+                <!-- Date & time row -->
+                <div class="datetime-row">
+                    <div class="datetime-field">
+                        <label for="dateInput">Date</label>
+                        <input type="date" id="dateInput">
+                    </div>
+                    <div class="datetime-field">
+                        <label for="timeInput">Time</label>
+                        <input type="time" id="timeInput">
+                    </div>
+                    <button type="button" class="btn-now" onclick="setNow()" title="Set to current time">Now</button>
+                </div>
+
+                <!-- Result card -->
+                <div class="result-card">
+                    <div class="result-header">
+                        <span class="result-label">CONVERTED TIME</span>
+                        <div class="format-toggle" role="group" aria-label="Time format">
+                            <button type="button" class="fmt-btn active" id="fmt12" onclick="setFormat('12')" aria-pressed="true">12h</button>
+                            <button type="button" class="fmt-btn" id="fmt24" onclick="setFormat('24')" aria-pressed="false">24h</button>
+                        </div>
+                    </div>
+                    <div class="result-time" id="resultTime">--:--</div>
+                    <div class="result-date" id="resultDate">Pick a date and time</div>
+                    <div class="result-meta">
+                        <span class="result-zone" id="resultZone"></span>
+                        <span class="result-dot" id="resultDot1" style="display:none;">·</span>
+                        <span class="result-offset" id="resultOffset"></span>
+                        <span class="result-dot" id="resultDot2" style="display:none;">·</span>
+                        <span class="result-daydiff" id="resultDayDiff" style="display:none;"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen" aria-label="Enter fullscreen">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                    <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>F</kbd> fullscreen &nbsp;·&nbsp; Times auto-adjust for daylight saving
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ TIME ZONE CONVERTER LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const sourceSelect   = document.getElementById('sourceSelect');
+        const targetSelect   = document.getElementById('targetSelect');
+        const sourceNow      = document.getElementById('sourceNow');
+        const targetNow      = document.getElementById('targetNow');
+
+        const dateInput      = document.getElementById('dateInput');
+        const timeInput      = document.getElementById('timeInput');
+
+        const resultTime     = document.getElementById('resultTime');
+        const resultDate     = document.getElementById('resultDate');
+        const resultZone     = document.getElementById('resultZone');
+        const resultOffset   = document.getElementById('resultOffset');
+        const resultDayDiff  = document.getElementById('resultDayDiff');
+        const resultDot1     = document.getElementById('resultDot1');
+        const resultDot2     = document.getElementById('resultDot2');
+
+        const fmt12          = document.getElementById('fmt12');
+        const fmt24          = document.getElementById('fmt24');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        // ---------- Timezone data ----------
+        const ZONES = [
+            { zone: 'UTC',                       group: 'UTC',         label: 'UTC' },
+            { zone: 'America/New_York',          group: 'Americas',    label: 'New York' },
+            { zone: 'America/Chicago',           group: 'Americas',    label: 'Chicago' },
+            { zone: 'America/Denver',            group: 'Americas',    label: 'Denver' },
+            { zone: 'America/Phoenix',           group: 'Americas',    label: 'Phoenix' },
+            { zone: 'America/Los_Angeles',       group: 'Americas',    label: 'Los Angeles' },
+            { zone: 'America/Anchorage',         group: 'Americas',    label: 'Anchorage' },
+            { zone: 'America/Halifax',           group: 'Americas',    label: 'Halifax' },
+            { zone: 'America/Toronto',           group: 'Americas',    label: 'Toronto' },
+            { zone: 'America/Mexico_City',       group: 'Americas',    label: 'Mexico City' },
+            { zone: 'America/Havana',            group: 'Americas',    label: 'Havana' },
+            { zone: 'America/Bogota',            group: 'Americas',    label: 'Bogotá' },
+            { zone: 'America/Lima',              group: 'Americas',    label: 'Lima' },
+            { zone: 'America/Santiago',          group: 'Americas',    label: 'Santiago' },
+            { zone: 'America/Sao_Paulo',         group: 'Americas',    label: 'São Paulo' },
+            { zone: 'America/Argentina/Buenos_Aires', group: 'Americas', label: 'Buenos Aires' },
+            { zone: 'Europe/London',             group: 'Europe',      label: 'London' },
+            { zone: 'Europe/Dublin',             group: 'Europe',      label: 'Dublin' },
+            { zone: 'Europe/Lisbon',             group: 'Europe',      label: 'Lisbon' },
+            { zone: 'Europe/Paris',              group: 'Europe',      label: 'Paris' },
+            { zone: 'Europe/Berlin',             group: 'Europe',      label: 'Berlin' },
+            { zone: 'Europe/Madrid',             group: 'Europe',      label: 'Madrid' },
+            { zone: 'Europe/Rome',               group: 'Europe',      label: 'Rome' },
+            { zone: 'Europe/Amsterdam',          group: 'Europe',      label: 'Amsterdam' },
+            { zone: 'Europe/Brussels',           group: 'Europe',      label: 'Brussels' },
+            { zone: 'Europe/Vienna',             group: 'Europe',      label: 'Vienna' },
+            { zone: 'Europe/Zurich',             group: 'Europe',      label: 'Zurich' },
+            { zone: 'Europe/Stockholm',          group: 'Europe',      label: 'Stockholm' },
+            { zone: 'Europe/Oslo',               group: 'Europe',      label: 'Oslo' },
+            { zone: 'Europe/Copenhagen',         group: 'Europe',      label: 'Copenhagen' },
+            { zone: 'Europe/Helsinki',           group: 'Europe',      label: 'Helsinki' },
+            { zone: 'Europe/Warsaw',             group: 'Europe',      label: 'Warsaw' },
+            { zone: 'Europe/Prague',             group: 'Europe',      label: 'Prague' },
+            { zone: 'Europe/Athens',             group: 'Europe',      label: 'Athens' },
+            { zone: 'Europe/Istanbul',           group: 'Europe',      label: 'Istanbul' },
+            { zone: 'Europe/Moscow',             group: 'Europe',      label: 'Moscow' },
+            { zone: 'Europe/Kiev',               group: 'Europe',      label: 'Kyiv' },
+            { zone: 'Africa/Cairo',              group: 'Africa & Middle East', label: 'Cairo' },
+            { zone: 'Africa/Lagos',              group: 'Africa & Middle East', label: 'Lagos' },
+            { zone: 'Africa/Johannesburg',       group: 'Africa & Middle East', label: 'Johannesburg' },
+            { zone: 'Africa/Nairobi',            group: 'Africa & Middle East', label: 'Nairobi' },
+            { zone: 'Asia/Dubai',                group: 'Africa & Middle East', label: 'Dubai' },
+            { zone: 'Asia/Riyadh',               group: 'Africa & Middle East', label: 'Riyadh' },
+            { zone: 'Asia/Tehran',               group: 'Africa & Middle East', label: 'Tehran' },
+            { zone: 'Asia/Jerusalem',            group: 'Africa & Middle East', label: 'Jerusalem' },
+            { zone: 'Asia/Kolkata',              group: 'Asia',        label: 'Mumbai / New Delhi' },
+            { zone: 'Asia/Karachi',              group: 'Asia',        label: 'Karachi' },
+            { zone: 'Asia/Dhaka',                group: 'Asia',        label: 'Dhaka' },
+            { zone: 'Asia/Kathmandu',            group: 'Asia',        label: 'Kathmandu' },
+            { zone: 'Asia/Bangkok',              group: 'Asia',        label: 'Bangkok' },
+            { zone: 'Asia/Jakarta',              group: 'Asia',        label: 'Jakarta' },
+            { zone: 'Asia/Singapore',            group: 'Asia',        label: 'Singapore' },
+            { zone: 'Asia/Hong_Kong',            group: 'Asia',        label: 'Hong Kong' },
+            { zone: 'Asia/Shanghai',             group: 'Asia',        label: 'Shanghai / Beijing' },
+            { zone: 'Asia/Taipei',               group: 'Asia',        label: 'Taipei' },
+            { zone: 'Asia/Seoul',                group: 'Asia',        label: 'Seoul' },
+            { zone: 'Asia/Tokyo',                group: 'Asia',        label: 'Tokyo' },
+            { zone: 'Asia/Manila',               group: 'Asia',        label: 'Manila' },
+            { zone: 'Australia/Perth',           group: 'Oceania',     label: 'Perth' },
+            { zone: 'Australia/Adelaide',        group: 'Oceania',     label: 'Adelaide' },
+            { zone: 'Australia/Brisbane',        group: 'Oceania',     label: 'Brisbane' },
+            { zone: 'Australia/Sydney',          group: 'Oceania',     label: 'Sydney' },
+            { zone: 'Australia/Melbourne',       group: 'Oceania',     label: 'Melbourne' },
+            { zone: 'Pacific/Auckland',          group: 'Oceania',     label: 'Auckland' },
+            { zone: 'Pacific/Fiji',              group: 'Oceania',     label: 'Fiji' },
+            { zone: 'Pacific/Honolulu',          group: 'Oceania',     label: 'Honolulu' },
+        ];
+
+        const STORAGE_KEY = 'timerclock_tzconverter_prefs_v1';
+        let timeFormat = '12';  // '12' or '24'
+        let currentResultInstant = null;  // UTC ms of the current result
+        let liveInterval = null;
+
+        // ---------- Helpers: timezone math ----------
+        function getWallComponents(date, zone) {
+            const dtf = new Intl.DateTimeFormat('en-US', {
+                timeZone: zone,
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hour12: false
+            });
+            const parts = dtf.formatToParts(date);
+            const o = {};
+            for (const p of parts) o[p.type] = p.value;
+            let h = parseInt(o.hour, 10);
+            if (h === 24) h = 0;
+            return {
+                year:   parseInt(o.year, 10),
+                month:  parseInt(o.month, 10),
+                day:    parseInt(o.day, 10),
+                hour:   h,
+                minute: parseInt(o.minute, 10),
+                second: parseInt(o.second, 10)
+            };
+        }
+
+        function zonedTimeToUtc(year, month, day, hour, minute, second, zone) {
+            // Find the UTC instant that equals the given wall-clock time in `zone`.
+            // Iteratively converges even across DST transitions.
+            const naiveUtcMs = Date.UTC(year, month - 1, day, hour, minute, second || 0);
+            let guess = naiveUtcMs;
+
+            for (let i = 0; i < 5; i++) {
+                const wall = getWallComponents(new Date(guess), zone);
+                const wallMs = Date.UTC(wall.year, wall.month - 1, wall.day, wall.hour, wall.minute, wall.second);
+                const diff = naiveUtcMs - wallMs;
+                if (Math.abs(diff) < 1000) return guess;
+                guess += diff;
+            }
+            return guess;
+        }
+
+        function getOffsetMinutes(date, zone) {
+            const wall = getWallComponents(date, zone);
+            const asUtc = Date.UTC(wall.year, wall.month - 1, wall.day, wall.hour, wall.minute, wall.second);
+            return Math.round((asUtc - date.getTime()) / 60000);
+        }
+
+        function formatOffset(minutes) {
+            if (minutes === 0) return 'UTC';
+            const sign = minutes >= 0 ? '+' : '-';
+            const abs = Math.abs(minutes);
+            const h = Math.floor(abs / 60);
+            const m = abs % 60;
+            return 'UTC' + sign + h + (m ? ':' + String(m).padStart(2, '0') : '');
+        }
+
+        function getCalendarDateKey(utcMs, zone) {
+            const wall = getWallComponents(new Date(utcMs), zone);
+            return wall.year + '-' + String(wall.month).padStart(2, '0') + '-' + String(wall.day).padStart(2, '0');
+        }
+
+        function getZoneAbbrev(utcMs, zone) {
+            try {
+                const dtf = new Intl.DateTimeFormat('en-US', {
+                    timeZone: zone,
+                    timeZoneName: 'short'
+                });
+                const parts = dtf.formatToParts(new Date(utcMs));
+                for (const p of parts) {
+                    if (p.type === 'timeZoneName') return p.value;
+                }
+            } catch (e) { /* ignore */ }
+            return '';
+        }
+
+        // ---------- Populate selects ----------
+        function populateSelect(selectEl, selectedValue) {
+            const groups = {};
+            ZONES.forEach(z => {
+                if (!groups[z.group]) groups[z.group] = [];
+                groups[z.group].push(z);
+            });
+            const groupOrder = ['UTC', 'Americas', 'Europe', 'Africa & Middle East', 'Asia', 'Oceania'];
+
+            let html = '';
+            groupOrder.forEach(groupName => {
+                const items = groups[groupName];
+                if (!items) return;
+                html += '<optgroup label="' + groupName + '">';
+                items.forEach(z => {
+                    html += '<option value="' + z.zone + '">' + z.label + '</option>';
+                });
+                html += '</optgroup>';
+            });
+            selectEl.innerHTML = html;
+            if (selectedValue) selectEl.value = selectedValue;
+        }
+
+        // ---------- Format preference ----------
+        function loadPrefs() {
+            let prefs = {};
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) prefs = JSON.parse(raw) || {};
+            } catch (e) { /* ignore */ }
+
+            if (prefs.format === '12' || prefs.format === '24') timeFormat = prefs.format;
+
+            return prefs;
+        }
+
+        function savePrefs() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    source: sourceSelect.value,
+                    target: targetSelect.value,
+                    format: timeFormat
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        function setFormat(fmt) {
+            if (fmt !== '12' && fmt !== '24') return;
+            timeFormat = fmt;
+
+            if (fmt === '12') {
+                fmt12.classList.add('active');
+                fmt12.setAttribute('aria-pressed', 'true');
+                fmt24.classList.remove('active');
+                fmt24.setAttribute('aria-pressed', 'false');
+            } else {
+                fmt24.classList.add('active');
+                fmt24.setAttribute('aria-pressed', 'true');
+                fmt12.classList.remove('active');
+                fmt12.setAttribute('aria-pressed', 'false');
+            }
+
+            savePrefs();
+            convert();
+            updateLiveClocks();
+        }
+
+        // ---------- Conversion ----------
+        function convert() {
+            const srcZone = sourceSelect.value;
+            const dstZone = targetSelect.value;
+            const dateVal = dateInput.value;
+            const timeVal = timeInput.value;
+
+            if (!srcZone || !dstZone || !dateVal || !timeVal) {
+                clearResult();
+                return;
+            }
+
+            const dateParts = dateVal.split('-').map(Number);
+            const timeParts = timeVal.split(':').map(Number);
+            if (dateParts.length < 3 || timeParts.length < 2) {
+                clearResult();
+                return;
+            }
+
+            const [y, mo, d] = dateParts;
+            const [h, mi] = timeParts;
+
+            if (!isFinite(y) || !isFinite(mo) || !isFinite(d) || !isFinite(h) || !isFinite(mi)) {
+                clearResult();
+                return;
+            }
+
+            const resultInstant = zonedTimeToUtc(y, mo, d, h, mi, 0, srcZone);
+            currentResultInstant = resultInstant;
+
+            const srcDateKey = y + '-' + String(mo).padStart(2, '0') + '-' + String(d).padStart(2, '0');
+            renderResult(resultInstant, srcDateKey, dstZone);
+        }
+
+        function clearResult() {
+            currentResultInstant = null;
+            resultTime.textContent = '--:--';
+            resultDate.textContent = 'Pick a date and time';
+            resultZone.textContent = '';
+            resultOffset.textContent = '';
+            resultDayDiff.style.display = 'none';
+            resultDot1.style.display = 'none';
+            resultDot2.style.display = 'none';
+        }
+
+        function renderResult(utcMs, srcDateKey, dstZone) {
+            const date = new Date(utcMs);
+            const use12 = timeFormat === '12';
+
+            // Time
+            const timeFmt = new Intl.DateTimeFormat('en-US', {
+                timeZone: dstZone,
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: use12
+            });
+            resultTime.textContent = timeFmt.format(date);
+
+            // Date
+            const dateFmt = new Intl.DateTimeFormat('en-US', {
+                timeZone: dstZone,
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+            resultDate.textContent = dateFmt.format(date);
+
+            // Zone abbreviation
+            const abbr = getZoneAbbrev(utcMs, dstZone);
+            resultZone.textContent = abbr;
+
+            // Offset
+            const offset = getOffsetMinutes(date, dstZone);
+            resultOffset.textContent = formatOffset(offset);
+
+            // Day difference
+            const dstDateKey = getCalendarDateKey(utcMs, dstZone);
+            if (srcDateKey === dstDateKey) {
+                resultDayDiff.textContent = 'Same day';
+                resultDayDiff.style.display = '';
+                resultDot1.style.display = '';
+                resultDot2.style.display = '';
+            } else {
+                const srcMs = Date.parse(srcDateKey + 'T00:00:00Z');
+                const dstMs = Date.parse(dstDateKey + 'T00:00:00Z');
+                const diffDays = Math.round((dstMs - srcMs) / 86400000);
+                let label;
+                if (diffDays === 1) label = 'Next day';
+                else if (diffDays === -1) label = 'Previous day';
+                else if (diffDays > 1) label = '+' + diffDays + ' days';
+                else label = diffDays + ' days';
+                resultDayDiff.textContent = label;
+                resultDayDiff.style.display = '';
+                resultDot1.style.display = '';
+                resultDot2.style.display = '';
+            }
+        }
+
+        // ---------- Live clocks ----------
+        function formatLive(date, zone) {
+            const dtf = new Intl.DateTimeFormat('en-US', {
+                timeZone: zone,
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: timeFormat === '12'
+            });
+            return dtf.format(date);
+        }
+
+        function updateLiveClocks() {
+            const now = new Date();
+            const srcZone = sourceSelect.value;
+            const dstZone = targetSelect.value;
+            if (!srcZone || !dstZone) return;
+
+            try {
+                sourceNow.textContent = 'Now: ' + formatLive(now, srcZone);
+                targetNow.textContent = 'Now: ' + formatLive(now, dstZone);
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- Now button ----------
+        function setNow() {
+            const srcZone = sourceSelect.value;
+            const now = new Date();
+            const wall = getWallComponents(now, srcZone);
+
+            dateInput.value =
+                wall.year + '-' +
+                String(wall.month).padStart(2, '0') + '-' +
+                String(wall.day).padStart(2, '0');
+            timeInput.value =
+                String(wall.hour).padStart(2, '0') + ':' +
+                String(wall.minute).padStart(2, '0');
+
+            convert();
+        }
+
+        // ---------- Swap ----------
+        function swapZones() {
+            if (!currentResultInstant) {
+                // Nothing to preserve; just swap the selects
+                const oldSrc = sourceSelect.value;
+                sourceSelect.value = targetSelect.value;
+                targetSelect.value = oldSrc;
+                savePrefs();
+                convert();
+                return;
+            }
+
+            const oldSrc = sourceSelect.value;
+            const oldTgt = targetSelect.value;
+
+            // Swap the selects
+            sourceSelect.value = oldTgt;
+            targetSelect.value = oldSrc;
+
+            // Set the input to the previous result time expressed in the new source (old target) zone
+            const wall = getWallComponents(new Date(currentResultInstant), oldTgt);
+            dateInput.value =
+                wall.year + '-' +
+                String(wall.month).padStart(2, '0') + '-' +
+                String(wall.day).padStart(2, '0');
+            timeInput.value =
+                String(wall.hour).padStart(2, '0') + ':' +
+                String(wall.minute).padStart(2, '0');
+
+            savePrefs();
+            convert();
+            updateLiveClocks();
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (e.repeat) return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Input listeners ----------
+        dateInput.addEventListener('change', () => { convert(); });
+        timeInput.addEventListener('change', () => { convert(); });
+        dateInput.addEventListener('input', () => { convert(); });
+        timeInput.addEventListener('input', () => { convert(); });
+
+        sourceSelect.addEventListener('change', () => {
+            savePrefs();
+            convert();
+            updateLiveClocks();
+        });
+
+        targetSelect.addEventListener('change', () => {
+            savePrefs();
+            convert();
+            updateLiveClocks();
+        });
+
+        // ---------- Init ----------
+        (function init() {
+            const prefs = loadPrefs();
+
+            // Detect user's timezone
+            let detectedZone = 'UTC';
+            try {
+                detectedZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+            } catch (e) { /* ignore */ }
+
+            // Validate that detected zone exists in our list
+            const knownZones = ZONES.map(z => z.zone);
+            if (!knownZones.includes(detectedZone)) {
+                detectedZone = 'UTC';
+            }
+
+            // Determine initial zones
+            let srcZone = prefs.source && knownZones.includes(prefs.source) ? prefs.source : detectedZone;
+            let tgtZone = prefs.target && knownZones.includes(prefs.target) ? prefs.target : 'Europe/London';
+
+            // If source and target end up equal, pick a sensible alternative
+            if (srcZone === tgtZone) {
+                tgtZone = srcZone === 'Europe/London' ? 'America/New_York' : 'Europe/London';
+            }
+
+            populateSelect(sourceSelect, srcZone);
+            populateSelect(targetSelect, tgtZone);
+
+            // Set format button state
+            if (timeFormat === '24') {
+                fmt24.classList.add('active');
+                fmt24.setAttribute('aria-pressed', 'true');
+                fmt12.classList.remove('active');
+                fmt12.setAttribute('aria-pressed', 'false');
+            }
+
+            // Set "now" as default input
+            setNow();
+
+            // Start live clocks
+            updateLiveClocks();
+            if (liveInterval) clearInterval(liveInterval);
+            liveInterval = setInterval(updateLiveClocks, 1000);
+        })();
+    </script>
+</body>
+</html>

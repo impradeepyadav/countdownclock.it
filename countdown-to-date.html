@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Date - Free Live Event Countdown | timerclock.app</title>
+    <meta name="description" content="Free live countdown to any date and time. See days, hours, minutes, and seconds remaining for birthdays, holidays, launches, exams, and events. No signup required.">
+    <link rel="canonical" href="https://timerclock.app/countdown-to-date">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Countdown to Date - Free Live Event Countdown">
+    <meta property="og:description" content="Free live countdown to any date and time. See days, hours, minutes, and seconds remaining.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/countdown-to-date">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Countdown to Date - Free Live Event Countdown">
+    <meta name="twitter:description" content="Free live countdown to any date and time.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/countdown-to-date">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/countdown-to-date">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/countdown-to-date">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/countdown-to-date">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/countdown-to-date">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/countdown-to-date">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Countdown to Date",
+      "url": "https://timerclock.app/countdown-to-date",
+      "inLanguage": "en",
+      "description": "Free live countdown to any date and time with days, hours, minutes, and seconds.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Live countdown to any future date and time",
+        "Shows days, hours, minutes, and seconds",
+        "Progress bar showing completion percentage",
+        "Sound alert when the target date is reached",
+        "Fullscreen mode",
+        "Target date saved in browser storage",
+        "Keyboard shortcuts",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 900px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(12px, 2.2vh, 22px);
+            min-width: 0;
+        }
+
+        /* ================= DATE PICKER CARD ================= */
+        .date-picker-card {
+            width: 100%;
+            max-width: 620px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: clamp(14px, 2.5vh, 22px) clamp(16px, 2.8vw, 26px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.8vh, 16px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            flex-shrink: 0;
+        }
+
+        .date-picker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .date-picker-title {
+            font-size: clamp(11px, min(1.6vh, 3vw), 13px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .date-picker-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(8px, 1.5vw, 14px);
+            align-items: flex-end;
+        }
+
+        .date-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 0;
+        }
+
+        .date-field label {
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .date-field input {
+            width: 100%;
+            font-family: inherit;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 600;
+            color: var(--text-main);
+            background-color: var(--gray-light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(10px, 1.6vw, 14px);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-width: 0;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .date-field input:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15);
+        }
+
+        .btn-set-date {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: clamp(9px, 1.4vh, 12px) clamp(16px, 2.8vw, 22px);
+            border-radius: 12px;
+            font-size: clamp(13px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 700;
+            color: white;
+            background-color: var(--green-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(76, 175, 80, 0.3);
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+            grid-column: 1 / -1;
+            touch-action: manipulation;
+            height: fit-content;
+        }
+
+        .btn-set-date:hover {
+            background-color: var(--green-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-set-date:active { transform: translateY(0); }
+
+        /* ================= COUNTDOWN DISPLAY ================= */
+        .countdown-display {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(8px, 1.5vh, 14px);
+            flex-shrink: 0;
+        }
+
+        .countdown-event-label {
+            font-size: clamp(13px, min(2vh, 3.6vw), 17px);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.35;
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(6px, 1.2vw, 12px);
+            width: 100%;
+            max-width: 600px;
+            min-width: 0;
+        }
+
+        .countdown-unit {
+            background-color: var(--gray-light);
+            border-radius: 16px;
+            padding: clamp(10px, 1.8vh, 18px) clamp(6px, 1vw, 12px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            min-width: 0;
+            transition: background-color 0.3s;
+        }
+
+        .countdown-unit.zero {
+            opacity: 0.5;
+        }
+
+        .countdown-value {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(1.6rem, min(5.5vh, 9vw), 3.2rem);
+            font-weight: 800;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            letter-spacing: -1px;
+            white-space: nowrap;
+        }
+
+        .countdown-label {
+            font-size: clamp(9px, min(1.3vh, 2.5vw), 12px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ================= PROGRESS BAR ================= */
+        .progress-section {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex-shrink: 0;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: clamp(8px, 1.2vh, 12px);
+            background-color: var(--gray-light);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50 0%, #43a047 100%);
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-size: clamp(10px, min(1.5vh, 2.8vw), 12px);
+            font-weight: 500;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .progress-labels span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ================= FINISHED STATE ================= */
+        .finished-banner {
+            display: none;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 18px;
+            padding: clamp(16px, 3vh, 28px) clamp(20px, 4vw, 36px);
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            flex-shrink: 0;
+        }
+
+        .finished-banner.show { display: block; }
+
+        .finished-icon {
+            font-size: clamp(2.4rem, 7vh, 4rem);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .finished-text {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(1.3rem, min(4vh, 7vw), 2rem);
+            font-weight: 800;
+            color: var(--green-hover);
+            line-height: 1.2;
+        }
+
+        .finished-sub {
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 15px);
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon.muted {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(14px, 2.5vh, 26px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .date-picker-card,
+        .main-content:-webkit-full-screen .date-picker-card {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .countdown-grid,
+        .main-content:-webkit-full-screen .countdown-grid {
+            max-width: 90vw;
+            gap: clamp(10px, 2vw, 24px);
+        }
+
+        .main-content:fullscreen .countdown-value,
+        .main-content:-webkit-full-screen .countdown-value {
+            font-size: clamp(2.2rem, min(10vh, 14vw), 6rem);
+        }
+
+        .main-content:fullscreen .countdown-label,
+        .main-content:-webkit-full-screen .countdown-label {
+            font-size: clamp(11px, min(2vh, 3.5vw), 18px);
+        }
+
+        .main-content:fullscreen .progress-section,
+        .main-content:-webkit-full-screen .progress-section {
+            max-width: 90vw;
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+
+            .date-picker-row { grid-template-columns: 1fr 1fr; }
+            .btn-set-date { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+            .date-picker-card { padding: 14px; border-radius: 16px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+            .countdown-value { letter-spacing: -0.5px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .countdown-value { font-size: clamp(1.4rem, 7vh, 2.4rem); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Countdown to Date</h1>
+                    <p>Live countdown to any future date and time — perfect for birthdays, holidays, launches, and exams.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/countdown-to-date" hreflang="en">English (US)</a>
+                        <a href="/hi/countdown-to-date" hreflang="hi">हिंदी</a>
+                        <a href="/es/countdown-to-date" hreflang="es">Español</a>
+                        <a href="/fr/countdown-to-date" hreflang="fr">Français</a>
+                        <a href="/de/countdown-to-date" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== COUNTDOWN TO DATE MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Date picker card -->
+            <div class="date-picker-card" id="datePickerCard">
+                <div class="date-picker-header">
+                    <span class="date-picker-title">COUNTDOWN TO</span>
+                </div>
+                <div class="date-picker-row">
+                    <div class="date-field">
+                        <label for="inputDate">Date</label>
+                        <input type="date" id="inputDate">
+                    </div>
+                    <div class="date-field">
+                        <label for="inputTime">Time</label>
+                        <input type="time" id="inputTime" value="00:00">
+                    </div>
+                    <button type="button" class="btn-set-date" onclick="applyTarget()" aria-label="Set countdown target">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Set Countdown</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Countdown display -->
+            <div class="countdown-display">
+                <div class="countdown-event-label" id="eventLabel">Pick a date to begin the countdown</div>
+
+                <div class="countdown-grid">
+                    <div class="countdown-unit" id="unitDays">
+                        <div class="countdown-value" id="valDays">--</div>
+                        <div class="countdown-label">DAYS</div>
+                    </div>
+                    <div class="countdown-unit" id="unitHours">
+                        <div class="countdown-value" id="valHours">--</div>
+                        <div class="countdown-label">HOURS</div>
+                    </div>
+                    <div class="countdown-unit" id="unitMinutes">
+                        <div class="countdown-value" id="valMinutes">--</div>
+                        <div class="countdown-label">MINUTES</div>
+                    </div>
+                    <div class="countdown-unit" id="unitSeconds">
+                        <div class="countdown-value" id="valSeconds">--</div>
+                        <div class="countdown-label">SECONDS</div>
+                    </div>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="progress-section" id="progressSection">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span id="progressStart">Start</span>
+                        <span id="progressPercent">0%</span>
+                        <span id="progressEnd">Target</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finished banner -->
+            <div class="finished-banner" id="finishedBanner">
+                <div class="finished-icon" aria-hidden="true">🎉</div>
+                <div class="finished-text" id="finishedText">The date has arrived!</div>
+                <div class="finished-sub" id="finishedSub"></div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="Mute / unmute sound" aria-label="Mute">
+                        <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen countdown" aria-label="Enter fullscreen countdown">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                    <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>F</kbd> fullscreen &nbsp;·&nbsp; Target saved automatically
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ COUNTDOWN TO DATE LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const inputDate         = document.getElementById('inputDate');
+        const inputTime         = document.getElementById('inputTime');
+
+        const eventLabel        = document.getElementById('eventLabel');
+        const valDays           = document.getElementById('valDays');
+        const valHours          = document.getElementById('valHours');
+        const valMinutes        = document.getElementById('valMinutes');
+        const valSeconds        = document.getElementById('valSeconds');
+
+        const unitDays          = document.getElementById('unitDays');
+        const unitHours         = document.getElementById('unitHours');
+        const unitMinutes       = document.getElementById('unitMinutes');
+        const unitSeconds       = document.getElementById('unitSeconds');
+
+        const progressFill      = document.getElementById('progressFill');
+        const progressStart     = document.getElementById('progressStart');
+        const progressPercent   = document.getElementById('progressPercent');
+        const progressEnd       = document.getElementById('progressEnd');
+
+        const finishedBanner    = document.getElementById('finishedBanner');
+        const finishedText      = document.getElementById('finishedText');
+        const finishedSub       = document.getElementById('finishedSub');
+
+        const muteBtn           = document.getElementById('muteBtn');
+        const soundOnIcon       = document.getElementById('soundOnIcon');
+        const soundOffIcon      = document.getElementById('soundOffIcon');
+
+        const toolsBtn          = document.getElementById('toolsBtn');
+        const toolsDropdown     = document.getElementById('toolsDropdown');
+        const langBtn           = document.getElementById('langBtn');
+        const langDropdown      = document.getElementById('langDropdown');
+
+        const mainContent       = document.getElementById('mainContent');
+        const fsBtn             = document.getElementById('fsBtn');
+
+        // ---------- State ----------
+        const STORAGE_KEY = 'timerclock_countdowntodate_v1';
+        let targetMs = null;          // UTC ms of the target date/time
+        let createdMs = null;         // UTC ms when the countdown was first set
+        let tickInterval = null;
+        let isMuted = false;
+        let audioCtx = null;
+        let hasFinished = false;
+
+        // ---------- Audio ----------
+        function initAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                catch (err) { return; }
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        }
+
+        function playCelebrationChime() {
+            if (isMuted || !audioCtx) return;
+            const schedule = () => {
+                try {
+                    // Ascending celebration arpeggio
+                    const notes = [523.25, 659.25, 783.99, 1046.5];
+                    notes.forEach((freq, i) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        const t0 = audioCtx.currentTime + i * 0.18;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, t0);
+                        gain.gain.setValueAtTime(0.15, t0);
+                        gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.6);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(t0);
+                        osc.stop(t0 + 0.65);
+                    });
+                } catch (err) { /* ignore */ }
+            };
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(schedule).catch(() => {});
+            } else {
+                schedule();
+            }
+        }
+
+        // ---------- Helpers ----------
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function formatTargetDisplay(ms) {
+            const d = new Date(ms);
+            try {
+                return d.toLocaleString(undefined, {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit'
+                });
+            } catch (e) {
+                return d.toLocaleString();
+            }
+        }
+
+        // ---------- Persistence ----------
+        function loadPrefs() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return null;
+                const p = JSON.parse(raw);
+                if (!p) return null;
+                if (typeof p.target === 'number' && isFinite(p.target)) {
+                    targetMs = p.target;
+                }
+                if (typeof p.created === 'number' && isFinite(p.created)) {
+                    createdMs = p.created;
+                } else if (targetMs) {
+                    createdMs = Date.now();
+                }
+                if (typeof p.muted === 'boolean') {
+                    isMuted = p.muted;
+                }
+                return p;
+            } catch (e) { return null; }
+        }
+
+        function savePrefs() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    target: targetMs,
+                    created: createdMs,
+                    muted: isMuted
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- UI states ----------
+        function resetDisplay() {
+            eventLabel.textContent = 'Pick a date to begin the countdown';
+            valDays.textContent = '--';
+            valHours.textContent = '--';
+            valMinutes.textContent = '--';
+            valSeconds.textContent = '--';
+            unitDays.classList.add('zero');
+            unitHours.classList.add('zero');
+            unitMinutes.classList.add('zero');
+            unitSeconds.classList.add('zero');
+            progressFill.style.width = '0%';
+            progressStart.textContent = 'Start';
+            progressPercent.textContent = '0%';
+            progressEnd.textContent = 'Target';
+            finishedBanner.classList.remove('show');
+            hasFinished = false;
+        }
+
+        function showFinishedState() {
+            finishedBanner.classList.add('show');
+            finishedText.textContent = '🎉 The date has arrived!';
+            finishedSub.textContent = targetMs ? formatTargetDisplay(targetMs) : '';
+            valDays.textContent = '0';
+            valHours.textContent = '0';
+            valMinutes.textContent = '0';
+            valSeconds.textContent = '0';
+            unitDays.classList.add('zero');
+            unitHours.classList.add('zero');
+            unitMinutes.classList.add('zero');
+            unitSeconds.classList.add('zero');
+            progressFill.style.width = '100%';
+            progressPercent.textContent = '100%';
+            if (!hasFinished) {
+                hasFinished = true;
+                playCelebrationChime();
+            }
+        }
+
+        // ---------- Countdown loop ----------
+        function tick() {
+            if (!targetMs) {
+                resetDisplay();
+                return;
+            }
+
+            const now = Date.now();
+            const remaining = targetMs - now;
+
+            if (remaining <= 0) {
+                if (!hasFinished) showFinishedState();
+                else updateFinishedDisplay();
+                return;
+            }
+
+            finishedBanner.classList.remove('show');
+            hasFinished = false;
+
+            const totalSecs = Math.floor(remaining / 1000);
+            const days = Math.floor(totalSecs / 86400);
+            const hours = Math.floor((totalSecs % 86400) / 3600);
+            const minutes = Math.floor((totalSecs % 3600) / 60);
+            const seconds = totalSecs % 60;
+
+            valDays.textContent = String(days);
+            valHours.textContent = pad(hours);
+            valMinutes.textContent = pad(minutes);
+            valSeconds.textContent = pad(seconds);
+
+            unitDays.classList.toggle('zero', days === 0);
+            unitHours.classList.toggle('zero', days === 0 && hours === 0);
+            unitMinutes.classList.toggle('zero', days === 0 && hours === 0 && minutes === 0);
+
+            // Progress
+            const totalDuration = targetMs - (createdMs || now);
+            const elapsed = now - (createdMs || now);
+            let pct = 0;
+            if (totalDuration > 0) {
+                pct = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+            }
+            progressFill.style.width = pct.toFixed(2) + '%';
+            progressPercent.textContent = pct.toFixed(0) + '%';
+            progressEnd.textContent = formatTargetDisplay(targetMs).split(',')[1]?.trim() || 'Target';
+        }
+
+        function updateFinishedDisplay() {
+            // Keep the finished banner visible; count elapsed time since target
+            const elapsedSince = Date.now() - targetMs;
+            if (elapsedSince >= 0) {
+                const totalSecs = Math.floor(elapsedSince / 1000);
+                const days = Math.floor(totalSecs / 86400);
+                const hours = Math.floor((totalSecs % 86400) / 3600);
+                const mins = Math.floor((totalSecs % 3600) / 60);
+                let sub = 'Time since: ';
+                if (days > 0) sub += days + 'd ';
+                sub += pad(hours) + 'h ' + pad(mins) + 'm';
+                finishedSub.textContent = formatTargetDisplay(targetMs) + ' · ' + sub;
+            }
+        }
+
+        function startTicking() {
+            if (tickInterval) clearInterval(tickInterval);
+            tickInterval = setInterval(tick, 1000);
+            tick();
+        }
+
+        // ---------- Apply target ----------
+        function applyTarget() {
+            const dateVal = inputDate.value;
+            const timeVal = inputTime.value || '00:00';
+
+            if (!dateVal) {
+                inputDate.focus();
+                return;
+            }
+
+            const parts = dateVal.split('-').map(Number);
+            const timeParts = timeVal.split(':').map(Number);
+            if (parts.length < 3 || timeParts.length < 2) {
+                inputDate.focus();
+                return;
+            }
+
+            const [y, mo, d] = parts;
+            const [h, mi] = timeParts;
+
+            // Use local time (browser timezone) for the target
+            const dt = new Date(y, mo - 1, d, h, mi, 0, 0);
+            const ms = dt.getTime();
+
+            if (!isFinite(ms)) {
+                inputDate.focus();
+                return;
+            }
+
+            if (ms <= Date.now() - 60000) {
+                // Target is in the past
+                eventLabel.textContent = 'Choose a future date and time';
+                eventLabel.style.color = 'var(--danger)';
+                setTimeout(() => {
+                    eventLabel.style.color = '';
+                }, 1500);
+                return;
+            }
+
+            eventLabel.style.color = '';
+            targetMs = ms;
+            createdMs = Date.now();
+            hasFinished = false;
+            savePrefs();
+
+            eventLabel.textContent = 'Counting down to ' + formatTargetDisplay(ms);
+            progressStart.textContent = 'Now';
+            progressEnd.textContent = dt.toLocaleDateString();
+
+            finishedBanner.classList.remove('show');
+            startTicking();
+        }
+
+        // ---------- Mute ----------
+        function toggleMute() {
+            isMuted = !isMuted;
+            muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+            } else {
+                muteBtn.classList.remove('muted');
+                soundOnIcon.style.display = 'block';
+                soundOffIcon.style.display = 'none';
+            }
+            savePrefs();
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (e.repeat) return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Init ----------
+        (function init() {
+            // Set default date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const yyyy = tomorrow.getFullYear();
+            const mm = pad(tomorrow.getMonth() + 1);
+            const dd = pad(tomorrow.getDate());
+            inputDate.value = yyyy + '-' + mm + '-' + dd;
+            inputTime.value = '00:00';
+
+            // Load saved target
+            const prefs = loadPrefs();
+
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+                muteBtn.setAttribute('aria-label', 'Unmute');
+            }
+
+            if (targetMs) {
+                // Populate date/time inputs from saved target
+                const d = new Date(targetMs);
+                inputDate.value = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+                inputTime.value = pad(d.getHours()) + ':' + pad(d.getMinutes());
+
+                eventLabel.textContent = 'Counting down to ' + formatTargetDisplay(targetMs);
+                progressStart.textContent = 'Start';
+                progressEnd.textContent = d.toLocaleDateString();
+
+                startTicking();
+            } else {
+                resetDisplay();
+            }
+
+            // Also start a passive tick to keep everything fresh
+            // (the main tick is driven by startTicking)
+        })();
+    </script>
+</body>
+</html>

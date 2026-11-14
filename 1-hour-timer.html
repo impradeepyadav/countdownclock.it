@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Hour Timer - Free Online 60-Minute Countdown | timerclock.app</title>
+    <meta name="description" content="Free online 1 hour timer. Start an instant 60-minute countdown with sound alert, visual ring, fullscreen mode, and quick extensions. No signup required.">
+    <link rel="canonical" href="https://timerclock.app/1-hour-timer">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="1 Hour Timer - Free Online 60-Minute Countdown">
+    <meta property="og:description" content="Free online 1 hour timer with sound alert, visual ring, and fullscreen mode.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/1-hour-timer">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="1 Hour Timer - Free Online 60-Minute Countdown">
+    <meta name="twitter:description" content="Free online 1 hour timer with sound alert, visual ring, and fullscreen mode.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/1-hour-timer">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/1-hour-timer">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/1-hour-timer">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/1-hour-timer">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/1-hour-timer">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/1-hour-timer">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "1 Hour Timer",
+      "url": "https://timerclock.app/1-hour-timer",
+      "inLanguage": "en",
+      "description": "Free online 1 hour timer with sound alert, visual ring, and fullscreen mode.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Instant 60-minute countdown",
+        "Visual progress ring",
+        "Sound alert when time runs out",
+        "Quick +1 and +5 minute extension buttons",
+        "Fullscreen mode",
+        "Keyboard shortcuts",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+
+            --timer-main: #8b5cf6;
+            --timer-main-hover: #7c3aed;
+            --timer-main-soft: rgba(139, 92, 246, 0.15);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(10px, 2vh, 20px);
+            min-width: 0;
+        }
+
+        /* ================= TIMER DISPLAY ================= */
+        .timer-display {
+            position: relative;
+            width: clamp(200px, min(40vh, 78vw), 380px);
+            height: clamp(200px, min(40vh, 78vw), 380px);
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0.5vh 0;
+            flex-shrink: 0;
+        }
+
+        .ring-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg { fill: none; stroke: var(--gray-light); stroke-width: 12; }
+
+        .ring-progress {
+            fill: none;
+            stroke: var(--timer-main);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 816.81;
+            stroke-dashoffset: 0;
+            transition: stroke 0.3s, stroke-dashoffset 0.2s linear;
+        }
+
+        .time-text {
+            font-size: clamp(3rem, min(11vh, 16vw), 5.5rem);
+            font-weight: 900;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            z-index: 10;
+            line-height: 1;
+            letter-spacing: -2px;
+            white-space: nowrap;
+        }
+
+        .timer-title {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 2.5px;
+            z-index: 10;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 0.4vh;
+            transition: color 0.3s;
+        }
+
+        /* ================= EXTEND ROW ================= */
+        .extend-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(6px, 1.2vw, 12px);
+            flex-wrap: wrap;
+            flex-shrink: 0;
+        }
+
+        .extend-btn {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: clamp(8px, 1.4vh, 11px) clamp(12px, 2.2vw, 18px);
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: inherit;
+            touch-action: manipulation;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .extend-btn:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-1px);
+        }
+
+        .extend-btn:active { transform: translateY(0) scale(0.97); }
+
+        .extend-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: clamp(10px, 1.8vh, 16px) clamp(20px, 4.5vw, 40px);
+            border-radius: 30px;
+            font-size: clamp(15px, min(2.4vh, 4.2vw), 20px);
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            touch-action: manipulation;
+            white-space: nowrap;
+            font-family: inherit;
+            min-width: 150px;
+        }
+
+        .btn-start {
+            background-color: var(--timer-main);
+            color: white;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-start:hover {
+            background-color: var(--timer-main-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-start.paused {
+            background-color: #ff9800;
+            box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+        }
+
+        .btn-start.paused:hover { background-color: #f57c00; }
+
+        .btn-reset {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+        }
+
+        .btn-reset:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .btn-icon.muted {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(10px, 1.8vh, 22px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .timer-display,
+        .main-content:-webkit-full-screen .timer-display {
+            width: clamp(220px, min(52vh, 60vw), 500px);
+            height: clamp(220px, min(52vh, 60vw), 500px);
+        }
+
+        .main-content:fullscreen .time-text,
+        .main-content:-webkit-full-screen .time-text {
+            font-size: clamp(3.5rem, min(14vh, 17vw), 7rem);
+        }
+
+        .main-content:fullscreen .timer-title,
+        .main-content:-webkit-full-screen .timer-title {
+            font-size: clamp(14px, min(2.8vh, 4vw), 22px);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= MODAL ================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: modal-fade-in 0.15s ease;
+        }
+        @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+        .modal p {
+            font-size: clamp(14px, min(2vh, 3.4vw), 16px);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-buttons .btn {
+            padding: 10px 22px;
+            font-size: 15px;
+            min-width: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .controls-wrapper { gap: 1.2vh; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn { padding: 10px 15px; font-size: 14px; min-width: 120px; }
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+            .extend-btn { padding: 7px 10px; font-size: 11px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .main-content:not(:fullscreen):not(:-webkit-full-screen) .timer-display {
+                width: clamp(150px, min(48vh, 60vw), 240px);
+                height: clamp(150px, min(48vh, 60vw), 240px);
+            }
+            .time-text { font-size: clamp(2rem, 10vh, 3.5rem); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>1 Hour Timer</h1>
+                    <p>Instant 60-minute countdown with sound alert, quick extensions, and fullscreen mode.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/1-hour-timer" hreflang="en">English (US)</a>
+                        <a href="/hi/1-hour-timer" hreflang="hi">हिंदी</a>
+                        <a href="/es/1-hour-timer" hreflang="es">Español</a>
+                        <a href="/fr/1-hour-timer" hreflang="fr">Français</a>
+                        <a href="/de/1-hour-timer" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== 1 HOUR TIMER MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Timer display -->
+            <div class="timer-display" id="timerDisplay">
+                <svg class="ring-svg" viewBox="0 0 280 280" aria-hidden="true">
+                    <circle class="ring-bg" cx="140" cy="140" r="130"></circle>
+                    <circle class="ring-progress" id="progressRing" cx="140" cy="140" r="130"></circle>
+                </svg>
+                <div class="time-text" id="timeText" role="timer" aria-live="off">60:00</div>
+                <div class="timer-title" id="timerTitle" aria-live="polite">1 HOUR TIMER</div>
+
+                <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+
+            <!-- Quick extend buttons -->
+            <div class="extend-row" id="extendRow">
+                <button type="button" class="extend-btn" id="btnAdd1" onclick="extendTimer(60)" aria-label="Add 1 minute">
+                    +1 min
+                </button>
+                <button type="button" class="extend-btn" id="btnAdd5" onclick="extendTimer(300)" aria-label="Add 5 minutes">
+                    +5 min
+                </button>
+                <button type="button" class="extend-btn" id="btnReset60" onclick="resetTo60()" aria-label="Reset to 1 hour">
+                    ↺ Reset to 60:00
+                </button>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn btn-start" id="startBtn" onclick="toggleTimer()" aria-label="Start 1 hour timer">
+                        <svg class="icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon" id="pauseIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                        <span id="startBtnText">Start</span>
+                    </button>
+
+                    <button type="button" class="btn btn-reset" id="resetBtn" onclick="handleReset()" aria-label="Reset timer">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                        <span>Reset</span>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="muteBtn" onclick="toggleMute()" title="Mute / unmute sound" aria-label="Mute">
+                        <svg class="icon" id="soundOnIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                        <svg class="icon" id="soundOffIcon" style="display:none;" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    </button>
+
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen timer" aria-label="Enter fullscreen timer">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>Space</kbd> start/pause &nbsp;·&nbsp; <kbd>R</kbd> reset &nbsp;·&nbsp; <kbd>F</kbd> fullscreen
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm modal -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-reset" id="modalCancel">Cancel</button>
+                <button type="button" class="btn btn-start" id="modalOk">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ 1 HOUR TIMER LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const timeText       = document.getElementById('timeText');
+        const timerTitle     = document.getElementById('timerTitle');
+        const progressRing   = document.getElementById('progressRing');
+        const startBtn       = document.getElementById('startBtn');
+        const startBtnText   = document.getElementById('startBtnText');
+        const playIcon       = document.getElementById('playIcon');
+        const pauseIcon      = document.getElementById('pauseIcon');
+
+        const btnAdd1        = document.getElementById('btnAdd1');
+        const btnAdd5        = document.getElementById('btnAdd5');
+        const btnReset60     = document.getElementById('btnReset60');
+
+        const muteBtn        = document.getElementById('muteBtn');
+        const soundOnIcon    = document.getElementById('soundOnIcon');
+        const soundOffIcon   = document.getElementById('soundOffIcon');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        const modalOverlay   = document.getElementById('modalOverlay');
+        const modalMessage   = document.getElementById('modalMessage');
+        const modalOk        = document.getElementById('modalOk');
+        const modalCancel    = document.getElementById('modalCancel');
+
+        // ---------- Constants ----------
+        const ONE_HOUR_MS = 60 * 60 * 1000;
+        const MAX_MS = 3 * 60 * 60 * 1000;  // Cap extensions at 3 hours
+        const STORAGE_KEY = 'timerclock_1hour_timer_prefs_v1';
+        const circumference = 2 * Math.PI * 130;
+
+        progressRing.style.strokeDasharray = circumference;
+
+        // ---------- State ----------
+        let rafId = null;
+        let backstopId = null;
+        let zeroMsgTimeout = null;
+        let isRunning = false;
+
+        let targetTime = 0;
+        let totalSeconds = 3600;
+        let initialTotalSeconds = 3600;
+        let remainingMs = 0;
+
+        let isMuted = false;
+        let audioCtx = null;
+
+        // ---------- Persistence ----------
+        function loadPrefs() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const p = JSON.parse(raw);
+                if (!p) return;
+                if (typeof p.muted === 'boolean') isMuted = p.muted;
+            } catch (e) { /* ignore */ }
+        }
+
+        function savePrefs() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({ muted: isMuted }));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- Confirm modal ----------
+        let modalResolve = null;
+
+        function showConfirm(message) {
+            if (modalResolve) return Promise.resolve(false);
+            return new Promise((resolve) => {
+                modalMessage.textContent = message;
+                modalOverlay.classList.remove('hidden');
+                modalResolve = resolve;
+                setTimeout(() => modalOk.focus(), 0);
+            });
+        }
+
+        function closeModal(result) {
+            modalOverlay.classList.add('hidden');
+            const r = modalResolve;
+            modalResolve = null;
+            if (r) r(result);
+        }
+
+        modalOk.addEventListener('click', () => closeModal(true));
+        modalCancel.addEventListener('click', () => closeModal(false));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal(false);
+        });
+
+        // ---------- Audio ----------
+        function initAudio() {
+            if (!audioCtx) {
+                try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+                catch (err) { return; }
+            }
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+        }
+
+        function playBeep() {
+            if (isMuted || !audioCtx) return;
+            const schedule = () => {
+                try {
+                    // Three quick beeps + ascending chime
+                    const beep = (freq, delay, dur) => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        const t0 = audioCtx.currentTime + delay;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, t0);
+                        gain.gain.setValueAtTime(0.15, t0);
+                        gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start(t0);
+                        osc.stop(t0 + dur + 0.02);
+                    };
+                    beep(880, 0, 0.2);
+                    beep(880, 0.28, 0.2);
+                    beep(880, 0.56, 0.2);
+                    beep(1320, 0.9, 0.5);
+                } catch (err) { /* ignore */ }
+            };
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(schedule).catch(() => {});
+            } else {
+                schedule();
+            }
+        }
+
+        // ---------- Formatting ----------
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function formatTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return pad(m) + ':' + pad(s);
+        }
+
+        function updateCountdownText() {
+            timeText.textContent = formatTime(totalSeconds);
+        }
+
+        function updateDisplay() {
+            updateCountdownText();
+            const initMs = initialTotalSeconds * 1000;
+            if (initMs > 0) {
+                progressRing.style.strokeDashoffset =
+                    circumference - ((totalSeconds * 1000) / initMs) * circumference;
+            } else {
+                progressRing.style.strokeDashoffset = circumference;
+            }
+        }
+
+        // ---------- Button state ----------
+        function setStartButton(state) {
+            const text = state === 'running' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Start');
+            startBtnText.textContent = text;
+            startBtn.setAttribute('aria-label', text + ' 1 hour timer');
+            startBtn.classList.toggle('paused', state === 'paused');
+            playIcon.style.display  = state === 'running' ? 'none' : 'block';
+            pauseIcon.style.display = state === 'running' ? 'block' : 'none';
+        }
+
+        // ---------- Timer control ----------
+        function toggleTimer() {
+            if (isRunning) pauseTimer();
+            else startTimer();
+        }
+
+        function startTimer() {
+            initAudio();
+
+            if (remainingMs <= 0 && totalSeconds <= 0) {
+                resetTo60();
+            }
+            const msToRun = remainingMs > 0 ? remainingMs : (totalSeconds * 1000);
+            if (msToRun <= 0) {
+                return;
+            }
+
+            if (remainingMs <= 0) initialTotalSeconds = totalSeconds;
+
+            targetTime = Date.now() + msToRun;
+            remainingMs = msToRun;
+
+            timerTitle.textContent = 'RUNNING';
+            timerTitle.style.color = 'var(--timer-main-hover)';
+            setStartButton('running');
+
+            clearTimeout(backstopId);
+            backstopId = setTimeout(finishTimer, msToRun);
+
+            isRunning = true;
+            cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(countdownLoop);
+        }
+
+        function countdownLoop() {
+            if (!isRunning) return;
+            const remaining = Math.max(0, targetTime - Date.now());
+            remainingMs = remaining;
+
+            const secs = Math.ceil(remaining / 1000);
+            if (secs !== totalSeconds) {
+                totalSeconds = secs;
+                updateCountdownText();
+            }
+
+            const initMs = initialTotalSeconds * 1000;
+            if (initMs > 0) {
+                progressRing.style.strokeDashoffset =
+                    circumference - (remaining / initMs) * circumference;
+            }
+
+            if (remaining <= 0) {
+                finishTimer();
+                return;
+            }
+            rafId = requestAnimationFrame(countdownLoop);
+        }
+
+        function finishTimer() {
+            if (!isRunning) return;
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+            isRunning = false;
+            remainingMs = 0;
+            totalSeconds = 0;
+            updateCountdownText();
+
+            timerTitle.textContent = "TIME'S UP!";
+            timerTitle.style.color = 'var(--danger)';
+            progressRing.style.stroke = 'var(--danger)';
+            progressRing.style.strokeDashoffset = String(circumference);
+            setStartButton('ready');
+
+            playBeep();
+        }
+
+        function pauseTimer() {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+
+            remainingMs = Math.max(0, targetTime - Date.now());
+            if (remainingMs <= 0) {
+                finishTimer();
+                return;
+            }
+            isRunning = false;
+            totalSeconds = Math.ceil(remainingMs / 1000);
+            updateCountdownText();
+            const initMs = initialTotalSeconds * 1000;
+            if (initMs > 0) {
+                progressRing.style.strokeDashoffset =
+                    circumference - (remainingMs / initMs) * circumference;
+            }
+
+            timerTitle.textContent = 'PAUSED';
+            timerTitle.style.color = 'var(--text-muted)';
+            setStartButton('paused');
+        }
+
+        function resetTimer() {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            clearTimeout(backstopId);
+            backstopId = null;
+            clearTimeout(zeroMsgTimeout);
+            zeroMsgTimeout = null;
+            isRunning = false;
+            remainingMs = 0;
+
+            totalSeconds = 3600;
+            initialTotalSeconds = 3600;
+            progressRing.style.stroke = 'var(--timer-main)';
+
+            timerTitle.textContent = '1 HOUR TIMER';
+            timerTitle.style.color = 'var(--text-muted)';
+            updateDisplay();
+            setStartButton('ready');
+        }
+
+        function resetTo60() {
+            if (isRunning) {
+                showConfirm('Reset and start a fresh 1-hour timer?').then(ok => {
+                    if (ok) resetTimer();
+                });
+            } else {
+                resetTimer();
+            }
+        }
+
+        function handleReset() {
+            if (isRunning || remainingMs > 0) {
+                showConfirm('Reset the 1-hour timer?').then(ok => {
+                    if (ok) resetTimer();
+                });
+            } else {
+                resetTimer();
+            }
+        }
+
+        // ---------- Extension ----------
+        function extendTimer(extraMs) {
+            if (isRunning && remainingMs > 0) {
+                // Running — add to the end time
+                remainingMs = Math.min(MAX_MS, remainingMs + extraMs);
+                targetTime = Date.now() + remainingMs;
+                // Update initial total so ring stays sensible
+                initialTotalSeconds = Math.max(initialTotalSeconds, Math.ceil(remainingMs / 1000));
+                totalSeconds = Math.ceil(remainingMs / 1000);
+                updateCountdownText();
+                // Reset the backstop timer
+                clearTimeout(backstopId);
+                backstopId = setTimeout(finishTimer, remainingMs);
+                const initMs = initialTotalSeconds * 1000;
+                progressRing.style.strokeDashoffset =
+                    circumference - (remainingMs / initMs) * circumference;
+                updateTitles();
+            } else {
+                // Idle or finished — set up a fresh extended timer
+                const currentTotal = totalSeconds > 0 ? totalSeconds * 1000 : 0;
+                const newTotal = Math.min(MAX_MS, currentTotal + extraMs);
+                totalSeconds = Math.ceil(newTotal / 1000);
+                initialTotalSeconds = totalSeconds;
+                remainingMs = 0;
+                isRunning = false;
+                cancelAnimationFrame(rafId);
+                clearTimeout(backstopId);
+                rafId = null;
+                backstopId = null;
+                progressRing.style.stroke = 'var(--timer-main)';
+                updateDisplay();
+                setStartButton('ready');
+                updateTitles();
+            }
+        }
+
+        function updateTitles() {
+            if (totalSeconds > 0 && totalSeconds !== 3600) {
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                if (mins >= 60) {
+                    const hrs = Math.floor(mins / 60);
+                    const remMins = mins % 60;
+                    timerTitle.textContent = hrs + ' HR ' + (remMins ? remMins + ' MIN' : 'TIMER');
+                } else {
+                    timerTitle.textContent = mins + ' MIN ' + (secs ? secs + ' SEC' : 'TIMER');
+                }
+            } else if (totalSeconds === 3600) {
+                timerTitle.textContent = '1 HOUR TIMER';
+            }
+        }
+
+        // ---------- Mute ----------
+        function toggleMute() {
+            isMuted = !isMuted;
+            muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+            } else {
+                muteBtn.classList.remove('muted');
+                soundOnIcon.style.display = 'block';
+                soundOffIcon.style.display = 'none';
+            }
+            savePrefs();
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            if (modalResolve) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeModal(false);
+                }
+                return;
+            }
+
+            if (e.repeat) return;
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
+
+            if (e.code === 'Space' || e.key === ' ') {
+                e.preventDefault();
+                toggleTimer();
+                return;
+            }
+
+            if (e.key === 'r' || e.key === 'R') {
+                e.preventDefault();
+                handleReset();
+                return;
+            }
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Init ----------
+        (function init() {
+            loadPrefs();
+
+            if (isMuted) {
+                muteBtn.classList.add('muted');
+                soundOnIcon.style.display = 'none';
+                soundOffIcon.style.display = 'block';
+                muteBtn.setAttribute('aria-label', 'Unmute');
+            }
+
+            // Set initial state
+            totalSeconds = 3600;
+            initialTotalSeconds = 3600;
+            remainingMs = 0;
+            progressRing.style.stroke = 'var(--timer-main)';
+            timerTitle.style.color = 'var(--text-muted)';
+            timerTitle.textContent = '1 HOUR TIMER';
+            setStartButton('ready');
+            updateDisplay();
+        })();
+    </script>
+</body>
+</html>

@@ -191,7 +191,6 @@
             overflow-wrap: break-word;
         }
 
-        /* FIX (dead CSS): now there is an actual <p> tagline in the HTML. */
         .site-header p {
             font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
             color: var(--text-muted);
@@ -318,7 +317,6 @@
             stroke: var(--green-primary);
             stroke-width: 12;
             stroke-linecap: round;
-            /* FIX: 2π×130 = 816.81, was hardcoded to 817 (JS overrides anyway). */
             stroke-dasharray: 816.81;
             stroke-dashoffset: 0;
             transition: stroke 0.3s;
@@ -767,6 +765,46 @@
         .dropdown-content a:hover { background-color: var(--gray-light); }
         .dropdown-content.show { display: block; }
 
+        /* ================= CONFIRM MODAL ================= */
+        /* FIX (P2): replaces blocking window.confirm() with a non-blocking,
+           promise-based modal. */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            animation: modal-fade-in 0.15s ease;
+        }
+        @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+        .modal p {
+            font-size: clamp(14px, min(2vh, 3.4vw), 16px);
+            color: var(--text-main);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-buttons .btn {
+            padding: 10px 22px;
+            font-size: 15px;
+        }
+
         @media (max-width: 768px) {
             .site-header {
                 flex-direction: column;
@@ -842,7 +880,6 @@
                 <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
                 <div class="header-text">
                     <h1>Set a Countdown Timer or Use an Online Stopwatch</h1>
-                    <!-- FIX (dead CSS): added tagline so `.site-header p` rule is used. -->
                     <p>Online Countdown Timer and Stopwatch for Work, Study, Exercise and Daily Tasks</p>
                 </div>
             </div>
@@ -905,8 +942,8 @@
                 </div>
             </div>
 
-            <!-- FIX (a11y): now uses role="list" with aria-label; lap items get role="listitem" in JS. -->
-            <div class="laps-container hidden" id="lapsSection" role="list" aria-label="Lap times"></div>
+            <!-- FIX (a11y): list + live region so new laps are announced. -->
+            <div class="laps-container hidden" id="lapsSection" role="list" aria-live="polite" aria-label="Lap times"></div>
 
             <div class="controls-wrapper">
                 <div class="controls">
@@ -938,20 +975,31 @@
 
                 <div class="inline-links">
                     <div class="lang-dropdown">
-                        <!-- FIX (a11y): added aria-haspopup + aria-expanded. -->
-                        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown(event)" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
+                        <!-- FIX (a11y): proper disclosure pattern (aria-expanded + aria-controls, no broken role="menu"). -->
+                        <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
                             <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
                         </button>
-                        <div class="dropdown-content" id="langDropdown" role="menu">
-                            <a href="/" hreflang="en" role="menuitem" onclick="switchLang(event, '/')">English (US)</a>
-                            <a href="/hi/" hreflang="hi" role="menuitem" onclick="switchLang(event, '/hi/')">हिंदी</a>
-                            <a href="/es/" hreflang="es" role="menuitem" onclick="switchLang(event, '/es/')">Español</a>
-                            <a href="/fr/" hreflang="fr" role="menuitem" onclick="switchLang(event, '/fr/')">Français</a>
-                            <a href="/de/" hreflang="de" role="menuitem" onclick="switchLang(event, '/de/')">Deutsch</a>
+                        <div class="dropdown-content" id="langDropdown">
+                            <a href="/" hreflang="en" onclick="switchLang(event, '/')">English (US)</a>
+                            <a href="/hi/" hreflang="hi" onclick="switchLang(event, '/hi/')">हिंदी</a>
+                            <a href="/es/" hreflang="es" onclick="switchLang(event, '/es/')">Español</a>
+                            <a href="/fr/" hreflang="fr" onclick="switchLang(event, '/fr/')">Français</a>
+                            <a href="/de/" hreflang="de" onclick="switchLang(event, '/de/')">Deutsch</a>
                         </div>
                     </div>
                     <a href="/privacy" class="privacy-link">Privacy</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIX (P2): non-blocking confirm modal (replaces window.confirm). -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-reset" id="modalCancel">Cancel</button>
+                <button type="button" class="btn btn-start" id="modalOk">OK</button>
             </div>
         </div>
     </div>
@@ -991,6 +1039,11 @@
         const mainContent    = document.getElementById('mainContent');
         const fsBtn          = document.getElementById('fsBtn');
 
+        const modalOverlay   = document.getElementById('modalOverlay');
+        const modalMessage   = document.getElementById('modalMessage');
+        const modalOk        = document.getElementById('modalOk');
+        const modalCancel    = document.getElementById('modalCancel');
+
         let currentMode = 'countdown';
         let rafId = null;
         let backstopId = null;
@@ -1013,13 +1066,40 @@
         let audioCtx;
 
         const MAX_SECONDS = 99 * 3600 + 59 * 60 + 59;
-        const MAX_LAPS = 100; // FIX (unbounded DOM): cap lap list.
+        const MAX_LAPS = 100;
 
         progressRing.style.strokeDasharray = circumference;
 
         const ICON_RESET = '<path d="M17.65 6.35A7.958 7.958 0 0 0 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>';
         const ICON_LAP   = '<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>';
 
+        // ---------- Confirm modal ----------
+        let modalResolve = null;
+
+        function showConfirm(message) {
+            if (modalResolve) return Promise.resolve(false); // already open
+            return new Promise((resolve) => {
+                modalMessage.textContent = message;
+                modalOverlay.classList.remove('hidden');
+                modalResolve = resolve;
+                setTimeout(() => modalOk.focus(), 0);
+            });
+        }
+
+        function closeModal(result) {
+            modalOverlay.classList.add('hidden');
+            const r = modalResolve;
+            modalResolve = null;
+            if (r) r(result);
+        }
+
+        modalOk.addEventListener('click', () => closeModal(true));
+        modalCancel.addEventListener('click', () => closeModal(false));
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal(false);
+        });
+
+        // ---------- Fullscreen ----------
         function getFullscreenElement() {
             return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
         }
@@ -1055,6 +1135,14 @@
         document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
         document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
+        // FIX (P3): surface fullscreen failures instead of swallowing them silently.
+        const fullscreenErrorHandler = () => {
+            if (fsBtn && !getFullscreenElement()) fsBtn.style.display = '';
+            console.warn('Fullscreen request was rejected by the browser.');
+        };
+        document.addEventListener('fullscreenerror', fullscreenErrorHandler);
+        document.addEventListener('webkitfullscreenerror', fullscreenErrorHandler);
+
         const fsSupported = !!(
             document.documentElement.requestFullscreen ||
             document.documentElement.webkitRequestFullscreen ||
@@ -1064,14 +1152,15 @@
             fsBtn.style.display = 'none';
         }
 
-        // FIX (Spacebar after lang menu): removed e.stopPropagation() so the
-        // document-level blur handler runs and clears focus from langBtn.
-        function toggleLangDropdown(e) {
+        // ---------- Language dropdown ----------
+        // FIX (P2): removed stopPropagation so the document-level blur handler runs
+        // and Space works normally after using the language menu.
+        function toggleLangDropdown() {
             const isOpen = langDropdown.classList.toggle('show');
             langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
 
-        // FIX (hash preservation): keep location.hash when switching languages.
+        // FIX: preserve hash on language switch.
         function switchLang(e, baseUrl) {
             e.preventDefault();
             window.location.href = baseUrl + window.location.search + window.location.hash;
@@ -1091,6 +1180,7 @@
             }
         });
 
+        // ---------- Button state helpers ----------
         function setStartButton(state) {
             const text = state === 'running' ? 'Pause' : (state === 'paused' ? 'Resume' : 'Start');
             startBtnText.textContent = text;
@@ -1114,6 +1204,7 @@
             });
         }
 
+        // ---------- Audio ----------
         function initAudio() {
             if (!audioCtx) {
                 try {
@@ -1125,8 +1216,6 @@
             }
         }
 
-        // FIX (audio): await resume() before scheduling so the beep is not
-        // dropped when the audio context starts in a suspended state.
         function playBeep() {
             if (isMuted || !audioCtx) return;
 
@@ -1136,12 +1225,10 @@
                         const osc  = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
                         const t0 = audioCtx.currentTime + delay;
-
                         osc.type = 'sine';
                         osc.frequency.setValueAtTime(880, t0);
                         gain.gain.setValueAtTime(0.1, t0);
                         gain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.5);
-
                         osc.connect(gain);
                         gain.connect(audioCtx.destination);
                         osc.start(t0);
@@ -1159,14 +1246,14 @@
             }
         }
 
-        function switchMode(mode) {
+        // ---------- Mode switching ----------
+        async function switchMode(mode) {
             if (mode === currentMode) return;
 
             const hasProgress = isRunning || remainingMs > 0 || stopwatchElapsed > 0;
             if (hasProgress) {
-                if (!confirm('Timer has progress. Switching modes will reset it. Continue?')) {
-                    return;
-                }
+                const ok = await showConfirm('Timer has progress. Switching modes will reset it. Continue?');
+                if (!ok) return;
             }
 
             currentMode = mode;
@@ -1205,6 +1292,7 @@
             }
         }
 
+        // ---------- Formatting ----------
         function formatStopwatchTime(ms) {
             const totalSecs = Math.floor(ms / 1000);
             const h = Math.floor(totalSecs / 3600);
@@ -1227,8 +1315,6 @@
             mainTime.textContent =
                 `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
             msTime.textContent = '';
-            // Countdown is always 8 chars wide, so no long-time class needed.
-            // Still clean up if we just switched from stopwatch mode.
             timeDisplayEl.classList.remove('long-time');
         }
 
@@ -1236,8 +1322,7 @@
             const timeObj = formatStopwatchTime(stopwatchElapsed);
             mainTime.textContent = timeObj.main;
             msTime.textContent = timeObj.ms;
-            // FIX (dead code): was `main.length > 8` (impossible). Now uses
-            // `>= 8` so the HH:MM:SS variant gets the reduced font size.
+            // FIX: was `> 8`, now `>= 8` so HH:MM:SS gets the reduced font.
             timeDisplayEl.classList.toggle('long-time', timeObj.main.length >= 8);
 
             const currentSecs = (stopwatchElapsed / 1000) % 60;
@@ -1260,10 +1345,11 @@
             }
         }
 
+        // ---------- Input handling ----------
         function setupInput(input, max) {
-            // FIX (number inputs): block e/E/+/-/. on desktop so fields only
-            // accept digits.
             input.addEventListener('keydown', (e) => {
+                // FIX (P1): allow Ctrl/Cmd/Alt shortcuts (e.g. Ctrl+- zoom).
+                if (e.ctrlKey || e.metaKey || e.altKey) return;
                 if (e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-' || e.key === '.') {
                     e.preventDefault();
                 }
@@ -1321,6 +1407,7 @@
             updateDisplay();
         }
 
+        // ---------- Timer control ----------
         function toggleTimer() {
             if (isRunning) pauseTimer();
             else startTimer();
@@ -1446,6 +1533,10 @@
                     progressRing.style.strokeDashoffset =
                         circumference - (remainingMs / initMs) * circumference;
                 }
+                // FIX (P2): re-enable inputs while paused so the user can correct time.
+                inputHours.disabled = false;
+                inputMinutes.disabled = false;
+                inputSeconds.disabled = false;
             } else {
                 isRunning = false;
                 stopwatchElapsed = Date.now() - stopwatchStartTime;
@@ -1493,18 +1584,16 @@
             setLapButton(false);
         }
 
-        // FIX (P0): pause on stopwatch changes the button to "Reset" — now
-        // require confirmation before wiping accumulated time / laps.
-        function handleResetLap() {
+        async function handleResetLap() {
             if (currentMode === 'countdown') {
                 resetTimer();
             } else {
                 if (isRunning) {
                     recordLap();
                 } else {
-                    if (stopwatchElapsed > 0 &&
-                        !confirm('Reset the stopwatch? All lap times will be lost.')) {
-                        return;
+                    if (stopwatchElapsed > 0) {
+                        const ok = await showConfirm('Reset the stopwatch? All lap times will be lost.');
+                        if (!ok) return;
                     }
                     resetTimer();
                 }
@@ -1522,7 +1611,7 @@
             const lapObj = formatStopwatchTime(lapTime);
             const lapDiv = document.createElement('div');
             lapDiv.className = 'lap-item';
-            lapDiv.setAttribute('role', 'listitem'); // FIX (a11y)
+            lapDiv.setAttribute('role', 'listitem');
             const label = document.createElement('span');
             label.textContent = `Lap ${lapCount}`;
             const value = document.createElement('span');
@@ -1531,15 +1620,21 @@
             lapDiv.appendChild(value);
             lapsSection.prepend(lapDiv);
 
-            // FIX (unbounded DOM): cap displayed lap history.
+            // FIX: show newest lap.
+            lapsSection.scrollTop = 0;
+
+            // FIX: cap DOM growth.
             while (lapsSection.children.length > MAX_LAPS) {
                 lapsSection.removeChild(lapsSection.lastElementChild);
             }
         }
 
-        function setPreset(minutes) {
+        async function setPreset(minutes) {
             const hasProgress = isRunning || remainingMs > 0;
-            if (hasProgress && !confirm('Timer is running or paused. Reset and apply this preset?')) return;
+            if (hasProgress) {
+                const ok = await showConfirm('Timer is running or paused. Reset and apply this preset?');
+                if (!ok) return;
+            }
 
             cancelAnimationFrame(rafId);
             rafId = null;
@@ -1571,7 +1666,6 @@
             });
         }
 
-        // FIX (a11y): update aria-label to reflect actual state.
         function toggleMute() {
             isMuted = !isMuted;
             muteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
@@ -1586,7 +1680,19 @@
             }
         }
 
+        // ---------- Keyboard ----------
         document.addEventListener('keydown', (e) => {
+            // Modal takes priority. FIX (P2): while modal is open, only
+            // Escape/Enter reach the modal; timer shortcuts are disabled.
+            if (modalResolve) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeModal(false);
+                }
+                return;
+            }
+
             if (e.repeat) return;
             const el = e.target instanceof Element ? e.target : document.body;
             if (el.closest('button, a, input, textarea, select, [contenteditable="true"]')) return;
@@ -1597,6 +1703,7 @@
             }
         });
 
+        // ---------- URL params ----------
         function initFromURL() {
             const params = new URLSearchParams(window.location.search);
             const rawMin = params.get('minutes');
@@ -1604,13 +1711,13 @@
 
             if (rawMin === null && rawSec === null) return;
 
-            // FIX: use Number + Number.isInteger for strict validation
-            // (rejects "5abc", "1e3", "5.5" etc.).
-            const minNum = rawMin !== null ? Number(rawMin) : NaN;
-            const secNum = rawSec !== null ? Number(rawSec) : NaN;
+            // FIX (P2): strict integer validation via regex. Rejects 1e3, 0x10,
+            // +5, 5.5, "5abc" etc. Only plain non-negative integers pass.
+            const minNum = (rawMin !== null && /^\d+$/.test(rawMin)) ? parseInt(rawMin, 10) : NaN;
+            const secNum = (rawSec !== null && /^\d+$/.test(rawSec)) ? parseInt(rawSec, 10) : NaN;
 
-            const validMin = Number.isFinite(minNum) && Number.isInteger(minNum) && minNum >= 0;
-            const validSec = Number.isFinite(secNum) && Number.isInteger(secNum) && secNum >= 0;
+            const validMin = Number.isFinite(minNum);
+            const validSec = Number.isFinite(secNum);
             if (!validMin && !validSec) return;
 
             let totalSecs = 0;
@@ -1628,8 +1735,6 @@
             inputSeconds.value = s;
             updateTimeFromInputs();
 
-            // FIX (SEO): use "Minute"/"Second" instead of "Min"/"Sec" in
-            // the H1 and title — better matches search queries.
             const shortParts = [], longParts = [];
             if (h > 0) { shortParts.push(`${h} Hour`);   longParts.push(`${h} hour`); }
             if (m > 0) { shortParts.push(`${m} Minute`); longParts.push(`${m} minute`); }
@@ -1649,6 +1754,7 @@
             const querySuffix = qs ? '?' + qs : '';
 
             const localePrefixes = { hi: '/hi/', es: '/es/', fr: '/fr/', de: '/de/' };
+            const localeLangs    = { '/': 'en', '/hi/': 'hi', '/es/': 'es', '/fr/': 'fr', '/de/': 'de' };
             let currentBase = '/';
             for (const prefix of Object.values(localePrefixes)) {
                 if (window.location.pathname.startsWith(prefix)) {
@@ -1676,14 +1782,15 @@
             const h1 = document.querySelector('.site-header h1');
             if (h1) h1.textContent = newH1;
 
-            // FIX (SEO): keep JSON-LD in sync with the rendered page.
+            // FIX (SEO): keep JSON-LD in sync with rendered page.
             const ldJsonEl = document.querySelector('script[type="application/ld+json"]');
             if (ldJsonEl) {
                 try {
                     const data = JSON.parse(ldJsonEl.textContent);
-                    data.name        = newH1;
+                    data.name        = 'Timer Clock';
                     data.description = newDesc;
                     data.url         = newUrl;
+                    data.inLanguage  = localeLangs[currentBase] || 'en';
                     ldJsonEl.textContent = JSON.stringify(data);
                 } catch (err) { }
             }

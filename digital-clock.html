@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock - Free Online Full Screen Clock | timerclock.app</title>
+    <meta name="description" content="Free online digital clock with large display, 12/24-hour toggle, optional seconds and date, and fullscreen mode. Perfect for desks, kiosks, and projectors.">
+    <link rel="canonical" href="https://timerclock.app/digital-clock">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Digital Clock - Free Online Full Screen Clock">
+    <meta property="og:description" content="Free online digital clock with large display, 12/24-hour toggle, optional seconds and date, and fullscreen mode.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/digital-clock">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Digital Clock - Free Online Full Screen Clock">
+    <meta name="twitter:description" content="Free online digital clock with large display, 12/24-hour toggle, optional seconds and date, and fullscreen mode.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/digital-clock">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/digital-clock">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/digital-clock">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/digital-clock">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/digital-clock">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/digital-clock">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Digital Clock",
+      "url": "https://timerclock.app/digital-clock",
+      "inLanguage": "en",
+      "description": "Free online digital clock with large display, 12/24-hour toggle, optional seconds and date, and fullscreen mode.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Large, readable digital clock",
+        "12-hour and 24-hour format toggle",
+        "Show or hide seconds",
+        "Show or hide date",
+        "Blinking colon animation",
+        "Fullscreen mode",
+        "Keyboard shortcuts",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(14px, 2.5vh, 26px);
+            min-width: 0;
+        }
+
+        /* ================= CLOCK DISPLAY ================= */
+        .clock-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(4px, 1vh, 10px);
+            text-align: center;
+            width: 100%;
+        }
+
+        .clock-time {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(3.4rem, min(18vh, 24vw), 10rem);
+            font-weight: 800;
+            letter-spacing: -5px;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            line-height: 0.95;
+            white-space: nowrap;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: clamp(2px, 0.5vw, 8px);
+        }
+
+        .clock-time .seconds {
+            font-size: 0.5em;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: -1px;
+        }
+
+        .clock-time .period {
+            font-size: 0.3em;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-left: clamp(4px, 1vw, 14px);
+            text-transform: uppercase;
+        }
+
+        .clock-time .colon {
+            animation: blink 1s steps(1) infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.3; }
+        }
+
+        .clock-date {
+            font-size: clamp(14px, min(2.4vh, 4vw), 22px);
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            text-align: center;
+            line-height: 1.4;
+            max-width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .clock-timezone {
+            font-size: clamp(11px, min(1.7vh, 3vw), 14px);
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-top: 0.3vh;
+        }
+
+        /* ================= TOGGLE BAR ================= */
+        .toggle-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 1.8vw, 16px);
+            background-color: var(--gray-light);
+            border-radius: 30px;
+            padding: 6px;
+            max-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .toggle-group {
+            display: inline-flex;
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 3px;
+            gap: 1px;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        .toggle-btn {
+            background: transparent;
+            border: none;
+            padding: clamp(6px, 1vh, 9px) clamp(12px, 2vw, 18px);
+            border-radius: 22px;
+            font-size: clamp(11px, min(1.7vh, 3vw), 14px);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+            touch-action: manipulation;
+            line-height: 1.2;
+        }
+
+        .toggle-btn:hover { color: var(--text-main); }
+
+        .toggle-btn.active {
+            background-color: var(--text-main);
+            color: white;
+        }
+
+        .toggle-btn.active[data-format="12"] { background-color: var(--green-primary); }
+        .toggle-btn.active[data-format="24"] { background-color: var(--blue-primary); }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(14px, 2.5vh, 26px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-content:fullscreen .clock-time,
+        .main-content:-webkit-full-screen .clock-time {
+            font-size: clamp(4rem, min(26vh, 30vw), 15rem);
+            letter-spacing: -7px;
+        }
+
+        .main-content:fullscreen .clock-date,
+        .main-content:-webkit-full-screen .clock-date {
+            font-size: clamp(18px, min(3.4vh, 5vw), 30px);
+        }
+
+        .main-content:fullscreen .clock-timezone,
+        .main-content:-webkit-full-screen .clock-timezone {
+            font-size: clamp(13px, min(2.2vh, 3.6vw), 18px);
+        }
+
+        .main-content:fullscreen .toggle-bar,
+        .main-content:-webkit-full-screen .toggle-bar {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .main-content:fullscreen .toggle-group,
+        .main-content:-webkit-full-screen .toggle-group {
+            background-color: var(--gray-light);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .clock-time { letter-spacing: -3px; }
+            .toggle-bar { gap: 6px; padding: 4px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn-icon { width: 44px; height: 44px; }
+            .controls { gap: 8px; }
+            .top-controls { gap: 4px; }
+            .toggle-btn { padding: 6px 10px; font-size: 10px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+            .clock-time { font-size: clamp(2.2rem, 12vh, 4.5rem); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Digital Clock</h1>
+                    <p>Large online clock with toggleable seconds, date, and 12/24-hour format.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/digital-clock" hreflang="en">English (US)</a>
+                        <a href="/hi/digital-clock" hreflang="hi">हिंदी</a>
+                        <a href="/es/digital-clock" hreflang="es">Español</a>
+                        <a href="/fr/digital-clock" hreflang="fr">Français</a>
+                        <a href="/de/digital-clock" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== DIGITAL CLOCK MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Clock display -->
+            <div class="clock-display">
+                <div class="clock-time" id="clockTime" role="timer" aria-live="off">
+                    <span class="hours">00</span><span class="colon">:</span><span class="minutes">00</span><span class="seconds" id="clockSeconds">:00</span><span class="period" id="clockPeriod">AM</span>
+                </div>
+                <div class="clock-date" id="clockDate">Loading…</div>
+                <div class="clock-timezone" id="clockTimezone">Local time</div>
+            </div>
+
+            <!-- Toggle bar -->
+            <div class="toggle-bar" role="group" aria-label="Clock display options">
+                <div class="toggle-group" role="group" aria-label="Time format">
+                    <button type="button" class="toggle-btn active" data-format="12" id="format12Btn" onclick="setFormat('12')" aria-pressed="true">12-Hour</button>
+                    <button type="button" class="toggle-btn" data-format="24" id="format24Btn" onclick="setFormat('24')" aria-pressed="false">24-Hour</button>
+                </div>
+                <div class="toggle-group" role="group" aria-label="Show seconds">
+                    <button type="button" class="toggle-btn active" id="secondsOnBtn" onclick="setSeconds(true)" aria-pressed="true">Seconds On</button>
+                    <button type="button" class="toggle-btn" id="secondsOffBtn" onclick="setSeconds(false)" aria-pressed="false">Seconds Off</button>
+                </div>
+                <div class="toggle-group" role="group" aria-label="Show date">
+                    <button type="button" class="toggle-btn active" id="dateOnBtn" onclick="setDate(true)" aria-pressed="true">Date On</button>
+                    <button type="button" class="toggle-btn" id="dateOffBtn" onclick="setDate(false)" aria-pressed="false">Date Off</button>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen clock" aria-label="Enter fullscreen clock">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                    <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <kbd>F</kbd> fullscreen &nbsp;·&nbsp; <kbd>S</kbd> toggle seconds &nbsp;·&nbsp; <kbd>D</kbd> toggle date
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ DIGITAL CLOCK LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const clockTimeEl    = document.getElementById('clockTime');
+        const clockSeconds   = document.getElementById('clockSeconds');
+        const clockPeriod    = document.getElementById('clockPeriod');
+        const clockDateEl    = document.getElementById('clockDate');
+        const clockTimezone  = document.getElementById('clockTimezone');
+
+        const format12Btn    = document.getElementById('format12Btn');
+        const format24Btn    = document.getElementById('format24Btn');
+        const secondsOnBtn   = document.getElementById('secondsOnBtn');
+        const secondsOffBtn  = document.getElementById('secondsOffBtn');
+        const dateOnBtn      = document.getElementById('dateOnBtn');
+        const dateOffBtn     = document.getElementById('dateOffBtn');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        // ---------- State ----------
+        const STORAGE_KEY = 'timerclock_digitalclock_prefs_v1';
+        let timeFormat = '12';       // '12' or '24'
+        let showSeconds = true;
+        let showDate = true;
+        let clockInterval = null;
+
+        // ---------- Persistence ----------
+        function loadPrefs() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const p = JSON.parse(raw);
+                if (p.format === '12' || p.format === '24') timeFormat = p.format;
+                if (typeof p.seconds === 'boolean') showSeconds = p.seconds;
+                if (typeof p.date === 'boolean') showDate = p.date;
+            } catch (e) { /* ignore */ }
+        }
+
+        function savePrefs() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    format: timeFormat,
+                    seconds: showSeconds,
+                    date: showDate
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        // ---------- Format toggles ----------
+        function setFormat(fmt) {
+            if (fmt !== '12' && fmt !== '24') return;
+            timeFormat = fmt;
+            savePrefs();
+
+            if (fmt === '12') {
+                format12Btn.classList.add('active');
+                format12Btn.setAttribute('aria-pressed', 'true');
+                format24Btn.classList.remove('active');
+                format24Btn.setAttribute('aria-pressed', 'false');
+            } else {
+                format24Btn.classList.add('active');
+                format24Btn.setAttribute('aria-pressed', 'true');
+                format12Btn.classList.remove('active');
+                format12Btn.setAttribute('aria-pressed', 'false');
+            }
+
+            renderClock();
+        }
+
+        function setSeconds(on) {
+            showSeconds = !!on;
+            savePrefs();
+
+            if (showSeconds) {
+                secondsOnBtn.classList.add('active');
+                secondsOnBtn.setAttribute('aria-pressed', 'true');
+                secondsOffBtn.classList.remove('active');
+                secondsOffBtn.setAttribute('aria-pressed', 'false');
+            } else {
+                secondsOffBtn.classList.add('active');
+                secondsOffBtn.setAttribute('aria-pressed', 'true');
+                secondsOnBtn.classList.remove('active');
+                secondsOnBtn.setAttribute('aria-pressed', 'false');
+            }
+
+            clockSeconds.style.display = showSeconds ? '' : 'none';
+            renderClock();
+        }
+
+        function setDate(on) {
+            showDate = !!on;
+            savePrefs();
+
+            if (showDate) {
+                dateOnBtn.classList.add('active');
+                dateOnBtn.setAttribute('aria-pressed', 'true');
+                dateOffBtn.classList.remove('active');
+                dateOffBtn.setAttribute('aria-pressed', 'false');
+            } else {
+                dateOffBtn.classList.add('active');
+                dateOffBtn.setAttribute('aria-pressed', 'true');
+                dateOnBtn.classList.remove('active');
+                dateOnBtn.setAttribute('aria-pressed', 'false');
+            }
+
+            clockDateEl.style.display = showDate ? '' : 'none';
+        }
+
+        // ---------- Clock rendering ----------
+        function pad(n) {
+            return String(n).padStart(2, '0');
+        }
+
+        function renderClock() {
+            const now = new Date();
+            let h = now.getHours();
+            const m = now.getMinutes();
+            const s = now.getSeconds();
+
+            let hh, period;
+
+            if (timeFormat === '12') {
+                period = h >= 12 ? 'PM' : 'AM';
+                hh = h % 12 || 12;
+            } else {
+                period = '';
+                hh = h;
+            }
+
+            const hhStr = pad(hh);
+            const mmStr = pad(m);
+            const ssStr = pad(s);
+
+            const hoursSpan = clockTimeEl.querySelector('.hours');
+            const minutesSpan = clockTimeEl.querySelector('.minutes');
+            if (hoursSpan) hoursSpan.textContent = hhStr;
+            if (minutesSpan) minutesSpan.textContent = mmStr;
+
+            clockSeconds.textContent = ':' + ssStr;
+
+            if (timeFormat === '12') {
+                clockPeriod.textContent = period;
+                clockPeriod.style.display = '';
+            } else {
+                clockPeriod.textContent = '';
+                clockPeriod.style.display = 'none';
+            }
+
+            if (showDate) {
+                try {
+                    clockDateEl.textContent = now.toLocaleDateString(undefined, {
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric'
+                    });
+                } catch (e) {
+                    clockDateEl.textContent = now.toDateString();
+                }
+            }
+
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
+                clockTimezone.textContent = tz;
+            } catch (e) {
+                clockTimezone.textContent = 'Local time';
+            }
+        }
+
+        function startClock() {
+            renderClock();
+            if (clockInterval) clearInterval(clockInterval);
+            clockInterval = setInterval(renderClock, 1000);
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (e.repeat) return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 's' || e.key === 'S') {
+                e.preventDefault();
+                setSeconds(!showSeconds);
+                return;
+            }
+
+            if (e.key === 'd' || e.key === 'D') {
+                e.preventDefault();
+                setDate(!showDate);
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Init ----------
+        loadPrefs();
+
+        if (timeFormat === '24') {
+            format24Btn.classList.add('active');
+            format24Btn.setAttribute('aria-pressed', 'true');
+            format12Btn.classList.remove('active');
+            format12Btn.setAttribute('aria-pressed', 'false');
+        }
+
+        if (!showSeconds) {
+            secondsOffBtn.classList.add('active');
+            secondsOffBtn.setAttribute('aria-pressed', 'true');
+            secondsOnBtn.classList.remove('active');
+            secondsOnBtn.setAttribute('aria-pressed', 'false');
+            clockSeconds.style.display = 'none';
+        }
+
+        if (!showDate) {
+            dateOffBtn.classList.add('active');
+            dateOffBtn.setAttribute('aria-pressed', 'true');
+            dateOnBtn.classList.remove('active');
+            dateOnBtn.setAttribute('aria-pressed', 'false');
+            clockDateEl.style.display = 'none';
+        }
+
+        startClock();
+    </script>
+</body>
+</html>

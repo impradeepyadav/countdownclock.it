@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock - Live Times in Major Cities | timerclock.app</title>
+    <meta name="description" content="Free world clock showing live local time in major cities around the globe. Add or remove cities, toggle 12/24-hour format, and view times in fullscreen.">
+    <link rel="canonical" href="https://timerclock.app/world-clock">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="World Clock - Live Times in Major Cities">
+    <meta property="og:description" content="Free world clock showing live local time in major cities around the globe.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/world-clock">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="World Clock - Live Times in Major Cities">
+    <meta name="twitter:description" content="Free world clock showing live local time in major cities around the globe.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/world-clock">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/world-clock">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/world-clock">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/world-clock">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/world-clock">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/world-clock">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "World Clock",
+      "url": "https://timerclock.app/world-clock",
+      "inLanguage": "en",
+      "description": "Free world clock showing live local time in major cities around the globe.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Live clocks for multiple cities worldwide",
+        "Add or remove cities",
+        "12-hour and 24-hour format toggle",
+        "Day and night indicator for each city",
+        "Fullscreen mode",
+        "Selected cities saved in browser storage"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(14px, 2.5vh, 26px);
+            min-width: 0;
+        }
+
+        /* ================= FORMAT TOGGLE ================= */
+        .format-toggle {
+            display: inline-flex;
+            background-color: var(--gray-light);
+            border-radius: 30px;
+            padding: 4px;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .format-btn {
+            background: transparent;
+            border: none;
+            padding: clamp(6px, 1vh, 10px) clamp(14px, 2.5vw, 22px);
+            border-radius: 26px;
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 15px);
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            white-space: nowrap;
+            touch-action: manipulation;
+            line-height: 1.2;
+        }
+
+        .format-btn:hover { color: var(--text-main); }
+        .format-btn.active {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+
+        /* ================= CLOCK GRID ================= */
+        .clock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+            gap: clamp(12px, 1.8vw, 20px);
+            width: 100%;
+            min-width: 0;
+        }
+
+        .clock-card {
+            background-color: var(--gray-light);
+            border-radius: 18px;
+            padding: clamp(16px, 2.5vh, 24px) clamp(16px, 2.5vw, 26px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1vh, 10px);
+            position: relative;
+            transition: transform 0.15s, box-shadow 0.2s;
+            min-width: 0;
+        }
+
+        .clock-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-color);
+        }
+
+        .clock-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .clock-city {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(15px, min(2.2vh, 4vw), 19px);
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .clock-remove {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 20px;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: background-color 0.2s, color 0.2s;
+            font-family: inherit;
+            padding: 0;
+            touch-action: manipulation;
+        }
+
+        .clock-remove:hover {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .clock-remove:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .clock-time {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(1.8rem, min(5vh, 8vw), 2.8rem);
+            font-weight: 800;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -1.5px;
+            line-height: 1.05;
+            white-space: nowrap;
+            display: flex;
+            align-items: baseline;
+            gap: 3px;
+        }
+
+        .clock-time .seconds {
+            font-size: 0.55em;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: -0.5px;
+        }
+
+        .clock-time .period {
+            font-size: 0.42em;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            margin-left: 4px;
+            text-transform: uppercase;
+        }
+
+        .clock-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .clock-date {
+            font-size: clamp(12px, min(1.8vh, 3.2vw), 14px);
+            color: var(--text-muted);
+            font-weight: 500;
+            line-height: 1.35;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        .clock-daynight {
+            font-size: clamp(16px, min(2.4vh, 4vw), 20px);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        /* ================= ADD CITY ================= */
+        .add-city-section {
+            display: flex;
+            gap: clamp(8px, 1.6vw, 14px);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 520px;
+            margin-top: 0.5vh;
+            flex-shrink: 0;
+        }
+
+        .city-select {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(13px, min(2vh, 3.5vw), 16px);
+            font-weight: 500;
+            color: var(--text-main);
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: clamp(10px, 1.6vh, 14px) clamp(12px, 2vw, 18px);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 320px;
+            height: clamp(46px, min(7vh, 12vw), 54px);
+        }
+
+        .city-select:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+        }
+
+        .btn-add-city {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(10px, 1.6vh, 14px) clamp(16px, 3vw, 24px);
+            border-radius: 14px;
+            font-size: clamp(14px, min(2vh, 3.5vw), 16px);
+            font-weight: 700;
+            color: white;
+            background-color: var(--green-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+            height: clamp(46px, min(7vh, 12vw), 54px);
+            flex-shrink: 0;
+        }
+
+        .btn-add-city:hover {
+            background-color: var(--green-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-add-city:active { transform: translateY(0); }
+
+        .btn-add-city svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ================= FULLSCREEN ================= */
+        .main-content:fullscreen,
+        .main-content:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            max-width: 100vw;
+            max-height: 100vh;
+            padding: clamp(14px, 2.5vh, 32px) clamp(12px, 3vw, 40px);
+            background: var(--card-bg);
+            overflow-y: auto;
+            overflow-x: hidden;
+            gap: clamp(14px, 2.5vh, 26px);
+        }
+
+        .main-content:fullscreen .add-city-section,
+        .main-content:-webkit-full-screen .add-city-section {
+            display: none !important;
+        }
+
+        .main-content:fullscreen .clock-grid,
+        .main-content:-webkit-full-screen .clock-grid {
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+            gap: clamp(16px, 2.5vw, 28px);
+        }
+
+        .main-content:fullscreen .clock-time,
+        .main-content:-webkit-full-screen .clock-time {
+            font-size: clamp(2.2rem, min(7vh, 11vw), 3.8rem);
+        }
+
+        .fs-exit-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: transparent;
+            color: var(--text-main);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            touch-action: manipulation;
+            opacity: 0.7;
+        }
+
+        .fs-exit-btn:hover, .fs-exit-btn:focus-visible {
+            opacity: 1;
+            transform: scale(1.08);
+            outline: none;
+        }
+
+        .fs-exit-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            pointer-events: none;
+        }
+
+        .main-content:fullscreen .fs-exit-btn,
+        .main-content:-webkit-full-screen .fs-exit-btn {
+            display: flex;
+        }
+
+        /* ================= CONTROLS ================= */
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5vh;
+            flex-shrink: 0;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(8px, 2vw, 20px);
+            flex-wrap: wrap;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .btn-icon {
+            width: clamp(44px, min(6.8vh, 10vw), 58px);
+            height: clamp(44px, min(6.8vh, 10vw), 58px);
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            color: var(--text-muted);
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+
+        .btn-icon:hover {
+            background-color: var(--gray-hover);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        .hint {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 17px);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            text-align: center;
+            max-width: 100%;
+            padding: 0 4px;
+        }
+
+        .hint kbd {
+            background-color: var(--gray-light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-family: inherit;
+            font-size: clamp(11px, min(1.7vh, 3vw), 15px);
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        svg.icon {
+            width: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            height: clamp(18px, min(2.5vh, 4.2vw), 24px);
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        svg.hint-icon {
+            width: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            height: clamp(14px, min(2.1vh, 3.4vw), 18px);
+            flex-shrink: 0;
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, select:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .fs-exit-btn svg { width: 24px; height: 24px; }
+            .clock-grid { grid-template-columns: 1fr; }
+            .clock-time { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+        }
+
+        @media (max-width: 380px) {
+            .btn-add-city { padding: 10px 14px; font-size: 13px; }
+            .btn-add-city svg { width: 16px; height: 16px; }
+            .top-controls { gap: 4px; }
+            .clock-card { padding: 14px 14px; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .main-content { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>World Clock</h1>
+                    <p>Live local time in major cities around the globe.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/world-clock" hreflang="en">English (US)</a>
+                        <a href="/hi/world-clock" hreflang="hi">हिंदी</a>
+                        <a href="/es/world-clock" hreflang="es">Español</a>
+                        <a href="/fr/world-clock" hreflang="fr">Français</a>
+                        <a href="/de/world-clock" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== WORLD CLOCK MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- 12/24 format toggle -->
+            <div class="format-toggle" role="group" aria-label="Time format">
+                <button type="button" class="format-btn active" id="format12Btn" onclick="setFormat('12')" aria-pressed="true">12-Hour</button>
+                <button type="button" class="format-btn" id="format24Btn" onclick="setFormat('24')" aria-pressed="false">24-Hour</button>
+            </div>
+
+            <!-- Clock grid -->
+            <div class="clock-grid" id="clockGrid"></div>
+
+            <!-- Add city -->
+            <div class="add-city-section">
+                <select class="city-select" id="citySelect" aria-label="Select city to add">
+                    <option value="">-- Select a city --</option>
+                </select>
+                <button type="button" class="btn-add-city" onclick="addCity()" aria-label="Add city">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    <span>Add</span>
+                </button>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls-wrapper">
+                <div class="controls">
+                    <button type="button" class="btn-icon" id="fsBtn" onclick="enterFullscreen()" title="Fullscreen clocks" aria-label="Enter fullscreen clocks">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                    <button type="button" class="fs-exit-btn" id="fsExitBtn" onclick="exitFullscreen()" aria-label="Exit fullscreen" title="Exit fullscreen">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+
+                <div class="hint">
+                    <svg class="hint-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Press <kbd>F</kbd> for fullscreen &nbsp;·&nbsp; Cities are saved automatically
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ WORLD CLOCK LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const clockGrid      = document.getElementById('clockGrid');
+        const citySelect     = document.getElementById('citySelect');
+        const format12Btn    = document.getElementById('format12Btn');
+        const format24Btn    = document.getElementById('format24Btn');
+
+        const toolsBtn       = document.getElementById('toolsBtn');
+        const toolsDropdown  = document.getElementById('toolsDropdown');
+        const langBtn        = document.getElementById('langBtn');
+        const langDropdown   = document.getElementById('langDropdown');
+
+        const mainContent    = document.getElementById('mainContent');
+        const fsBtn          = document.getElementById('fsBtn');
+
+        // ---------- Available cities (zone = IANA timezone) ----------
+        const AVAILABLE_CITIES = [
+            { name: 'New York',        zone: 'America/New_York' },
+            { name: 'Los Angeles',     zone: 'America/Los_Angeles' },
+            { name: 'Chicago',         zone: 'America/Chicago' },
+            { name: 'Toronto',         zone: 'America/Toronto' },
+            { name: 'Mexico City',     zone: 'America/Mexico_City' },
+            { name: 'São Paulo',       zone: 'America/Sao_Paulo' },
+            { name: 'Buenos Aires',    zone: 'America/Argentina/Buenos_Aires' },
+            { name: 'London',          zone: 'Europe/London' },
+            { name: 'Paris',           zone: 'Europe/Paris' },
+            { name: 'Berlin',          zone: 'Europe/Berlin' },
+            { name: 'Madrid',          zone: 'Europe/Madrid' },
+            { name: 'Rome',            zone: 'Europe/Rome' },
+            { name: 'Amsterdam',       zone: 'Europe/Amsterdam' },
+            { name: 'Moscow',          zone: 'Europe/Moscow' },
+            { name: 'Istanbul',        zone: 'Europe/Istanbul' },
+            { name: 'Dubai',           zone: 'Asia/Dubai' },
+            { name: 'Mumbai',          zone: 'Asia/Kolkata' },
+            { name: 'Delhi',           zone: 'Asia/Kolkata' },
+            { name: 'Bangkok',         zone: 'Asia/Bangkok' },
+            { name: 'Singapore',       zone: 'Asia/Singapore' },
+            { name: 'Hong Kong',       zone: 'Asia/Hong_Kong' },
+            { name: 'Shanghai',        zone: 'Asia/Shanghai' },
+            { name: 'Tokyo',           zone: 'Asia/Tokyo' },
+            { name: 'Seoul',           zone: 'Asia/Seoul' },
+            { name: 'Sydney',          zone: 'Australia/Sydney' },
+            { name: 'Melbourne',       zone: 'Australia/Melbourne' },
+            { name: 'Auckland',        zone: 'Pacific/Auckland' },
+            { name: 'Honolulu',        zone: 'Pacific/Honolulu' },
+            { name: 'Cape Town',       zone: 'Africa/Johannesburg' },
+            { name: 'Cairo',           zone: 'Africa/Cairo' },
+            { name: 'Lagos',           zone: 'Africa/Lagos' },
+            { name: 'Nairobi',         zone: 'Africa/Nairobi' },
+        ];
+
+        const DEFAULT_CITIES = [
+            { name: 'New York',  zone: 'America/New_York' },
+            { name: 'London',    zone: 'Europe/London' },
+            { name: 'Dubai',     zone: 'Asia/Dubai' },
+            { name: 'Tokyo',     zone: 'Asia/Tokyo' },
+            { name: 'Sydney',    zone: 'Australia/Sydney' },
+        ];
+
+        // ---------- State ----------
+        const STORAGE_KEY_CITIES = 'timerclock_worldclock_cities_v1';
+        const STORAGE_KEY_FORMAT = 'timerclock_worldclock_format_v1';
+
+        let selectedCities = [];
+        let timeFormat = '12';
+        let clockInterval = null;
+
+        // ---------- Persistence ----------
+        function loadCities() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_CITIES);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        return parsed.filter(c => c && typeof c.name === 'string' && typeof c.zone === 'string');
+                    }
+                }
+            } catch (e) { /* ignore */ }
+            return DEFAULT_CITIES.slice();
+        }
+
+        function saveCities() {
+            try {
+                localStorage.setItem(STORAGE_KEY_CITIES, JSON.stringify(selectedCities));
+            } catch (e) { /* ignore */ }
+        }
+
+        function loadFormat() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY_FORMAT);
+                if (saved === '12' || saved === '24') return saved;
+            } catch (e) { /* ignore */ }
+            return '12';
+        }
+
+        function saveFormat(fmt) {
+            try { localStorage.setItem(STORAGE_KEY_FORMAT, fmt); } catch (e) { /* ignore */ }
+        }
+
+        // ---------- City select population ----------
+        function populateCitySelect() {
+            const selectedZones = new Set(selectedCities.map(c => c.zone + '|' + c.name));
+            citySelect.innerHTML = '<option value="">-- Select a city --</option>';
+
+            const sorted = [...AVAILABLE_CITIES].sort((a, b) => a.name.localeCompare(b.name));
+            sorted.forEach(city => {
+                const key = city.zone + '|' + city.name;
+                if (selectedZones.has(key)) return; // already added
+                const opt = document.createElement('option');
+                opt.value = city.zone + '||' + city.name;
+                opt.textContent = city.name;
+                citySelect.appendChild(opt);
+            });
+        }
+
+        // ---------- Format ----------
+        function setFormat(fmt) {
+            if (fmt !== '12' && fmt !== '24') return;
+            timeFormat = fmt;
+            saveFormat(fmt);
+
+            if (fmt === '12') {
+                format12Btn.classList.add('active');
+                format12Btn.setAttribute('aria-pressed', 'true');
+                format24Btn.classList.remove('active');
+                format24Btn.setAttribute('aria-pressed', 'false');
+            } else {
+                format24Btn.classList.add('active');
+                format24Btn.setAttribute('aria-pressed', 'true');
+                format12Btn.classList.remove('active');
+                format12Btn.setAttribute('aria-pressed', 'false');
+            }
+
+            renderClocks();
+        }
+
+        // ---------- Helpers ----------
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function getTimeInZone(zone) {
+            // Get the current time formatted for the given timezone
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: zone,
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            const parts = formatter.formatToParts(now);
+            let h = 0, m = 0, s = 0;
+            for (const p of parts) {
+                if (p.type === 'hour') h = parseInt(p.value, 10);
+                else if (p.type === 'minute') m = parseInt(p.value, 10);
+                else if (p.type === 'second') s = parseInt(p.value, 10);
+            }
+            return { h, m, s };
+        }
+
+        function getDateInZone(zone) {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: zone,
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+            return formatter.format(now);
+        }
+
+        function getDayNight(h) {
+            // Simple day/night indicator based on local hour
+            if (h >= 6 && h < 18) return '☀️';
+            return '🌙';
+        }
+
+        // ---------- Rendering ----------
+        function renderClocks() {
+            clockGrid.innerHTML = '';
+
+            selectedCities.forEach((city, idx) => {
+                const card = document.createElement('div');
+                card.className = 'clock-card';
+
+                const header = document.createElement('div');
+                header.className = 'clock-header';
+
+                const cityEl = document.createElement('div');
+                cityEl.className = 'clock-city';
+                cityEl.textContent = city.name;
+
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'clock-remove';
+                removeBtn.setAttribute('aria-label', 'Remove ' + city.name);
+                removeBtn.innerHTML = '&times;';
+                removeBtn.disabled = selectedCities.length <= 1;
+                removeBtn.addEventListener('click', () => removeCity(idx));
+
+                header.appendChild(cityEl);
+                header.appendChild(removeBtn);
+
+                const timeEl = document.createElement('div');
+                timeEl.className = 'clock-time';
+                timeEl.dataset.zone = city.zone;
+
+                const footer = document.createElement('div');
+                footer.className = 'clock-footer';
+
+                const dateEl = document.createElement('div');
+                dateEl.className = 'clock-date';
+                dateEl.dataset.zone = city.zone;
+
+                const dayNightEl = document.createElement('div');
+                dayNightEl.className = 'clock-daynight';
+
+                footer.appendChild(dateEl);
+                footer.appendChild(dayNightEl);
+
+                card.appendChild(header);
+                card.appendChild(timeEl);
+                card.appendChild(footer);
+                clockGrid.appendChild(card);
+            });
+
+            updateAllTimes();
+        }
+
+        function updateAllTimes() {
+            const cards = clockGrid.querySelectorAll('.clock-card');
+            cards.forEach(card => {
+                const timeEl = card.querySelector('.clock-time');
+                const dateEl = card.querySelector('.clock-date');
+                const dayNightEl = card.querySelector('.clock-daynight');
+                const zone = timeEl.dataset.zone;
+                if (!zone) return;
+
+                const { h, m, s } = getTimeInZone(zone);
+
+                let displayHour, period;
+                if (timeFormat === '12') {
+                    period = h >= 12 ? 'PM' : 'AM';
+                    displayHour = h % 12 || 12;
+                } else {
+                    period = '';
+                    displayHour = h;
+                }
+
+                const hh = pad(displayHour);
+                const mm = pad(m);
+                const ss = pad(s);
+
+                timeEl.innerHTML =
+                    hh + ':' + mm +
+                    '<span class="seconds">:' + ss + '</span>' +
+                    (timeFormat === '12' ? '<span class="period">' + period + '</span>' : '');
+
+                dateEl.textContent = getDateInZone(zone);
+                dayNightEl.textContent = getDayNight(h);
+            });
+        }
+
+        function startTicking() {
+            if (clockInterval) clearInterval(clockInterval);
+            clockInterval = setInterval(updateAllTimes, 1000);
+        }
+
+        // ---------- Add / remove cities ----------
+        function addCity() {
+            const val = citySelect.value;
+            if (!val) return;
+
+            const parts = val.split('||');
+            if (parts.length !== 2) return;
+            const zone = parts[0];
+            const name = parts[1];
+
+            // Prevent duplicates (same zone + name)
+            if (selectedCities.some(c => c.zone === zone && c.name === name)) return;
+
+            selectedCities.push({ name, zone });
+            saveCities();
+            populateCitySelect();
+            citySelect.value = '';
+            renderClocks();
+        }
+
+        function removeCity(index) {
+            if (selectedCities.length <= 1) return; // keep at least one
+            selectedCities.splice(index, 1);
+            saveCities();
+            populateCitySelect();
+            renderClocks();
+        }
+
+        // ---------- Fullscreen ----------
+        function getFullscreenElement() {
+            return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement || null;
+        }
+
+        function enterFullscreen() {
+            const el = mainContent;
+            const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+            if (!req) {
+                if (fsBtn) fsBtn.style.display = 'none';
+                return;
+            }
+            try {
+                const p = req.call(el);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function exitFullscreen() {
+            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            if (!exit) return;
+            try {
+                const p = exit.call(document);
+                if (p && p.catch) p.catch(() => {});
+            } catch (err) { }
+        }
+
+        function handleFullscreenChange() {
+            const isFs = !!getFullscreenElement();
+            if (fsBtn) fsBtn.style.display = isFs ? 'none' : '';
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            const el = e.target instanceof Element ? e.target : document.body;
+            if (el.closest('input, textarea, select, [contenteditable="true"]')) return;
+            if (e.repeat) return;
+
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                if (getFullscreenElement()) exitFullscreen();
+                else enterFullscreen();
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                if (getFullscreenElement()) exitFullscreen();
+                return;
+            }
+        });
+
+        // ---------- Init ----------
+        selectedCities = loadCities();
+        timeFormat = loadFormat();
+
+        if (timeFormat === '24') {
+            format24Btn.classList.add('active');
+            format24Btn.setAttribute('aria-pressed', 'true');
+            format12Btn.classList.remove('active');
+            format12Btn.setAttribute('aria-pressed', 'false');
+        }
+
+        populateCitySelect();
+        renderClocks();
+        startTicking();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm Clock - Free Online Alarm with Sound | timerclock.app</title>
+    <meta name="description" content="Free online alarm clock with sound alerts, multiple alarms, snooze, and a live clock. Set an alarm in your browser — no signup, works on any device.">
+    <link rel="canonical" href="https://timerclock.app/alarm-clock">
+
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="Timer Clock">
+    <meta name="theme-color" content="#4caf50">
+
+    <meta property="og:title" content="Alarm Clock - Free Online Alarm with Sound">
+    <meta property="og:description" content="Free online alarm clock with sound alerts, multiple alarms, snooze, and a live clock.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://timerclock.app/alarm-clock">
+    <meta property="og:image" content="https://timerclock.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Timer Clock">
+    <meta property="og:locale" content="en_US">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alarm Clock - Free Online Alarm with Sound">
+    <meta name="twitter:description" content="Free online alarm clock with sound alerts, multiple alarms, snooze, and a live clock.">
+    <meta name="twitter:image" content="https://timerclock.app/og-image.png">
+
+    <link rel="alternate" hreflang="en" href="https://timerclock.app/alarm-clock">
+    <link rel="alternate" hreflang="hi" href="https://timerclock.app/hi/alarm-clock">
+    <link rel="alternate" hreflang="es" href="https://timerclock.app/es/alarm-clock">
+    <link rel="alternate" hreflang="fr" href="https://timerclock.app/fr/alarm-clock">
+    <link rel="alternate" hreflang="de" href="https://timerclock.app/de/alarm-clock">
+    <link rel="alternate" hreflang="x-default" href="https://timerclock.app/alarm-clock">
+
+    <link rel="icon" href="https://timerclock.app/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Alarm Clock",
+      "url": "https://timerclock.app/alarm-clock",
+      "inLanguage": "en",
+      "description": "Free online alarm clock with sound alerts, multiple alarms, snooze, and a live clock.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Live digital clock with date",
+        "Multiple alarms with on/off toggles",
+        "Sound alert when alarm rings",
+        "Snooze for 5 minutes",
+        "Alarms saved in browser storage",
+        "Responsive design for all devices"
+      ]
+    }
+    </script>
+
+    <!-- ============ ALL STYLES (INLINE) ============ -->
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --green-primary: #4caf50;
+            --green-hover: #43a047;
+            --blue-primary: #3b82f6;
+            --gray-light: #f3f4f6;
+            --gray-hover: #e5e7eb;
+            --border-color: #e5e7eb;
+            --danger: #ef4444;
+            --shadow-color: rgba(0,0,0,0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body { user-select: none; -webkit-user-select: none; }
+        input, textarea, h1, p, a, .header-text {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        html { height: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+        body {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(14px, 3vh, 32px) clamp(12px, 4vw, 40px) clamp(12px, 2.5vh, 24px);
+            gap: clamp(10px, 2vh, 20px);
+        }
+
+        /* ================= SITE HEADER ================= */
+        .site-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: clamp(10px, 2vw, 22px);
+            flex-shrink: 0;
+            min-width: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+
+        .header-logo {
+            width: clamp(32px, 6vw, 48px);
+            height: clamp(32px, 6vw, 48px);
+            object-fit: contain;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .header-text { min-width: 0; }
+
+        .site-header h1 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(22px, min(4vh, 6.4vw), 38px);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            color: var(--text-main);
+            margin-bottom: 0.4vh;
+            overflow-wrap: break-word;
+        }
+
+        .site-header p {
+            font-size: clamp(13px, min(1.9vh, 3.6vw), 17px);
+            color: var(--text-muted);
+            line-height: 1.45;
+            max-width: 62ch;
+            overflow-wrap: break-word;
+        }
+
+        .top-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex: 0 0 auto;
+            min-width: 0;
+            padding-top: clamp(4px, 0.8vh, 8px);
+        }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            flex-grow: 1;
+            flex-shrink: 0;
+            gap: clamp(12px, 2vh, 22px);
+            min-width: 0;
+        }
+
+        /* ================= LIVE CLOCK ================= */
+        .live-clock-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 1.5vh 0 0.5vh;
+            flex-shrink: 0;
+        }
+
+        .live-time {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(2.6rem, min(9vh, 14vw), 5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .live-date {
+            font-size: clamp(12px, min(1.9vh, 3.4vw), 16px);
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* ================= ALARM SETTER ================= */
+        .alarm-setter {
+            display: flex;
+            gap: clamp(8px, 1.6vw, 14px);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .alarm-setter input[type="time"] {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(1.15rem, min(3vh, 5vw), 1.75rem);
+            font-weight: 700;
+            color: var(--text-main);
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: clamp(8px, 1.5vh, 12px) clamp(12px, 2vw, 20px);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            font-variant-numeric: tabular-nums;
+            min-width: 0;
+            flex: 1 1 auto;
+            max-width: 220px;
+            height: clamp(46px, min(7vh, 12vw), 58px);
+        }
+
+        .alarm-setter input[type="time"]:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+        }
+
+        .btn-add-alarm {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: clamp(10px, 1.8vh, 14px) clamp(16px, 3vw, 26px);
+            border-radius: 14px;
+            font-size: clamp(14px, min(2vh, 3.5vw), 17px);
+            font-weight: 700;
+            color: white;
+            background-color: var(--green-primary);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+            transition: all 0.2s;
+            font-family: inherit;
+            white-space: nowrap;
+            height: clamp(46px, min(7vh, 12vw), 58px);
+            flex-shrink: 0;
+        }
+
+        .btn-add-alarm:hover {
+            background-color: var(--green-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-add-alarm:active {
+            transform: translateY(0);
+        }
+
+        .btn-add-alarm svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ================= ALARM LIST ================= */
+        .alarm-list {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: clamp(180px, 32vh, 340px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding: 2px;
+        }
+
+        .alarm-list::-webkit-scrollbar { width: 6px; }
+        .alarm-list::-webkit-scrollbar-thumb { background-color: var(--gray-hover); border-radius: 10px; }
+
+        .alarm-list:empty::before {
+            content: 'No alarms set. Use the time picker above to add one.';
+            text-align: center;
+            color: var(--text-muted);
+            font-size: clamp(13px, min(1.8vh, 3.2vw), 15px);
+            padding: clamp(16px, 3vh, 28px) 12px;
+            display: block;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .alarm-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 2vw, 16px);
+            padding: clamp(10px, 1.8vh, 16px) clamp(12px, 2vw, 20px);
+            background-color: var(--gray-light);
+            border-radius: 14px;
+            transition: background-color 0.2s, opacity 0.2s;
+            flex-shrink: 0;
+        }
+
+        .alarm-item.disabled {
+            opacity: 0.55;
+        }
+
+        .alarm-time {
+            flex: 1;
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(1.2rem, min(3vh, 5vw), 1.75rem);
+            font-weight: 700;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            min-width: 0;
+        }
+
+        .alarm-item.disabled .alarm-time {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 46px;
+            height: 26px;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute;
+            margin: 0;
+        }
+
+        .toggle-switch .slider {
+            position: absolute;
+            inset: 0;
+            background-color: #cbd5e1;
+            border-radius: 999px;
+            transition: background-color 0.2s;
+            pointer-events: none;
+        }
+
+        .toggle-switch .slider::before {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch input:checked + .slider {
+            background-color: var(--green-primary);
+        }
+
+        .toggle-switch input:checked + .slider::before {
+            transform: translateX(20px);
+        }
+
+        .toggle-switch input:focus-visible + .slider {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        .alarm-delete {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 24px;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: background-color 0.2s, color 0.2s;
+            font-family: inherit;
+            padding: 0;
+            touch-action: manipulation;
+        }
+
+        .alarm-delete:hover {
+            color: var(--danger);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .alarm-hint {
+            font-size: clamp(11px, min(1.6vh, 3vw), 13px);
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 480px;
+            line-height: 1.45;
+            margin-top: 0.5vh;
+            padding: 0 12px;
+            flex-shrink: 0;
+        }
+
+        /* ================= RINGING OVERLAY ================= */
+        .ringing-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            padding: 20px;
+            animation: fade-in 0.2s ease;
+        }
+
+        .ringing-overlay.hidden {
+            display: none !important;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ringing-content {
+            background: white;
+            border-radius: 24px;
+            padding: clamp(24px, 5vh, 48px) clamp(20px, 4vw, 40px);
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: pulse-scale 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse-scale {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .ringing-icon {
+            font-size: clamp(3rem, 8vh, 5rem);
+            margin-bottom: 16px;
+            animation: ring-shake 0.6s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes ring-shake {
+            0%, 100% { transform: rotate(0deg); }
+            15% { transform: rotate(-15deg); }
+            30% { transform: rotate(15deg); }
+            45% { transform: rotate(-10deg); }
+            60% { transform: rotate(10deg); }
+            75% { transform: rotate(-5deg); }
+            85% { transform: rotate(5deg); }
+        }
+
+        .ringing-label {
+            font-size: clamp(13px, min(2vh, 3.5vw), 15px);
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .ringing-time {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            font-size: clamp(2rem, min(6vh, 10vw), 3.2rem);
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 26px;
+            letter-spacing: -1px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ringing-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-snooze {
+            background-color: var(--gray-light);
+            color: var(--text-main);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: clamp(14px, min(2vh, 3.5vw), 16px);
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            touch-action: manipulation;
+        }
+
+        .btn-snooze:hover {
+            background-color: var(--gray-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-stop-alarm {
+            background-color: var(--danger);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 30px;
+            font-size: clamp(14px, min(2vh, 3.5vw), 16px);
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s;
+            font-family: inherit;
+            touch-action: manipulation;
+        }
+
+        .btn-stop-alarm:hover {
+            background-color: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .hidden { display: none !important; opacity: 0; pointer-events: none; }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 2px solid var(--blue-primary);
+            outline-offset: 2px;
+        }
+
+        /* ================= HEADER LINKS ================= */
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            transition: color 0.2s;
+            display: inline-block;
+            padding: 4px 2px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        .privacy-link:hover { color: var(--text-main); }
+
+        .lang-dropdown, .tools-dropdown { position: relative; }
+
+        .lang-btn, .tools-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: clamp(12px, min(1.7vh, 3vw), 14px);
+            font-weight: 300;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+            padding: 4px 2px;
+            font-family: inherit;
+            line-height: 1.2;
+        }
+
+        .lang-btn:hover, .tools-btn:hover { color: var(--text-main); }
+
+        .caret { font-size: 8px; margin-top: 2px; }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background-color: var(--card-bg);
+            min-width: 140px;
+            max-width: calc(100vw - 24px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+            font-weight: 300;
+            transition: background-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a:hover { background-color: var(--gray-light); }
+        .dropdown-content.show { display: block; }
+
+        .dropdown-content.tools-content {
+            min-width: 200px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .site-header { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+            .brand { flex-direction: column; align-items: center; text-align: center; max-width: 100%; }
+            .top-controls { justify-content: center; padding-top: 0; }
+            .dropdown-content { right: auto; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 14px 12px 12px; }
+            .fs-exit-btn { width: 38px; height: 38px; top: 12px; right: 12px; }
+            .alarm-setter input[type="time"] { max-width: 160px; }
+        }
+
+        @media (max-width: 380px) {
+            .btn-add-alarm { padding: 10px 14px; font-size: 13px; }
+            .btn-add-alarm svg { width: 16px; height: 16px; }
+            .top-controls { gap: 4px; }
+            .alarm-time { font-size: 1.1rem; }
+        }
+
+        @media (max-height: 520px) {
+            .site-header p { display: none; }
+            .container { gap: 8px; padding-top: 10px; }
+            .live-time { font-size: clamp(1.8rem, 8vh, 3rem); }
+            .alarm-list { max-height: 140px; }
+            .main-content { gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== SITE HEADER (SAME AS ALL PAGES) ===== -->
+        <header class="site-header">
+            <div class="brand">
+                <img src="/apple-touch-icon.png" alt="TimerClock logo" class="header-logo" width="48" height="48" loading="eager">
+                <div class="header-text">
+                    <h1>Online Alarm Clock</h1>
+                    <p>Free browser-based alarm clock with sound alerts, multiple alarms, and snooze.</p>
+                </div>
+            </div>
+
+            <div class="top-controls">
+                <div class="tools-dropdown">
+                    <button type="button" class="tools-btn" id="toolsBtn" onclick="toggleToolsDropdown()" aria-label="Tools" aria-expanded="false" aria-controls="toolsDropdown">
+                        <span>Tools</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content tools-content" id="toolsDropdown"></div>
+                </div>
+
+                <div class="lang-dropdown">
+                    <button type="button" class="lang-btn" id="langBtn" onclick="toggleLangDropdown()" aria-label="Select language" aria-expanded="false" aria-controls="langDropdown">
+                        <span>English (US)</span> <span class="caret" aria-hidden="true">▼</span>
+                    </button>
+                    <div class="dropdown-content" id="langDropdown">
+                        <a href="/alarm-clock" hreflang="en">English (US)</a>
+                        <a href="/hi/alarm-clock" hreflang="hi">हिंदी</a>
+                        <a href="/es/alarm-clock" hreflang="es">Español</a>
+                        <a href="/fr/alarm-clock" hreflang="fr">Français</a>
+                        <a href="/de/alarm-clock" hreflang="de">Deutsch</a>
+                    </div>
+                </div>
+
+                <a href="/privacy" class="privacy-link">Privacy</a>
+            </div>
+        </header>
+
+        <!-- ===== ALARM CLOCK MAIN CONTENT ===== -->
+        <div class="main-content" id="mainContent">
+
+            <!-- Live clock -->
+            <div class="live-clock-display">
+                <div class="live-time" id="liveTime">--:--:-- --</div>
+                <div class="live-date" id="liveDate">Loading…</div>
+            </div>
+
+            <!-- Set new alarm -->
+            <div class="alarm-setter">
+                <input type="time" id="alarmTimeInput" aria-label="Alarm time">
+                <button type="button" class="btn-add-alarm" onclick="addAlarm()" aria-label="Add alarm">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    <span>Add Alarm</span>
+                </button>
+            </div>
+
+            <!-- Alarm list -->
+            <div class="alarm-list" id="alarmsList" role="list" aria-label="Saved alarms"></div>
+
+            <div class="alarm-hint">
+                Alarms are saved in your browser. Keep this tab open for them to ring. Times use your device's local timezone.
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== RINGING OVERLAY ===== -->
+    <div class="ringing-overlay hidden" id="ringingOverlay" role="dialog" aria-modal="true" aria-labelledby="ringingLabel">
+        <div class="ringing-content">
+            <div class="ringing-icon" aria-hidden="true">🔔</div>
+            <div class="ringing-label" id="ringingLabel">Alarm</div>
+            <div class="ringing-time" id="ringingTime">--:--</div>
+            <div class="ringing-buttons">
+                <button type="button" class="btn-snooze" onclick="snoozeAlarm()">Snooze 5 min</button>
+                <button type="button" class="btn-stop-alarm" onclick="stopAlarm()">Stop</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLS (EXTERNAL FILE) ============ -->
+    <script src="tools.js"></script>
+
+    <!-- ============ ALARM CLOCK LOGIC (INLINE) ============ -->
+    <script>
+        // ---------- DOM refs ----------
+        const liveTimeEl        = document.getElementById('liveTime');
+        const liveDateEl        = document.getElementById('liveDate');
+        const alarmTimeInput    = document.getElementById('alarmTimeInput');
+        const alarmsList        = document.getElementById('alarmsList');
+        const ringingOverlay    = document.getElementById('ringingOverlay');
+        const ringingTimeEl     = document.getElementById('ringingTime');
+
+        const toolsBtn          = document.getElementById('toolsBtn');
+        const toolsDropdown     = document.getElementById('toolsDropdown');
+        const langBtn           = document.getElementById('langBtn');
+        const langDropdown      = document.getElementById('langDropdown');
+
+        // ---------- State ----------
+        const STORAGE_KEY = 'timerclock_alarms_v1';
+        const BASE_TITLE  = 'Alarm Clock - Free Online Alarm with Sound | timerclock.app';
+
+        let alarms = [];                 // { id, time: "HH:MM", enabled, isSnooze? }
+        let lastMinuteKey = '';
+        let ringingAlarmId = null;
+        let alarmAudioCtx = null;
+        let alarmBeepInterval = null;
+
+        // ---------- Utils ----------
+        function genId() {
+            return 'a_' + Math.random().toString(36).slice(2, 10);
+        }
+
+        function format12Hour(time24) {
+            const parts = time24.split(':');
+            const h = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10);
+            const period = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            return h12 + ':' + String(m).padStart(2, '0') + ' ' + period;
+        }
+
+        // ---------- Persistence ----------
+        function loadAlarms() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const parsed = JSON.parse(raw);
+                if (!Array.isArray(parsed)) return;
+                alarms = parsed
+                    .filter(a => a && typeof a.time === 'string' && /^\d{2}:\d{2}$/.test(a.time))
+                    .map(a => ({
+                        id: a.id || genId(),
+                        time: a.time,
+                        enabled: a.enabled !== false,
+                        isSnooze: !!a.isSnooze
+                    }));
+            } catch (e) { /* ignore bad storage */ }
+        }
+
+        function saveAlarms() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(alarms));
+            } catch (e) { /* storage may be unavailable */ }
+        }
+
+        // ---------- Rendering ----------
+        function renderAlarms() {
+            alarmsList.innerHTML = '';
+            if (alarms.length === 0) return;
+
+            const sorted = [...alarms].sort((a, b) => a.time.localeCompare(b.time));
+
+            sorted.forEach(alarm => {
+                const item = document.createElement('div');
+                item.className = 'alarm-item' + (alarm.enabled ? '' : ' disabled');
+                item.setAttribute('role', 'listitem');
+
+                const timeEl = document.createElement('div');
+                timeEl.className = 'alarm-time';
+                timeEl.textContent = format12Hour(alarm.time);
+                if (alarm.isSnooze) {
+                    timeEl.title = 'Snoozed alarm';
+                }
+
+                const toggleLabel = document.createElement('label');
+                toggleLabel.className = 'toggle-switch';
+                toggleLabel.setAttribute('aria-label', 'Toggle alarm');
+                const toggleInput = document.createElement('input');
+                toggleInput.type = 'checkbox';
+                toggleInput.checked = alarm.enabled;
+                toggleInput.addEventListener('change', () => {
+                    toggleAlarm(alarm.id, toggleInput.checked);
+                });
+                const slider = document.createElement('span');
+                slider.className = 'slider';
+                toggleLabel.appendChild(toggleInput);
+                toggleLabel.appendChild(slider);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.type = 'button';
+                deleteBtn.className = 'alarm-delete';
+                deleteBtn.setAttribute('aria-label', 'Delete alarm');
+                deleteBtn.innerHTML = '&times;';
+                deleteBtn.addEventListener('click', () => deleteAlarm(alarm.id));
+
+                item.appendChild(timeEl);
+                item.appendChild(toggleLabel);
+                item.appendChild(deleteBtn);
+                alarmsList.appendChild(item);
+            });
+        }
+
+        // ---------- Actions ----------
+        function addAlarm() {
+            const time = alarmTimeInput.value;
+            if (!time || !/^\d{2}:\d{2}$/.test(time)) {
+                alarmTimeInput.focus();
+                return;
+            }
+
+            const existing = alarms.find(a => a.time === time);
+            if (existing) {
+                existing.enabled = true;
+                saveAlarms();
+                renderAlarms();
+                return;
+            }
+
+            alarms.push({ id: genId(), time: time, enabled: true });
+            saveAlarms();
+            renderAlarms();
+        }
+
+        function toggleAlarm(id, enabled) {
+            const alarm = alarms.find(a => a.id === id);
+            if (!alarm) return;
+            alarm.enabled = enabled;
+            saveAlarms();
+            renderAlarms();
+        }
+
+        function deleteAlarm(id) {
+            alarms = alarms.filter(a => a.id !== id);
+            saveAlarms();
+            renderAlarms();
+        }
+
+        // ---------- Alarm firing ----------
+        function tick() {
+            const now = new Date();
+
+            // Live clock — 12-hour with seconds
+            let h = now.getHours();
+            const period = h >= 12 ? 'PM' : 'AM';
+            const h12 = h % 12 || 12;
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            liveTimeEl.textContent = h12 + ':' + m + ':' + s + ' ' + period;
+
+            // Live date
+            try {
+                liveDateEl.textContent = now.toLocaleDateString(undefined, {
+                    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+                });
+            } catch (e) {
+                liveDateEl.textContent = now.toDateString();
+            }
+
+            // Check alarms once per minute
+            const minuteKey = now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate() + '-' + now.getHours() + '-' + now.getMinutes();
+            if (minuteKey !== lastMinuteKey) {
+                lastMinuteKey = minuteKey;
+                if (ringingAlarmId) return; // already ringing
+
+                const hh = String(now.getHours()).padStart(2, '0');
+                const mm = String(now.getMinutes()).padStart(2, '0');
+                const currentTime = hh + ':' + mm;
+
+                for (let i = 0; i < alarms.length; i++) {
+                    const alarm = alarms[i];
+                    if (alarm.enabled && alarm.time === currentTime) {
+                        fireAlarm(alarm);
+                        break;
+                    }
+                }
+            }
+        }
+
+        function fireAlarm(alarm) {
+            ringingAlarmId = alarm.id;
+            ringingTimeEl.textContent = format12Hour(alarm.time);
+            ringingOverlay.classList.remove('hidden');
+            document.title = '🔔 ALARM - ' + format12Hour(alarm.time);
+            playAlarmSound();
+
+            // Focus the Stop button for keyboard accessibility
+            setTimeout(() => {
+                const stopBtn = ringingOverlay.querySelector('.btn-stop-alarm');
+                if (stopBtn) stopBtn.focus();
+            }, 50);
+        }
+
+        function stopAlarm() {
+            // If the ringing alarm was a snooze, remove it permanently
+            if (ringingAlarmId) {
+                const ringing = alarms.find(a => a.id === ringingAlarmId);
+                if (ringing && ringing.isSnooze) {
+                    alarms = alarms.filter(a => a.id !== ringingAlarmId);
+                    saveAlarms();
+                    renderAlarms();
+                }
+            }
+            ringingAlarmId = null;
+            ringingOverlay.classList.add('hidden');
+            stopAlarmSound();
+            document.title = BASE_TITLE;
+        }
+
+        function snoozeAlarm() {
+            if (!ringingAlarmId) return;
+            const ringing = alarms.find(a => a.id === ringingAlarmId);
+
+            // If the ringing alarm was itself a snooze, remove it (we'll re-snooze)
+            if (ringing && ringing.isSnooze) {
+                alarms = alarms.filter(a => a.id !== ringingAlarmId);
+            }
+
+            // Create a new snooze alarm 5 minutes from now
+            const snoozeTime = new Date();
+            snoozeTime.setMinutes(snoozeTime.getMinutes() + 5);
+            const hh = String(snoozeTime.getHours()).padStart(2, '0');
+            const mm = String(snoozeTime.getMinutes()).padStart(2, '0');
+
+            alarms.push({
+                id: genId(),
+                time: hh + ':' + mm,
+                enabled: true,
+                isSnooze: true
+            });
+            saveAlarms();
+            renderAlarms();
+
+            ringingAlarmId = null;
+            ringingOverlay.classList.add('hidden');
+            stopAlarmSound();
+            document.title = BASE_TITLE;
+        }
+
+        // ---------- Sound ----------
+        function playAlarmSound() {
+            stopAlarmSound();
+
+            const beepOnce = () => {
+                try {
+                    if (!alarmAudioCtx) {
+                        alarmAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (alarmAudioCtx.state === 'suspended') {
+                        alarmAudioCtx.resume().catch(() => {});
+                    }
+                    const t = alarmAudioCtx.currentTime;
+                    // Three quick beeps
+                    for (let i = 0; i < 3; i++) {
+                        const osc = alarmAudioCtx.createOscillator();
+                        const gain = alarmAudioCtx.createGain();
+                        const start = t + i * 0.22;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(880, start);
+                        gain.gain.setValueAtTime(0.15, start);
+                        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.18);
+                        osc.connect(gain);
+                        gain.connect(alarmAudioCtx.destination);
+                        osc.start(start);
+                        osc.stop(start + 0.2);
+                    }
+                } catch (e) { /* ignore audio errors */ }
+            };
+
+            beepOnce();
+            alarmBeepInterval = setInterval(beepOnce, 1500);
+        }
+
+        function stopAlarmSound() {
+            if (alarmBeepInterval) {
+                clearInterval(alarmBeepInterval);
+                alarmBeepInterval = null;
+            }
+        }
+
+        // ---------- Dropdowns ----------
+        function toggleToolsDropdown() {
+            const isOpen = toolsDropdown.classList.toggle('show');
+            toolsBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function toggleLangDropdown() {
+            const isOpen = langDropdown.classList.toggle('show');
+            langBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (isOpen) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+                toolsDropdown.classList.remove('show');
+                toolsBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+                langBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.detail > 0 && e.target instanceof Element) {
+                const btn = e.target.closest('button');
+                if (btn) btn.blur();
+            }
+        });
+
+        // ---------- Keyboard shortcuts ----------
+        document.addEventListener('keydown', (e) => {
+            // When ringing overlay is open
+            if (!ringingOverlay.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    stopAlarm();
+                }
+                return;
+            }
+
+            // Press Enter on the time input to add alarm
+            if (e.target === alarmTimeInput && e.key === 'Enter') {
+                e.preventDefault();
+                addAlarm();
+            }
+        });
+
+        // ---------- Default input value (next 5-minute mark) ----------
+        function setDefaultInput() {
+            const now = new Date();
+            const add = 5 - (now.getMinutes() % 5);
+            now.setMinutes(now.getMinutes() + add);
+            now.setSeconds(0);
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            alarmTimeInput.value = hh + ':' + mm;
+        }
+
+        // ---------- Init ----------
+        loadAlarms();
+        renderAlarms();
+        setDefaultInput();
+        tick();
+        setInterval(tick, 1000);
+    </script>
+</body>
+</html>
